@@ -26,10 +26,9 @@ $db = $database->getConnection();
 // initialize object
 $read_order_detail = new Orderdetail($db);
   
-$data = json_decode(file_get_contents("php://input"));
- $read_order_detail->workingPincode = $data->workingPincode;
- 
-// $read_allusers->status = $data->status;
+$data = json_decode(file_get_contents("php://input")); 
+$read_order_detail->date = $data->date;
+$read_order_detail->sellerId = $data->sellerId;
 // $read_allusers->userId = $data->userId;
 
 //print_r($data);
@@ -44,7 +43,7 @@ if($jwt){
 
          //$decoded = JWT::decode($jwt, $SECRET_KEY, array('HS256'));
 
-$stmt = $read_order_detail->readorderdetailsfordelivery();
+$stmt = $read_order_detail->readSoldOrderByDateSeller();
 $num = $stmt->rowCount();
   
 // check if more than 0 record found
@@ -61,21 +60,21 @@ if($num>0){
   
         $read_order_detail_item=array(
 
-            
-            "userId"=>$userId,
+            // sum(total) as totalSold, id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress, sellerId, createdOn, createdBy
+            // "totalSold"=>$totalSold,
+            "id"=>$id,
             "orderId"=>$orderId,
-            "sellerId"=>$sellerId,
+            "userId"=>$userId,
             "deliveryId"=>$deliveryId,
             "paymentId"=>$paymentId,
+            "totalQuantity"=>$totalQuantity,
             "total"=>$total,
-            "sgst"=>$sgst,
             "cgst"=>$cgst,
-            "status"=>$status,
-            "verificationCode"=>$verificationCode,
-            "totalCommision"=>$totalCommision,
+            "sgst"=>$sgst,
+            "deliveryAddress"=>$deliveryAddress,
+            "sellerId"=>$sellerId,
             "createdOn"=>$createdOn,
             "createdBy"=>$createdBy
-
         );
   
         array_push($read_order_detail_arr["records"], $read_order_detail_item);

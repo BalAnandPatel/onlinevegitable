@@ -91,6 +91,7 @@ error_reporting(0);
 		<ul class="widget widget-menu unstyled">
 			<li><a href="sellerbankadd.php"><i class="menu-icon icon-tasks"></i> Add Bank</a></li>
 			<li><a href="sellerpaymenthistory.php"><i class="menu-icon icon-tasks"></i>Payment History</a></li>
+			<li><a href="soldorder.php"><i class="menu-icon icon-tasks"></i>Sold Product</a></li>
 			<li><a href="insert-product.php"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
 			<li><a href="manage-products.php"><i class="menu-icon icon-table"></i>Manage Products </a></li>
 			<li><a href="customer-list.php"><i class="menu-icon icon-paste"></i>Customer List </a></li>
