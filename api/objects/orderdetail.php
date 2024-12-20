@@ -254,6 +254,19 @@ return $stmt;
             return $stmt;
         }
 
+
+        // **********************************
+        public function readSoldOrder()
+    {
+        $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress, sellerId, createdOn, createdBy from  $this->orderdetails WHERE paymentResponse='PAID' AND status='ORDER PLACED'";
+        $stmt = $this->conn->prepare($query);
+        // $stmt->bindParam(":orderId", $this->orderId);
+        $stmt->execute();
+        return $stmt;
+    }
+
+        // ***************************************
+
         function orderCountItem()
     {
 
