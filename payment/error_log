@@ -1,0 +1,35 @@
+[12-Dec-2024 13:04:29 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157
+[12-Dec-2024 13:07:01 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157
+[12-Dec-2024 13:07:05 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157
+[12-Dec-2024 13:07:56 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157
+[12-Dec-2024 13:10:52 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157
+[12-Dec-2024 13:12:31 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157
+[12-Dec-2024 13:36:30 Asia/Kolkata] PHP Fatal error:  Uncaught PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'ORD_17339882148848-1' for key 'orderId' in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php:157
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/payment/verify.php(157): PDOStatement->execute()
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/payment/verify.php on line 157

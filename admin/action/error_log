@@ -1,0 +1,69 @@
+[10-Dec-2024 12:48:32 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/adminLogin_post.php:22) in /home2/glintqnj/onlinesabjimandi.com/admin/action/adminLogin_post.php on line 30
+[10-Dec-2024 12:49:36 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/adminLogin_post.php:22) in /home2/glintqnj/onlinesabjimandi.com/admin/action/adminLogin_post.php on line 30
+[10-Dec-2024 12:49:41 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/adminLogin_post.php:22) in /home2/glintqnj/onlinesabjimandi.com/admin/action/adminLogin_post.php on line 30
+[10-Dec-2024 12:57:22 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/sellerDelete_post.php:18) in /home2/glintqnj/onlinesabjimandi.com/admin/action/sellerDelete_post.php on line 25
+[10-Dec-2024 13:32:15 Asia/Kolkata] PHP Warning:  Attempt to read property "records" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/insertDeliveryPost.php on line 56
+[10-Dec-2024 13:32:15 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/admin/action/insertDeliveryPost.php on line 56
+[10-Dec-2024 13:32:15 Asia/Kolkata] PHP Warning:  Attempt to read property "id" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/insertDeliveryPost.php on line 56
+[10-Dec-2024 13:32:15 Asia/Kolkata] PHP Warning:  Attempt to read property "records" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/insertDeliveryPost.php on line 208
+[10-Dec-2024 13:32:15 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/admin/action/insertDeliveryPost.php on line 208
+[10-Dec-2024 13:32:15 Asia/Kolkata] PHP Warning:  Attempt to read property "id" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/insertDeliveryPost.php on line 208
+[10-Dec-2024 13:51:24 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home2/glintqnj/onlinesabjimandi.com/admin/action/categoryUpdated_post.php:49
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/admin/action/categoryUpdated_post.php(49): getimagesize('')
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/admin/action/categoryUpdated_post.php on line 49
+[10-Dec-2024 13:57:34 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php:95) in /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php on line 108
+[10-Dec-2024 13:59:00 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php:95) in /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php on line 108
+[10-Dec-2024 13:59:25 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php:95) in /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php on line 108
+[10-Dec-2024 15:18:22 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$records in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[10-Dec-2024 15:18:22 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[10-Dec-2024 15:18:22 Asia/Kolkata] PHP Warning:  Attempt to read property "message" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[10-Dec-2024 15:18:22 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php:14) in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 29
+[10-Dec-2024 15:18:42 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php:14) in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 24
+[10-Dec-2024 15:55:27 Asia/Kolkata] PHP Fatal error:  Uncaught ValueError: Path cannot be empty in /home2/glintqnj/onlinesabjimandi.com/admin/action/category_post.php:95
+Stack trace:
+#0 /home2/glintqnj/onlinesabjimandi.com/admin/action/category_post.php(95): getimagesize('')
+#1 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/admin/action/category_post.php on line 95
+[10-Dec-2024 16:03:01 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php:14) in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 24
+[10-Dec-2024 16:10:06 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php:95) in /home2/glintqnj/onlinesabjimandi.com/admin/action/updatesubcategory_post.php on line 108
+[10-Dec-2024 17:07:56 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:07:56 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:09:56 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:09:56 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:20:50 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:20:50 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:21:57 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:21:57 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:25:39 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:25:39 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:28:15 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[10-Dec-2024 17:28:15 UTC] PHP Warning:  A non-numeric value encountered in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 84
+[11-Dec-2024 03:52:04 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$records in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[11-Dec-2024 03:52:04 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[11-Dec-2024 03:52:04 Asia/Kolkata] PHP Warning:  Attempt to read property "message" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[11-Dec-2024 03:52:04 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php:14) in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 29
+[11-Dec-2024 08:00:01 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[11-Dec-2024 08:06:20 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[11-Dec-2024 14:50:24 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Object of class stdClass could not be converted to string in /home2/glintqnj/onlinesabjimandi.com/admin/action/login_post.php:26
+Stack trace:
+#0 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/admin/action/login_post.php on line 26
+[11-Dec-2024 15:04:03 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/login_post.php:20) in /home2/glintqnj/onlinesabjimandi.com/admin/action/login_post.php on line 33
+[11-Dec-2024 10:40:13 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[11-Dec-2024 18:07:48 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Object of class stdClass could not be converted to string in /home2/glintqnj/onlinesabjimandi.com/admin/action/login_post.php:26
+Stack trace:
+#0 {main}
+  thrown in /home2/glintqnj/onlinesabjimandi.com/admin/action/login_post.php on line 26
+[11-Dec-2024 18:11:47 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php:14) in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 24
+[11-Dec-2024 12:43:04 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[11-Dec-2024 12:43:12 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[12-Dec-2024 08:19:00 Asia/Kolkata] PHP Warning:  Undefined property: stdClass::$records in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[12-Dec-2024 08:19:00 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[12-Dec-2024 08:19:00 Asia/Kolkata] PHP Warning:  Attempt to read property "message" on null in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 17
+[12-Dec-2024 08:19:00 Asia/Kolkata] PHP Warning:  Cannot modify header information - headers already sent by (output started at /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php:14) in /home2/glintqnj/onlinesabjimandi.com/admin/action/reset_password.php on line 29
+[12-Dec-2024 04:12:47 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[12-Dec-2024 07:51:12 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[12-Dec-2024 08:11:11 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43
+[12-Dec-2024 08:12:14 UTC] PHP Warning:  Attempt to read property "validation" on bool in /home2/glintqnj/onlinesabjimandi.com/admin/action/shop_cookies.php on line 43

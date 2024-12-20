@@ -1,0 +1,38 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home2/glintqnj/onlinesabjimandi.com/
+    - /bin/cp -R api $DEPLOYPATH
+    - /bin/cp -R business $DEPLOYPATH
+    - /bin/cp -R cron $DEPLOYPATH
+    - /bin/cp -R css $DEPLOYPATH
+    - /bin/cp -R delivery $DEPLOYPATH
+    - /bin/cp -R images $DEPLOYPATH
+    - /bin/cp -R includes $DEPLOYPATH
+    - /bin/cp -R js $DEPLOYPATH
+    - /bin/cp -R payment $DEPLOYPATH
+    - /bin/cp -R seller $DEPLOYPATH
+    - /bin/cp 404.php $DEPLOYPATH
+    - /bin/cp about.php $DEPLOYPATH
+    - /bin/cp account.php $DEPLOYPATH
+    - /bin/cp address_selection.php $DEPLOYPATH
+    - /bin/cp address_selection1.php $DEPLOYPATH
+    - /bin/cp cart.php $DEPLOYPATH
+    - /bin/cp checkout.php $DEPLOYPATH
+    - /bin/cp constant.php $DEPLOYPATH
+    - /bin/cp contact.php $DEPLOYPATH
+    - /bin/cp filter.php $DEPLOYPATH
+    - /bin/cp forgot-password.php $DEPLOYPATH
+    - /bin/cp index.php $DEPLOYPATH
+    - /bin/cp logout.php $DEPLOYPATH
+    - /bin/cp orderItems.php $DEPLOYPATH
+    - /bin/cp orders.php $DEPLOYPATH
+    - /bin/cp orders.zip $DEPLOYPATH
+    - /bin/cp plan.php $DEPLOYPATH
+    - /bin/cp products.php $DEPLOYPATH
+    - /bin/cp README.md $DEPLOYPATH
+    - /bin/cp receipt.php $DEPLOYPATH
+    - /bin/cp removeCart.php $DEPLOYPATH
+    - /bin/cp shop.php $DEPLOYPATH
+    - /bin/cp style.css $DEPLOYPATH
+    - /bin/cp wishlist.php $DEPLOYPATH

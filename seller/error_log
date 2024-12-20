@@ -1,0 +1,20 @@
+[11-Dec-2024 15:33:39 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 2
+[11-Dec-2024 15:33:39 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 15:33:39 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 15:39:13 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 2
+[11-Dec-2024 15:39:13 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 15:39:13 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 10:17:41 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 2
+[11-Dec-2024 10:17:41 UTC] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 10:17:41 UTC] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 15:47:51 Asia/Kolkata] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 2
+[11-Dec-2024 15:47:51 Asia/Kolkata] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 15:47:51 Asia/Kolkata] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 10:21:31 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 2
+[11-Dec-2024 10:21:31 UTC] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 10:21:31 UTC] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 10:21:46 UTC] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/todays-orders.php on line 3
+[11-Dec-2024 10:21:46 UTC] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/todays-orders.php on line 3
+[11-Dec-2024 11:17:40 UTC] PHP Warning:  session_start(): Session cannot be started after headers have already been sent in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 2
+[11-Dec-2024 11:17:40 UTC] PHP Warning:  Undefined global variable $_SESSION in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
+[11-Dec-2024 11:17:40 UTC] PHP Warning:  Trying to access array offset on value of type null in /home2/glintqnj/onlinesabjimandi.com/seller/include/header.php on line 18
