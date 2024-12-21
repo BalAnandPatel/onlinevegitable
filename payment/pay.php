@@ -24,7 +24,7 @@ $host = "localhost";
 $dsn = 'mysql:host=localhost;dbname=vegitabledb';
 $db_name = "vegitabledb";
 $username = "root";
-$password = "";
+$password = "root";
 $conn;
 
 
