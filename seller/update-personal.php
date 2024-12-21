@@ -1,5 +1,5 @@
 <?php
-session_start();
+include('include/header.php');
 // $jwt="123";
 // $request_headers = [
 //   'Authorization:' . $jwt
@@ -36,7 +36,7 @@ $result = json_decode($response);
 </head>
 
 <body>
-	<?php include('include/header.php'); ?>
+
 
 	<div class="wrapper">
 		<div class="container">

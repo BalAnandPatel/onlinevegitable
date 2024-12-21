@@ -13,7 +13,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-print_r($response);
+// print_r($response);
 $resultPayment = json_decode($response);
 //print_r($resultPayment);
 ?>
