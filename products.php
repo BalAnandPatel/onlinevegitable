@@ -22,58 +22,7 @@ $resultProduct = json_decode($response_all);
 //print_r($resultProduct);
 //&& isset($_POST['submit'])
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['addToCart']) ) {
-
-    $userId = $_SESSION['email'];
-    $price = $_POST["price"];
-    $pname = $_POST["pname"];
-    $productSkuid = $_POST["productSKUID"];
-    $productId = $_POST["productId"];
-    $sellerId = $_POST["sellerId"];
-    $quantity = $_POST["quantity"];
-    $createdOn = date('Y-m-d h:i:sa');
-    $discount = $_POST["discount"];
-    $shipping = $_POST['shipping'];
-    $catId = $_POST['catId'];
-    
-    $data = array(
-      "pid" => $productId,
-      "pSkuid" => $productSkuid,
-      "productName" => $pname,
-      "quantity" => $quantity,
-      "price" => $price,
-      "sellerId" => $sellerId,
-      "itemTotal" => $quantity * $price,
-      "discount" => $discount,
-      "shipping" => $shipping,
-      "catId" => $catId
-    
-    );
-    
-    // print_r($data);
-    
-    $cart = isset($_COOKIE['user_cart']) ? json_decode($_COOKIE['user_cart'], true) : [];
-    
-    // print_r($cart);
-    $result = searchUserByName($cart, $productId);
-    
-    if ($result->validation) {
-      setcookie('user_cart', json_encode($result->orders), time() + (86400 * 30), "/"); // Cookie valid for 30 days
-    
-    } else {
-    
-      $cart[] = $data;
-      setcookie('user_cart', json_encode($cart), time() + (86400 * 30), "/"); // Cookie valid for 30 days
-    
-    }
-    
-    $condition = ("id=" .$_GET['id']);
-    
-    header('Location: ' . $_SERVER['PHP_SELF'] . "?" . $condition);
-    }
-    else if($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['buyNow'])  ){
-      header('Location: checkout.php');
-    }
+// 
     
     function searchUserByName($orders, $pid)
     {
@@ -164,6 +113,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['addToCart']) ) {
               <div class="swiper product-thumbnail-slider">
                 <div class="swiper-wrapper">
                   <div class="swiper-slide">
+                    
                     <img src="seller/productimages/<?php echo $resultProduct->records[0]->skuId;?>/<?php echo $resultProduct->records[0]->skuId;?>1.png" alt="" class="thumb-image img-fluid">
                   </div>
                   
@@ -208,7 +158,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['addToCart']) ) {
           }
           ?>
         <div class="col-lg-5">
-          <form action="" method="POST">
+          <form action="admin/action/shop_cookies.php" method="POST">
           <div class="product-info">
             <div class="element-header">
               <h2 itemprop="name" class="display-6"><?php echo $resultProduct->records[0]->productName ?></h2>
@@ -249,6 +199,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['addToCart']) ) {
                 <ul class="select-list list-unstyled d-flex">
                   <li data-value="S" class="select-item"><?php echo $resultProduct->records[0]->discount ?>%</li>
                 </ul>
+                <br>
+               
+              </div>
+              <div class="meta-item d-flex align-items-baseline">
+              
+                <h6>Seller: <?php echo $resultProduct->records[0]->sellerName; ?></h6>
               </div>
            
             <p><?php echo $resultProduct->records[0]->description ?></p>
@@ -291,7 +247,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['addToCart']) ) {
                         value=" <?php echo $resultProduct->records[0]->categoriesId; ?>">
                       <input type="hidden" name="discount" style="display:none;"
                         value=" <?php echo $resultProduct->records[0]->discount; ?>">
-
+                        <input type="hidden" name="sellerName" style="display:none;"
+                        value=" <?php echo $resultProduct->records[0]->sellerName; ?>">
+                        <input type="hidden" name="sgst" style="display:none;"
+                        value=" <?php echo $resultProduct->records[0]->sgst; ?>">
+                        <input type="hidden" name="cgst" style="display:none;"
+                        value=" <?php echo $resultProduct->records[0]->cgst; ?>">
                       <input type="hidden" name="shipping" style="display:none;"
                         value=" <?php echo $resultProduct->records[0]->shippingCharge; ?>">
                       <input type="hidden" name="catId" style="display:none;"

@@ -1,5 +1,6 @@
 <?php 
 session_start();
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
 
   $userId = isset($_SESSION['email'])?$_SESSION['email']:"Guest";
@@ -55,6 +56,66 @@ header('Location:../../shop.php');
 //   header('Location: ' . $_SERVER['PHP_SELF'] . "?" . $condition);
 }
 
+if ($_SERVER['REQUEST_METHOD'] == 'POST'  && (isset($_POST['addToCart']) || isset($_POST['buyNow'])) ) {
+
+  $userId = isset($_SESSION['email'])?$_SESSION['email']:"Guest";
+  $price = $_POST["price"];
+  $pname = $_POST["pname"];
+  $productSkuid = $_POST["productSKUID"];
+  $productId = $_POST["productId"];
+  $sellerId = $_POST["sellerId"];
+  $quantity = $_POST["quantity"];
+  $createdOn = date('Y-m-d h:i:sa');
+  $discount = $_POST["discount"];
+  $shipping = $_POST['shipping'];
+  $catId = $_POST['catId'];
+  $sgst = $_POST['sgst'];
+  $cgst = $_POST['cgst'];
+  $sellerName = $_POST['sellerName'];
+  $afterDis= number_format($quantity * $price- $quantity * $price*0.01* $discount,2);
+$tax=number_format(($afterDis*$sgst*0.01)+($afterDis*$cgst*0.01));
+      
+      $data = array(
+        "pid" => $productId,
+        "pSkuid" => $productSkuid,
+        "productName" => $pname,
+        "quantity" => $quantity,
+        "price" => $price,
+        "sellerId" => $sellerId,
+        "itemTotal" => $quantity * $price,
+        "discount" => $discount,
+        "shipping" => $shipping,
+        "catId" => $catId,
+        "sellerName"=>$sellerName,
+        "tax"=>$tax,
+        "sgst"=>$sgst,
+        "cgst"=>$cgst
+      
+      );
+      
+      // print_r($data);
+      
+      $cart = isset($_COOKIE['user_cart']) ? json_decode($_COOKIE['user_cart'], true) : [];
+      
+      // print_r($cart);
+      $result = searchUserByName($cart, $productId);
+     // print_r($result);
+      
+      if ($result->validation==1) {
+        setcookie('user_cart', json_encode($result->orders), time() + (86400 * 30), "/"); // Cookie valid for 30 days
+      
+      } else {
+      
+        $cart[] = $data;
+        setcookie('user_cart', json_encode($cart), time() + (86400 * 30), "/"); // Cookie valid for 30 days
+      
+      }
+     // print_r($_COOKIE['user_cart']);
+      header('Location:../../shop.php');
+      
+      
+      }
+
 
 
 function searchUserByName($orders, $pid)
@@ -65,8 +126,8 @@ function searchUserByName($orders, $pid)
 
     if ($order['pid'] == $pid) {
 
-$item_total=number_format((($order['quantity'] + $_POST["quantity"]) * $order['price'])-
-($order['quantity'] + $_POST["quantity"]) * $order['price']*0.01*$_POST["discount"],2);
+ $item_total=((($order['quantity'] + $_POST["quantity"]) * $order['price'])-
+($order['quantity'] + $_POST["quantity"]) * $order['price']*0.01*$_POST["discount"]);
       $data = array(
         "pid" => $_POST["productId"],
         "pSkuid" => $_POST["productSKUID"],
@@ -81,8 +142,9 @@ $item_total=number_format((($order['quantity'] + $_POST["quantity"]) * $order['p
         "sellerName"=> $_POST["sellerName"],
         "sgst"=>$_POST["sgst"],
         "cgst"=>$_POST["cgst"],
-        "tax"=>number_format(($item_total*0.01*$_POST["sgst"])+($item_total*0.01*$_POST["sgst"]),2)
+        "tax"=>(($item_total*0.01*$_POST["sgst"])+($item_total*0.01*$_POST["sgst"]))
       );
+
 
       unset($orders[$index]);
       array_push($orders, $data);

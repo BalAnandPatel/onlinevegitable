@@ -189,25 +189,21 @@ $totalprice = 0;
                       </td>
                     </tr>
                     <tr class="order-total border-bottom pt-2 pb-2 text-uppercase">
+                      <?php if($subTotal<=500){ ?>
                       <th>Shipping Charges</th>
                       <td data-title="Total">
                         <span class="price-amount amount ps-5">
                           <bdi>
                             <span class="price-currency-symbol">&#8377;</span>
                             <?php
-                           // print_r($_COOKIE['user_cart']);
+                          
                             $result = json_decode($_COOKIE['user_cart'], true);
-                    //print_r($result->records[0]);
-                    
-                    // foreach ($result as $index => $order) {
-                    //   $subTotal = $order['shipping'];
-                    //   //echo $order['itemTotal'];
-                    // }
-                             
+                   
                             echo  $order['shipping']!=""?number_format($order['shipping'],2):0 
                             ?> </bdi>
                         </span>
                       </td>
+                      <?php } ?>
                     </tr>
                     <tr class="order-total border-bottom pt-2 pb-2 text-uppercase">
                       <th>Total</th>

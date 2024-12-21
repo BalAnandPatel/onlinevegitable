@@ -2,15 +2,15 @@
 session_start();
 
 ob_start();
-    
+print_r($_COOKIE['user_cart']);
 ($_SESSION['decoded']);
-$currentTime=time();
+$currentTime = time();
 // if($decoded->exp>$curre
 $decoded = $_SESSION['decoded'];
 //echo "**".intval($decoded->exp)>$currentTime;
 //   unset($_SESSION['email']);
 // }
-if (empty($_COOKIE['user_cart']) || intval($decoded->exp)<$currentTime || empty($_SESSION['email'])) {
+if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
     unset($_SESSION['email']);
 
     header("Location: ../shop.php");
@@ -24,8 +24,17 @@ $host = "localhost";
 $dsn = 'mysql:host=localhost;dbname=vegitabledb';
 $db_name = "vegitabledb";
 $username = "root";
-$password = "";
+$password = "root";
 $conn;
+$shippingC=0;
+$taxC=0;
+
+$result = json_decode($_COOKIE['user_cart'], true);
+$customIndex = 0;
+foreach ($result as $index => $order) {
+    $shippingC= $order['shipping'];
+   $taxC= $order['tax'];
+}
 
 
 $subTotal = 0;
@@ -33,8 +42,8 @@ $orderTotal = 0;
 $sgstItem = 0;
 $cgstItem = 0;
 $_SESSION['user_address'] = isset($_POST['address']) ? $_POST['address'] : "";
-$_SESSION['user_notes'] = isset($_POST['notes'])?$_POST['notes']:"";
-$_SESSION['user_address_type'] = isset($_POST['listGroupRadios'])?$_POST['listGroupRadios']:"";
+$_SESSION['user_notes'] = isset($_POST['notes']) ? $_POST['notes'] : "";
+$_SESSION['user_address_type'] = isset($_POST['listGroupRadios']) ? $_POST['listGroupRadios'] : "";
 $_SESSION['user_save_address'] = $saveAddr = isset($_POST['saveAddress']) ? $_POST['saveAddress'] : "";
 
 $pdo = new PDO($dsn, $username, $password);
@@ -54,28 +63,28 @@ foreach ($result as $index => $order) {
 
     $query = "Select a.name,a.id,a.categoriesId, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
     a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount,a.sgst,a.cgst,a.adminCommision from products as a
-     INNER JOIN productskuid  as b ON b.productId=a.id JOIN 
-  seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
+    INNER JOIN productskuid  as b ON b.productId=a.id JOIN 
+    seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
 
     $stmt = $pdo->prepare($query);
     $stmt->bindParam(':catId', $catId);
     $stmt->bindParam(':pid', $pid);
     $stmt->execute();
     $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-//print_r($results);
-echo "<br><br>";
-//print_r($order);
-    
-    if ($order['quantity']<=$results[0]['quantity'] ) {
-    "&&".  $subTotal = (floatval($results[0]['price']) * floatval($order['quantity']));
+    //print_r($results);
+    echo "<br><br>";
+    //print_r($order);
+
+    if ($order['quantity'] <= $results[0]['quantity']) {
+        "&&" . $subTotal = (floatval($results[0]['price']) * floatval($order['quantity']));
         $sgstItem = round($subTotal * round($results[0]['sgst'] * 0.01, 2), 2);
         $cgstItem = round($subTotal * round($results[0]['cgst'] * 0.01, 2), 2);
 
-        $updatedBy="Admin";
-        $updatedOn=time();
+        $updatedBy = "Admin";
+        $updatedOn = time();
 
         $orderTotal = round(($orderTotal + $subTotal + $sgstItem + $cgstItem), 2);
-$quantity=($results[0]['quantity']-intval($order['quantity']));
+        $quantity = ($results[0]['quantity'] - intval($order['quantity']));
         $queryUpdateSKUID = "UPDATE  productskuid 
 SET  quantity =:quantity,updatedBy=:updatedBy,updatedOn=:updatedOn where productId=:productId";
         $stmt1 = $pdo->prepare($queryUpdateSKUID);
@@ -85,9 +94,9 @@ SET  quantity =:quantity,updatedBy=:updatedBy,updatedOn=:updatedOn where product
         $stmt1->bindParam(":updatedOn", $updatedOn);
         $stmt1->execute();
     } else {
-        echo "#########";
+
         header('Location:../cart.php?id=cart  is updated');
-       
+
     }
 
 
@@ -99,7 +108,7 @@ $email = $_SESSION['email'];
 $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact']))?$_POST['contact']:9999999999;
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
-$amt = $orderTotal * 100;//$_POST['amount']*100;
+$amt = ($orderTotal+($shippingC+$taxC)) * 100;//$_POST['amount']*100;
 
 
 $orderData = [
@@ -134,10 +143,10 @@ $data = [
     "description" => $appDesc,
     "image" => $appImg,
     "prefill" => [
-            "name" => $name,
-            "email" => $email,
-            "contact" => $contact,
-        ],
+        "name" => $name,
+        "email" => $email,
+        "contact" => $contact,
+    ],
     "notes" => [
         "address" => $address,
         "merchant_order_id" => $merchant_order_id,
@@ -158,15 +167,15 @@ if ($displayCurrency !== 'INR') {
 
 
 //setcookie('user_cart', '', time() - 3600, "/");
- if ($saveAddr == "yes") {
-        $_SESSION['address1'] = $_POST['addrs1'];
-        $_SESSION['address2'] = $_POST['addrs2'];
-        $_SESSION['city'] = $_POST['city'];
-        $_SESSION['state'] = $_POST['state'];
-        $_SESSION['postalCode'] = $_POST['postalCode'];
-        $_SESSION['phone'] = $_POST['phone'];
-        $_SESSION['landmark'] = $_POST['landmark'];
-    }
+if ($saveAddr == "yes") {
+    $_SESSION['address1'] = $_POST['addrs1'];
+    $_SESSION['address2'] = $_POST['addrs2'];
+    $_SESSION['city'] = $_POST['city'];
+    $_SESSION['state'] = $_POST['state'];
+    $_SESSION['postalCode'] = $_POST['postalCode'];
+    $_SESSION['phone'] = $_POST['phone'];
+    $_SESSION['landmark'] = $_POST['landmark'];
+}
 if ($_POST['listGroupRadios'] == "online") {
     require("{$checkout}.php");
 
@@ -264,6 +273,6 @@ document.addEventListener("DOMContentLoaded", function(event) {
     header('Location:../account.php');
 }
 
-     ob_end_flush();
+ob_end_flush();
 
 
