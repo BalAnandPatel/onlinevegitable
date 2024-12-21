@@ -4,12 +4,12 @@
   <div class="col-sm-4 col-lg-3 text-center text-sm-start">
     <div class="main-logo">
       <a href="index.php">
-        <img src="images/logo.png" alt="logo" class="img-fluid">
+        <img src="images/mainlogo.png" alt="logo" width="40%" class="img-fluid">
       </a>
     </div>
   </div>
 
-  <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block">
+  <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
   <form id="search-form" class="text-center" action="shop.php" method="POST">
     <div class="search-bar row bg-light p-2 my-2 rounded-4">
       <div class="col-md-4 d-none d-md-block">

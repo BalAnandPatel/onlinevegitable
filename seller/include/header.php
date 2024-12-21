@@ -9,7 +9,7 @@ session_start();
 				</a>
 
 			  	<a class="brand" href="index.html">
-				  Onlinesabjimandi.com | Admin
+				  Onlinesabjimandi.com | Seller
 			  	</a>
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">

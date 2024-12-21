@@ -5,7 +5,7 @@
 <head>
 	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Onlinesabjimandi.com | Admin login</title>
+	<title>Onlinesabjimandi.com | Delivery Boy login</title>
 	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 	<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -23,7 +23,7 @@
 				</a>
 
 				<a class="brand" href="index.html">
-				Onlinesabjimandi.com | Admin
+				Onlinesabjimandi.com | Delivery Boy
 				</a>
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">
