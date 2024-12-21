@@ -10,10 +10,8 @@ $URL="http://localhost/onlinevegitable/api/src/";
 
 
 $HOME="index.php";   
-
 $keyId = 'rzp_test_s0vep1GiL4trai';  
 $keySecret = 'qZzxkPLUJ7oFRabycVfDX4bm';
-
 // Production key
 //  $keyId = 'rzp_live_NGxMijBz5OvO4f';
 //  $keySecret = '0qHNL5t6dmaP2A3PYTaaxOvH';

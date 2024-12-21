@@ -47,7 +47,7 @@ if($jwt){
 $stmt = $read_order_detail->readorderdetails();
 //print_r($stmt);
 $num = $stmt->rowCount();
-  
+  //print_r($num);
 // check if more than 0 record found
 if($num>0){
   
