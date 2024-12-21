@@ -2,7 +2,6 @@
 
 class Admincommisionhistory
 {
-
     private $conn;
     private $commisionhistory = "commisionhistory";
     private $delivery_boy = "delivery_boy";

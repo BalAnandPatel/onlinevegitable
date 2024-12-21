@@ -19,11 +19,10 @@ class Orderdetail
     //public $orderstatus = "ORDER PLACED";
     public function readorderdetails()
     {
-        if($this->sellerId!=""){
-            
-           //echo"*****************". $this->sellerId;
-     $query ="Select b.name,b.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,a.cgst,a.verificationCode, a.sgst, a.status, a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a INNER JOIN $this->users as b ON a.userId=b.userId where a.sellerId=:sellerId and a.status='ORDER PLACED'";
-
+        if($this->sellerId==true){
+           //$this->sellerId;
+     $query ="Select b.name,b.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,a.cgst,a.verificationCode, a.sgst, a.status, a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a INNER JOIN $this->users as b ON a.userId=b.userId where
+      sellerId=:sellerId AND (a.status!='Rejected' OR 'DELIVERD') ";
          $stmt = $this->conn->prepare($query);
          $this->sellerId = htmlspecialchars(strip_tags($this->sellerId)); 
          $stmt->bindParam(":sellerId", $this->sellerId,PDO::PARAM_STR);
