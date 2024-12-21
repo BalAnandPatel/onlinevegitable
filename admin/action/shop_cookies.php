@@ -56,7 +56,7 @@ header('Location:../../shop.php');
 //   header('Location: ' . $_SERVER['PHP_SELF'] . "?" . $condition);
 }
 
-if ($_SERVER['REQUEST_METHOD'] == 'POST'  && isset($_POST['addToCart']) ) {
+if ($_SERVER['REQUEST_METHOD'] == 'POST'  && (isset($_POST['addToCart']) || isset($_POST['buyNow'])) ) {
 
   $userId = isset($_SESSION['email'])?$_SESSION['email']:"Guest";
   $price = $_POST["price"];
