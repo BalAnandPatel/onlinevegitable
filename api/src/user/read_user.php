@@ -72,6 +72,7 @@ if($num>0){
             "name"=>$name,
             "phoneNo"=>$phoneNo,
             "email"=>$email,
+            "password"=>$password,
             "createdOn"=>$createdOn
             );
   

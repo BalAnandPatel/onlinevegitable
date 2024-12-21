@@ -19,7 +19,7 @@ curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
 //print_r($response);
 $result = json_decode($response);
-//print_r($result);
+// print_r($result);
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -67,7 +67,8 @@ $result = json_decode($response);
 												<th>Name</th>
 												<th>Email </th>
 												<th>Contact no</th>
-												<th>Shippping Address/City/State/Pincode </th>
+												<th>Password</th>
+												<!-- <th>Shippping Address/City/State/Pincode </th> -->
 												<!-- <th>Billing Address/City/State/Pincode </th> -->
 												<th>Reg. Date </th>
 
@@ -85,8 +86,8 @@ $result = json_decode($response);
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
 													<td><?php echo $result->records[$i]->name;?></td>
-													<td><?php echo $result->records[$i]->phoneNo;?></td>
-													<td> <?php echo $result->records[$i]->password;?></td>
+													<td><?php echo $result->records[$i]->email;?></td>
+													<td> <?php echo $result->records[$i]->phoneNo;?></td>
 													<td> <?php echo $result->records[$i]->password;?></td>
 													<td><?php echo $result->records[$i]->createdOn;?></td>
 
