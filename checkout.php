@@ -12,11 +12,9 @@ $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 if($decoded=="" ){
     
 header('location:account.php');
-    //echo "********************************************";
 }
 else if($decoded->exp<$currentTime){
-    //echo "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@";
-    
+
   header('location:account.php');
     
     
