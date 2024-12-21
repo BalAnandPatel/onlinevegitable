@@ -5,7 +5,7 @@ class Orderdetail
 
     private $conn;
     private $orderdetails = "orderdetails";
-    private $sellaraddress = "selleraddress";
+    private $selleraddress = "selleraddress";
     private $users = "users";
     // private $table_payment = "payment";
 
@@ -21,9 +21,9 @@ class Orderdetail
    public function readorderdetails()
     {
         if($this->sellerId==true){
-           //echo $this->sellerId;
-     $query ="Select b.name,b.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,a.cgst,a.verificationCode, a.sgst, a.status, a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a INNER JOIN $this->users as b ON a.userId=b.userId where sellerId=:sellerId";
-
+           //$this->sellerId;
+     $query ="Select b.name,b.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,a.cgst,a.verificationCode, a.sgst, a.status, a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a INNER JOIN $this->users as b ON a.userId=b.userId where
+      sellerId=:sellerId AND a.status='Rejected'";
          $stmt = $this->conn->prepare($query);
          $stmt->bindParam(":sellerId", $this->sellerId); 
 }
@@ -31,7 +31,7 @@ else {
    // echo $this->orderId;
       $query = "Select a.userId,a.orderId,a.deliveryId,a.sellerId,a.verificationCode,a.paymentId,a.total,
       a.cgst, a.sgst, a.status, a.totalCommision,a.createdOn,a.createdBy,b.pincode
-       from $this->orderdetails as a INNER JOIN $this->sellaraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and a.status=1";
+       from $this->orderdetails as a INNER JOIN $this->selleraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and a.status=1";
     // $query = "Select userId,orderId,deliveryId,sellerId,paymentId,total,productSkuId, productId, gst, status, quantity, discount, paymentMethod, adminCommision,createdOn,createdBy from $this->orderdetails";
      $stmt = $this->conn->prepare($query);
     $stmt->bindParam(":workingPincode", $this->workingPincode); 
@@ -92,7 +92,7 @@ function updateorderdetailsforDelivery()
        // echo $this->orderId;
         //   $query = "Select a.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,
         //   a.cgst, a.sgst, a.status, a.totalCommision,a.createdOn,a.createdBy,b.pincode
-        //    from $this->orderdetails as a INNER JOIN $this->sellaraddress as b ON a.sellerId=b.sellarId where b.pincode=:workingPincode and a.status=1";
+        //    from $this->orderdetails as a INNER JOIN $this->selleraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and a.status=1";
     
         $query = "Select userId,orderId,deliveryId,sellerId,paymentId,total, cgst, sgst, status, totalCommision,updatedOn,updatedBy from $this->orderdetails  where 
         status=3";
@@ -118,7 +118,7 @@ else {
 // echo $this->orderId;
   $query = "Select a.userId,a.orderId,a.deliveryId,a.sellerId,a.verificationCode,a.paymentId,a.total,
   a.cgst, a.sgst, a.status, a.totalCommision,a.createdOn,a.createdBy,b.pincode
-   from $this->orderdetails as a INNER JOIN $this->sellaraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and (a.status='Order_Accepted' OR a.status='Ready_To_Deliver'    OR a.status='Order_Handover_To_Delivery_Boy' oR status='Order_Delivery_Successfully')";
+   from $this->orderdetails as a INNER JOIN $this->selleraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and (a.status='Order_Accepted' OR a.status='Ready_To_Deliver'    OR a.status='Order_Handover_To_Delivery_Boy' oR status='Order_Delivery_Successfully')";
 // $query = "Select userId,orderId,deliveryId,sellerId,paymentId,total,productSkuId, productId, gst, status, quantity, discount, paymentMethod, adminCommision,createdOn,createdBy from $this->orderdetails";
  $stmt = $this->conn->prepare($query);
 $stmt->bindParam(":workingPincode", $this->workingPincode); 
