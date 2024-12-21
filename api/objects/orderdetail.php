@@ -1,12 +1,11 @@
 <?php
-
 class Orderdetail
 {
-
     private $conn;
     private $orderdetails = "orderdetails";
     private $selleraddress = "selleraddress";
     private $users = "users";
+     
     // private $table_payment = "payment";
 
     public function __construct($db)
@@ -14,27 +13,29 @@ class Orderdetail
         $this->conn = $db;
     }
     public $id, $orderId,$userId,$paymentId,$sellerId,$deliveryId,$productId,$adminCommision, $productSkuId, $quantity, $total;
-
+     
     public $cuId, $status,$verificationCode,$cuName,$cuEmail, $cuAddress,$date, $sgst, $cgst, $cuMobile,$createdOn,$createdBy,$updatedBy,$updatedOn, $requiredService,$workingPincode;
 
-    
-   public function readorderdetails()
+    //public $orderstatus = "ORDER PLACED";
+    public function readorderdetails()
     {
         if($this->sellerId==true){
            //$this->sellerId;
      $query ="Select b.name,b.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,a.cgst,a.verificationCode, a.sgst, a.status, a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a INNER JOIN $this->users as b ON a.userId=b.userId where
       sellerId=:sellerId AND (a.status!='Rejected' OR 'DELIVERD') ";
          $stmt = $this->conn->prepare($query);
-         $stmt->bindParam(":sellerId", $this->sellerId); 
+         $this->sellerId = htmlspecialchars(strip_tags($this->sellerId)); 
+         $stmt->bindParam(":sellerId", $this->sellerId,PDO::PARAM_STR);
+         //print_r($stmt); 
 }
 else {
    // echo $this->orderId;
       $query = "Select a.userId,a.orderId,a.deliveryId,a.sellerId,a.verificationCode,a.paymentId,a.total,
       a.cgst, a.sgst, a.status, a.totalCommision,a.createdOn,a.createdBy,b.pincode
-       from $this->orderdetails as a INNER JOIN $this->selleraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and a.status=1";
+      from $this->orderdetails as a INNER JOIN $this->selleraddress as b ON a.sellerId=b.sellerId where b.pincode=:workingPincode and a.status=ORDER PLACED";
     // $query = "Select userId,orderId,deliveryId,sellerId,paymentId,total,productSkuId, productId, gst, status, quantity, discount, paymentMethod, adminCommision,createdOn,createdBy from $this->orderdetails";
      $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(":workingPincode", $this->workingPincode); 
+     $stmt->bindParam(":workingPincode", $this->workingPincode); 
 }
 $stmt->execute();
 return $stmt;

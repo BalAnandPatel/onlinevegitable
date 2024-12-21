@@ -8,7 +8,7 @@
 				</a>
 
 			  	<a class="brand" href="index.html">
-				  Onlinesabjimandi.com | Admin
+				  Onlinesabjimandi.com | Delivery Boy
 			  	</a>
 
 				<div class="nav-collapse collapse navbar-inverse-collapse">
