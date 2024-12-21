@@ -1,8 +1,12 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
 $BASE_URL="index.php";
-$BASE_CULR="http://localhost/onlinevegitable/api/src/curl.php";
-$URL="http://localhost/onlinevegitable/api/src/";
+$BASE_CULR="http://localhost/OnlineSabjiMandi/api/src/curl.php";
+$URL="http://localhost/OnlineSabjiMandi/api/src/";
+// $ADMIN_IMG_PATH="http://localhost/recruit/user/img/";
+// $GALLERY_IMG_PATH="http://localhost/recruit/admin/image/gallery/";
+// $GALLERY_VIDEO_PATH="http://localhost/recruit/admin/uploads/videos/";
+// $GALLERY_NEWS_PATH="http://localhost/recruit/admin/uploads/news/";
 
 
 $HOME="index.php";   

@@ -1,18 +1,14 @@
 <?php
 include('include/header.php');
-session_start();
 include('include/config.php');
-//print_r($_SESSION);
+session_start();
+// print_r($_SESSION);
 if (strlen($_SESSION['alogin']) == 0) {
-	 //header('location:index.php');
+	//  header('location:index.php');
 } else {
-	date_default_timezone_set('Asia/Kolkata'); // change according timezone
-	$currentTime = date('d-m-Y h:i:s A', time());
-	include "../constant.php";
-	$url = $URL . "orderdetails/readTodayOrder.php";
-	$date = '2024-12-20 16:09:29';
-	$data = array("date"=>$date);
-	// print_r($data);
+    include "../constant.php";
+	$url = $URL . "orderdetails/readSoldOrder.php";
+	$data = array();
 	$postdata = json_encode($data);
 	$client = curl_init();
 	curl_setopt( $client, CURLOPT_URL,$url);
@@ -21,7 +17,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	curl_setopt($client, CURLOPT_POST, 5);
 	curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 	$response = curl_exec($client);
-	//print_r($response);
+	// print_r($response);
 	$result = json_decode($response);
 	//print_r($result);
 ?>
@@ -94,11 +90,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 										<tbody>
 											<?php
-											
+											// $f1 = "00:00:00";
+											// $from = date('Y-m-d') . " " . $f1;
+											// $t1 = "23:59:59";
+											// $to = date('Y-m-d') . " " . $t1;
+											// $query1 = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no,address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.order_id as order_id, orders.quantity as quantity,orders.size as size,orders.color as color,orders.GSTN as gstn,orders.orderStatus as orderstatus,orders.orderDate as orderdate,orders.paymentMethod as paymentMethod,products.productPrice as productprice, products.skuId as skuid, orders.id as id  from orders join users on  orders.userId=users.id join address on orders.address=address.id join products on products.id=orders.productId where orders.orderDate Between '$from' and '$to'");
 											$cnt = 0;
-											
+											// while ($row = mysqli_fetch_array($query1)) {
 											for($i=0; $i<sizeof($result->records); $i++){
-											
+											//print_r($result->records);
 											?>
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
@@ -113,10 +113,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 													
 												</tr>
 
-											
-											<?php
-											 } $cnt = $cnt + 1;
-											?>
+											<?php $cnt = $cnt + 1;
+											} ?>
 										</tbody>
 									</table>
 								</div>

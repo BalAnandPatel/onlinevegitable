@@ -1,12 +1,29 @@
 <?php
+include('include/header.php');
 include('include/config.php');
-if (strlen($_SESSION['alogin']) == 0) {
-	header('location:index.php');
+// print_r($_SESSION);
+if (strlen($_SESSION['id']) == 0) {
+	 header('location:index.php');
 } else {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
-
-
+	include "../constant.php";
+	$url = $URL . "orderdetails/readTodayOrderBySeller.php";
+	$sellerId = $_SESSION['id'];
+	$date = '2024-12-20 16:09:29';
+	$data = array("date"=>$date, "sellerId"=>$sellerId);
+	// print_r($data);
+	$postdata = json_encode($data);
+	$client = curl_init();
+	curl_setopt( $client, CURLOPT_URL,$url);
+	//curl_setopt( $client, CURLOPT_HTTPHEADER,  $request_headers);
+	curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($client, CURLOPT_POST, 5);
+	curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
+	$response = curl_exec($client);
+	//print_r($response);
+	$result = json_decode($response);
+	//print_r($result);
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -33,7 +50,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body>
-		<?php include('include/header.php'); ?>
 
 		<div class="wrapper">
 			<div class="container">
@@ -63,18 +79,13 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<tr>
 												<th>#</th>
 												<th>Order_id</th>
-												<th> Name</th>
-												<th width="50">Email /Contact no</th>
-												<th>Shipping Address</th>
-												<th>Billing Address</th>
-												<th>Product </th>
-												<th>Qty</th>
-												<th>Amount </th>
+												<th>sellerId</th>
+												<th>Delivery Id</th>
+												<th width="50">User Id</th>
+												<th>Total Quantity</th>
+												<th>Total </th>
+												<th>Address</th>
 												<th>Order Date</th>
-												<th>Payment Status/Method</th>
-												<th>Action</th>
-
-
 											</tr>
 
 
@@ -83,32 +94,33 @@ if (strlen($_SESSION['alogin']) == 0) {
 
 										<tbody>
 											<?php
-											$f1 = "00:00:00";
-											$from = date('Y-m-d') . " " . $f1;
-											$t1 = "23:59:59";
-											$to = date('Y-m-d') . " " . $t1;
-											$query1 = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no,address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.order_id as order_id, orders.quantity as quantity,orders.size as size,orders.color as color,orders.GSTN as gstn,orders.orderStatus as orderstatus,orders.orderDate as orderdate,orders.paymentMethod as paymentMethod,products.productPrice as productprice, products.skuId as skuid, orders.id as id  from orders join users on  orders.userId=users.id join address on orders.address=address.id join products on products.id=orders.productId where orders.orderDate Between '$from' and '$to'");
-											$cnt = 1;
-											while ($row = mysqli_fetch_array($query1)) {
+											// $f1 = "00:00:00";
+											// $from = date('Y-m-d') . " " . $f1;
+											// $t1 = "23:59:59";
+											// $to = date('Y-m-d') . " " . $t1;
+											// $query1 = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no,address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.order_id as order_id, orders.quantity as quantity,orders.size as size,orders.color as color,orders.GSTN as gstn,orders.orderStatus as orderstatus,orders.orderDate as orderdate,orders.paymentMethod as paymentMethod,products.productPrice as productprice, products.skuId as skuid, orders.id as id  from orders join users on  orders.userId=users.id join address on orders.address=address.id join products on products.id=orders.productId where orders.orderDate Between '$from' and '$to'");
+											// $cnt = 1;
+											// while ($row = mysqli_fetch_array($query1)) {
+											for($i=0; $i<sizeof($result->records); $i++){
+											//print_r($result->records);
 											?>
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
-													<td><?php echo htmlentities($row['order_id']); ?></td>
-													<td><?php echo htmlentities($row['username']); ?></td>
-													<td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td>
-													<td><?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?><br><?php echo isset($row['mobile_no']) ? "Mobile no.- " . $row['mobile_no'] : ""; ?></td>
-													<td><?php echo htmlentities($row['billingaddress'] . "," . $row['billingcity'] . "," . $row['billingstate'] . "-" . $row['billingpincode']); ?> GSTN-<?php echo htmlentities($row['gstn']); ?></td>
-													<td><?php echo htmlentities($row['productname']); ?> <br> Color-<?php echo htmlentities($row['color']); ?> Size-<?php echo htmlentities($row['size']); ?> SKUID-<?php echo htmlentities($row['skuid']); ?> </td>
-													<td><?php echo htmlentities($row['quantity']); ?></td>
-													<td><?php echo htmlentities($row['quantity'] * $row['productprice'] + $row['shippingcharge']); ?></td>
-													<td><?php echo htmlentities($row['orderdate']); ?></td>
-													<td><?php echo htmlentities($row['paymentMethod']); ?></td>
-													<td> <a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>" title="Update order" target="_blank"><i class="icon-edit"></i></a>
-													</td>
+													<td><?php echo $result->records[$i]->orderId; ?></td>
+													<td><?php echo $result->records[$i]->sellerId ?></td>
+													<td><?php echo $result->records[$i]->deliveryId ?></td>
+													<td><?php echo $result->records[$i]->userId ?></td>
+													<td><?php echo $result->records[$i]->totalQuantity ?></td>
+													<td><?php echo $result->records[$i]->total ?></td>
+													<td><?php echo $result->records[$i]->deliveryAddress ?></td>
+													<td><?php echo $result->records[$i]->createdOn ?></td>
+													
 												</tr>
 
-											<?php $cnt = $cnt + 1;
-											} ?>
+											
+											<?php
+											 } $cnt = $cnt + 1;
+											?>
 										</tbody>
 									</table>
 								</div>
@@ -139,4 +151,4 @@ if (strlen($_SESSION['alogin']) == 0) {
 			});
 		</script>
 	</body>
-<?php } ?>
+<?php }?>
