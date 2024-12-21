@@ -3,7 +3,25 @@
 <html lang="en">
 
 <head>
+<style>
+  .adminAndSeller{
+width:49%;
+  }
 
+
+  @media screen and (min-width:320px) and (max-width:768px){
+  .adminAndSeller{
+    width:100%;
+    margin-bottom: 10px;
+  }
+  }
+  @media screen and (min-width:900px) and (max-width:1200px){
+  .adminAndSeller{
+    width:100%;
+    margin-bottom: 10px;
+  }
+  }
+</style>
 </head>
 
 <?php
@@ -65,10 +83,14 @@
             </div> -->
             <div class="col-12">
               <button type="submit" name="submit" class="btn btn-primary text-uppercase w-100">Log in</button>
-              <p><a href="forgot-password.php">Lost your password?</a>
+              <p><a href="forgot-password.php">Lost your password?</a><br/>
               <a href="newuser.php">New User Registration</a></p>
             </div>
           </form>
+          <div class="col-12">
+            <a href="admin/index.php"><button class="btn btn-primary text-white adminAndSeller">Admin Login</button></a>
+            <a href="seller/index.php"><button class="btn btn-primary text-white adminAndSeller">Seller Login</button></a>
+          </div>
         </div>
       </div>
     </div>
