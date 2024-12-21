@@ -3,7 +3,7 @@ include('include/header.php');
 include "../constant.php";
 $urlreadOrderDetails = $URL . "orderdetails/readOrderDetails.php";
 $data = array("sellerId"=>$_SESSION['id']);
-print_r($data);
+//print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();
 curl_setopt( $client, CURLOPT_URL,$urlreadOrderDetails);

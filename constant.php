@@ -1,19 +1,11 @@
 <?php
 date_default_timezone_set('Asia/Kolkata');
 $BASE_URL="index.php";
-$BASE_CULR="http://localhost/OnlineSabjiMandi/api/src/curl.php";
-$URL="http://localhost/OnlineSabjiMandi/api/src/";
-// $ADMIN_IMG_PATH="http://localhost/recruit/user/img/";
-// $GALLERY_IMG_PATH="http://localhost/recruit/admin/image/gallery/";
-// $GALLERY_VIDEO_PATH="http://localhost/recruit/admin/uploads/videos/";
-// $GALLERY_NEWS_PATH="http://localhost/recruit/admin/uploads/news/";
-
-
+$BASE_CULR="http://localhost/onlinevegitable/api/src/curl.php";
+$URL="http://localhost/onlinevegitable/api/src/";
 $HOME="index.php";   
-
 $keyId = 'rzp_test_s0vep1GiL4trai';  
 $keySecret = 'qZzxkPLUJ7oFRabycVfDX4bm';
-
 // Production key
 //  $keyId = 'rzp_live_NGxMijBz5OvO4f';
 //  $keySecret = '0qHNL5t6dmaP2A3PYTaaxOvH';
