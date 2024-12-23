@@ -69,7 +69,7 @@ error_reporting(0);
 						</a>
 					</li>
 					<li>
-						<a href="cancelled_order.php">
+						<a href="cancelled-orders.php">
 							<i class="icon-inbox"></i>
 							Cancelled Orders
 							<b class="label green pull-right"></b>
