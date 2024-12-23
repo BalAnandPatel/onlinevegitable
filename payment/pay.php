@@ -2,7 +2,7 @@
 session_start();
 
 ob_start();
-print_r($_COOKIE['user_cart']);
+//print_r($_COOKIE['user_cart']);
 ($_SESSION['decoded']);
 $currentTime = time();
 // if($decoded->exp>$curre
@@ -27,18 +27,19 @@ $username = "root";
 $password = "root";
 $conn;
 $shippingC=0;
-$taxC=0;
+$discount=0;
 
 $result = json_decode($_COOKIE['user_cart'], true);
 $customIndex = 0;
 foreach ($result as $index => $order) {
     $shippingC= $order['shipping'];
-   $taxC= $order['tax'];
+
+
 }
 
 
 $subTotal = 0;
-$orderTotal = 0;
+$orderTotal = floatval(0);
 $sgstItem = 0;
 $cgstItem = 0;
 $_SESSION['user_address'] = isset($_POST['address']) ? $_POST['address'] : "";
@@ -59,48 +60,50 @@ $orderId = $_SESSION['user_order_id'] = "ORD_" . time() . rand(1000, 9999);
 foreach ($result as $index => $order) {
 
     $pid = trim($order["pid"]);
-    $catId = trim($order["catId"]);
+   $catId = trim($order["catId"]);
 
-    $query = "Select a.name,a.id,a.categoriesId, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
-    a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount,a.sgst,a.cgst,a.adminCommision from products as a
+     $query1 = "Select a.name,a.id,a.categoriesId, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
+    a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount,c.sgst,c.cgst,a.adminCommision from products as a
     INNER JOIN productskuid  as b ON b.productId=a.id JOIN 
-    seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
+    seller  as d ON a.sellerId=d.id JOIN categories as c ON a.categoriesId=c.id where a.categoriesId=:catId and a.id=:pid ";
 
-    $stmt = $pdo->prepare($query);
-    $stmt->bindParam(':catId', $catId);
-    $stmt->bindParam(':pid', $pid);
-    $stmt->execute();
-    $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-    //print_r($results);
-    echo "<br><br>";
+    $stmt1 = $pdo->prepare($query1);
+    $stmt1->bindParam(':catId', $catId);
+    $stmt1->bindParam(':pid', $pid);
+    $stmt1->execute();
+    $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
+    //print_r($results1);
+    $counts=$results1[0]['quantity'];
+    //  echo "<br><br>";
     //print_r($order);
 
-    if ($order['quantity'] <= $results[0]['quantity']) {
-        "&&" . $subTotal = (floatval($results[0]['price']) * floatval($order['quantity']));
-        $sgstItem = round($subTotal * round($results[0]['sgst'] * 0.01, 2), 2);
-        $cgstItem = round($subTotal * round($results[0]['cgst'] * 0.01, 2), 2);
-
+    if ($order['quantity'] <= $counts) {
+         $total = floatval(($results1[0]['price']) * ($order['quantity']));
+       
+         $subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
+      
+         $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
+       
+          $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
+        
         $updatedBy = "Admin";
         $updatedOn = time();
 
-        $orderTotal = round(($orderTotal + $subTotal + $sgstItem + $cgstItem), 2);
-        $quantity = ($results[0]['quantity'] - intval($order['quantity']));
-        $queryUpdateSKUID = "UPDATE  productskuid 
-SET  quantity =:quantity,updatedBy=:updatedBy,updatedOn=:updatedOn where productId=:productId";
-        $stmt1 = $pdo->prepare($queryUpdateSKUID);
-        $stmt1->bindParam(":productId", $order["pid"]);
-        $stmt1->bindParam(":quantity", $quantity);
-        $stmt1->bindParam(":updatedBy", $updatedBy);
-        $stmt1->bindParam(":updatedOn", $updatedOn);
-        $stmt1->execute();
+         $orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
+
+        $quantity = $results1[0]['quantity'] - intval($order['quantity']);
+
     } else {
 
-        header('Location:../cart.php?id=cart  is updated');
+        header('Location:../cart.php?msg='.$counts.'&pid='.$pid );
+        break;
 
     }
+   
 
 
 }
+//echo "<br>". $orderTotal ;
 $api = new Api($keyId, $keySecret);
 
 $name = $_SESSION['name'];
@@ -108,7 +111,7 @@ $email = $_SESSION['email'];
 $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact']))?$_POST['contact']:9999999999;
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
-$amt = ($orderTotal+($shippingC+$taxC)) * 100;//$_POST['amount']*100;
+ $amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
 
 
 $orderData = [

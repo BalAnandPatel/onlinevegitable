@@ -99,9 +99,9 @@ if (empty($_POST['razorpay_payment_id']) === false) {
                     $quantity =trim($order["quantity"]);
 
                      $query = "Select a.name,a.id,a.categoriesId, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
-  a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount,a.sgst,a.cgst,a.adminCommision from products as a
+  a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount,c.sgst,c.cgst,a.adminCommision from products as a
   INNER JOIN productskuid  as b ON b.productId=a.id JOIN 
-seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
+seller  as d ON a.sellerId=d.id JOIN categories as c ON a.categoriesId=c.id  where a.categoriesId=:catId and a.id=:pid ";
                     $stmt = $pdo->prepare($query);
                     $stmt->bindParam(':catId', $catId);
                     $stmt->bindParam(':pid', $pid);
@@ -116,12 +116,13 @@ seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
                      $adminCommision = (floatval($adminCommision * 0.01) * $subTotal);
                     $adminCommisionTotal = $adminCommisionTotal + $adminCommision;
                     $orderSubtotal = $orderSubtotal + $subTotal;
-                    $sgstItem = round($subTotal * round($results[0]['sgst'] * 0.01, 2), 2);
-                    $cgstItem = round($subTotal * round($results[0]['cgst'] * 0.01, 2), 2);
+                    $total = $subTotal -($subTotal*$results[0]['discount']*0.01);
+                    $sgstItem = round($total * round($results[0]['sgst'] * 0.01, 2), 2);
+                    $cgstItem = round($total * round($results[0]['cgst'] * 0.01, 2), 2);
                     $sgstTotal = $sgstTotal + $sgstItem;
                     $cgstTotal = $cgstTotal + $cgstItem;
-                    $total = $subTotal + $sgstItem + $cgstItem;
-                    $orderTotal = round(($orderTotal + $subTotal + $sgstItem + $cgstItem), 2);
+                    
+                    $orderTotal = round(($orderTotal + $total + $sgstItem + $cgstItem), 2);
                     $totalQuantity = $totalQuantity + $order['quantity'];
                     //echo $order['pSkuid'];
 
@@ -236,7 +237,7 @@ seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
                 $stmt->execute();
                 // $pdo->commit();
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-               // print_r($results);
+                print_r($results);
 
                 $subTotal = (floatval($results[0]['price']) * floatval($order['quantity']));
                 $adminCommision = (floatval($adminCommision * 0.01) * $subTotal);
@@ -354,7 +355,7 @@ else{
 }
 
     if (!empty($_SESSION['email'])) {
-        $headers = "From: kumar@glintel.com \r\n";
+        $headers = "From: info@onlinesabjimandi.com \r\n";
         $headers .= "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
@@ -412,7 +413,8 @@ document.addEventListener("DOMContentLoaded", function(event) {
 
            
     }
-    setcookie('user_cart', '', time() - 3600, "/");
+    //Expire the cookies - dharm
+   setcookie('user_cart', '', time() - 3600, "/");
     echo '
     <form action="../receipt.php" id="yourform" method="POST">
         <input type="hidden" name="roi" value="FAILED">

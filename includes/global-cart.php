@@ -3,7 +3,7 @@
     <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
   </div>
   <?php
- 
+
 
   // if (isset($_SESSION['email'])) {
     $result = isset($_COOKIE['user_cart']) ? json_decode($_COOKIE['user_cart'], true) : null;
