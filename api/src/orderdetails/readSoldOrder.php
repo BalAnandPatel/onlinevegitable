@@ -70,6 +70,7 @@ if($num>0){
             "total"=>$total,
             "cgst"=>$cgst,
             "sgst"=>$sgst,
+            "paymentResponse"=>$paymentResponse,
             "deliveryAddress"=>$deliveryAddress,
             "sellerId"=>$sellerId,
             "createdOn"=>$createdOn,

@@ -1,6 +1,7 @@
 <?php
+include('include/header.php');
 include('include/config.php');
-if (strlen($_SESSION['alogin']) == 0) {
+if (strlen($_SESSION['id']) == 0) {
 	header('location:index.php');
 } else {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
@@ -33,7 +34,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body>
-		<?php include('include/header.php'); ?>
 
 		<div class="wrapper">
 			<div class="container">

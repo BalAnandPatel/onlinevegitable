@@ -10,8 +10,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 	$currentTime = date('d-m-Y h:i:s A', time());
 	include "../constant.php";
 	$url = $URL . "orderdetails/readTodayOrder.php";
-	$date = '2024-12-20 16:09:29';
-	$data = array("date"=>$date);
+	$date = date('Y-m-d');
+	$data = array();
 	// print_r($data);
 	$postdata = json_encode($data);
 	$client = curl_init();
@@ -31,7 +31,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin| Pending Orders</title>
+		<title>Admin| Todays Orders</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -85,6 +85,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 												<th>Total Quantity</th>
 												<th>Total </th>
 												<th>Address</th>
+												<th>Order Status</th>
 												<th>Order Date</th>
 											</tr>
 
@@ -98,24 +99,28 @@ if (strlen($_SESSION['alogin']) == 0) {
 											$cnt = 0;
 											
 											for($i=0; $i<sizeof($result->records); $i++){
-											
+												$incdate = $result->records[$i]->createdOn;
+												$dateObj = new DateTime($incdate);
+												$formattedDate = $dateObj->format('Y-m-d');
+												if($formattedDate==$date){
 											?>
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
 													<td><?php echo $result->records[$i]->orderId; ?></td>
-													<td><?php echo $result->records[$i]->sellerId ?></td>
-													<td><?php echo $result->records[$i]->deliveryId ?></td>
-													<td><?php echo $result->records[$i]->userId ?></td>
-													<td><?php echo $result->records[$i]->totalQuantity ?></td>
-													<td><?php echo $result->records[$i]->total ?></td>
-													<td><?php echo $result->records[$i]->deliveryAddress ?></td>
-													<td><?php echo $result->records[$i]->createdOn ?></td>
+													<td><?php echo $result->records[$i]->sellerId; ?></td>
+													<td><?php echo $result->records[$i]->deliveryId; ?></td>
+													<td><?php echo $result->records[$i]->userId; ?></td>
+													<td><?php echo $result->records[$i]->totalQuantity; ?></td>
+													<td><?php echo $result->records[$i]->total; ?></td>
+													<td><?php echo $result->records[$i]->deliveryAddress; ?></td>
+													<td><?php echo $result->records[$i]->status; ?></td>
+													<td><?php echo $result->records[$i]->createdOn; ?></td>
 													
 												</tr>
 
 											
 											<?php
-											 } $cnt = $cnt + 1;
+											 }} $cnt = $cnt + 1;
 											?>
 										</tbody>
 									</table>

@@ -27,7 +27,6 @@ $db = $database->getConnection();
 $read_order_detail = new Orderdetail($db);
   
 $data = json_decode(file_get_contents("php://input")); 
-$read_order_detail->date = $data->date;
 // $read_allusers->userId = $data->userId;
 
 //print_r($data);
@@ -67,6 +66,7 @@ if($num>0){
             "deliveryId"=>$deliveryId,
             "paymentId"=>$paymentId,
             "totalQuantity"=>$totalQuantity,
+            "status"=>$status,
             "total"=>$total,
             "cgst"=>$cgst,
             "sgst"=>$sgst,

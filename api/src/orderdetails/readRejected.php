@@ -28,7 +28,7 @@ $read_order_detail = new Orderdetail($db);
   
 $data = json_decode(file_get_contents("php://input")); 
 $read_order_detail->sellerId = $data->sellerId;
-// $read_allusers->userId = $data->userId;
+// $read_order_detail->adminId = $data->adminId;
 
 //print_r($data);
 
@@ -42,7 +42,7 @@ if($jwt){
 
          //$decoded = JWT::decode($jwt, $SECRET_KEY, array('HS256'));
 
-$stmt = $read_order_detail->readSoldOrderByDateSeller();
+$stmt = $read_order_detail->readRejected();
 $num = $stmt->rowCount();
   
 // check if more than 0 record found
@@ -67,15 +67,16 @@ if($num>0){
             "deliveryId"=>$deliveryId,
             "paymentId"=>$paymentId,
             "totalQuantity"=>$totalQuantity,
-            "total"=>$total,
-            "paymentResponse"=>$paymentResponse,
             "status"=>$status,
+            "paymentResponse"=>$paymentResponse,
+            "total"=>$total,
             "cgst"=>$cgst,
             "sgst"=>$sgst,
             "deliveryAddress"=>$deliveryAddress,
             "sellerId"=>$sellerId,
             "createdOn"=>$createdOn,
             "createdBy"=>$createdBy
+
         );
   
         array_push($read_order_detail_arr["records"], $read_order_detail_item);
