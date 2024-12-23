@@ -14,7 +14,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $responsereadorderItem = curl_exec($client);
-//print_r($responsereadorderItem);
+//	print_r($responsereadorderItem);
 $resultOrderitem = json_decode($responsereadorderItem);
 //print_r($resultOrderitem);
 ?>
@@ -115,7 +115,8 @@ $resultOrderitem = json_decode($responsereadorderItem);
 											<tr>
 												<th>#</th>
 												<th>Order Id</th>
-												<th>Produc Id</th>
+												
+												<th>Produc Name</th>
 												<th>productSkuId</th>
 												<th>User Id</th>
 												<th>Quantity</th>
@@ -135,7 +136,8 @@ $resultOrderitem = json_decode($responsereadorderItem);
 												<tr>
 												<td><?php echo htmlentities($cnt); ?></td>
 												<td><?php echo $orderId;?></td>
-												<td><?php echo $resultOrderitem->records[$i]->productId;?></td>
+												
+												<td><?php echo $resultOrderitem->records[$i]->name;?></td>
 												<td><?php echo $resultOrderitem->records[$i]->productSkuId;?></td>
 												<td><?php echo $resultOrderitem->records[$i]->userId;?></td>
 												<td><?php echo $resultOrderitem->records[$i]->quantity;?></td>

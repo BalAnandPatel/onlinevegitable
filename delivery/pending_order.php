@@ -28,7 +28,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-// print_r($readOrderDetailsResponse);
+ //print_r($readOrderDetailsResponse);
 $resultOrderDetail = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetail);
 ?>

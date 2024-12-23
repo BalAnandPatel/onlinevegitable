@@ -6,6 +6,7 @@ class Order
     private $conn;
     private $orderdetails = "orderdetails";
     private $orderItem = "orderitem";
+    private $products = "products";
     // private $table_payment = "payment";
 
     public function __construct($db)
@@ -30,7 +31,7 @@ class Order
 
     public function order_view()
     {
-        $query = "Select userId,orderId,createdOn,productId,productSkuId,quantity,total from  $this->orderItem where orderId=:orderId";
+        $query = "Select a.userId,a.orderId,name,a.createdOn,a.productId,a.productSkuId,a.quantity,a.total from  $this->orderItem as a left join $this->products as b on productSkuId=skuId where orderId=:orderId";
         $stmt = $this->conn->prepare($query);
         $stmt->bindParam(":orderId", $this->orderId); 
         $stmt->execute();

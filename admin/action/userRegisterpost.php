@@ -32,27 +32,27 @@ $result_registration=url_encode_Decode($url,$postdata);
 
 // address table intimetion by userid
 
-$urladd = $URL . "address/insertAddress.php";
-//$url = $URL . "deliveryBoy/insertDelivery.php";
-//$url_read_maxId=$URL . "registration/read_maxId.php";
-$data_add = array(
+// $urladd = $URL . "address/insertAddress.php";
+// //$url = $URL . "deliveryBoy/insertDelivery.php";
+// //$url_read_maxId=$URL . "registration/read_maxId.php";
+// $data_add = array(
 
 
-  "userId" => $email,
-  "createdOn"=>$createdOn,
-  "createdBy"=>$createdBy);
+//   "userId" => $email,
+//   "createdOn"=>$createdOn,
+//   "createdBy"=>$createdBy);
 
-$postdata_add = json_encode($data_add);
-$client_add = curl_init($urladd);
-curl_setopt($client_add, CURLOPT_POSTFIELDS, $postdata_add);
-curl_setopt($client_add, CURLOPT_CONNECTTIMEOUT, 0); 
-curl_setopt($client_add, CURLOPT_TIMEOUT, 4); //timeout in seconds
-curl_setopt($client_add,CURLOPT_RETURNTRANSFER,true);
-$responseadd = curl_exec($client_add);
-//print_r($responseadd);
-curl_close($client_add);
-$result_add = (json_decode($responseadd));
-//print_r($result_add);
+// $postdata_add = json_encode($data_add);
+// $client_add = curl_init($urladd);
+// curl_setopt($client_add, CURLOPT_POSTFIELDS, $postdata_add);
+// curl_setopt($client_add, CURLOPT_CONNECTTIMEOUT, 0); 
+// curl_setopt($client_add, CURLOPT_TIMEOUT, 4); //timeout in seconds
+// curl_setopt($client_add,CURLOPT_RETURNTRANSFER,true);
+// $responseadd = curl_exec($client_add);
+// //print_r($responseadd);
+// curl_close($client_add);
+// $result_add = (json_decode($responseadd));
+// //print_r($result_add);
 
   if($result_registration->message=="Successfull"){
 

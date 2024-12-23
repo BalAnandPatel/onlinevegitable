@@ -8,7 +8,7 @@ $host = "localhost";
 $dsn = 'mysql:host=localhost;dbname=vegitabledb';
 $db_name = "vegitabledb";
 $username = "root";
-$password = "root";
+$password = "";
 $conn;
 
 $success = true;
@@ -135,9 +135,9 @@ quantity=:quantity,discount=:discount,subId=:subId, price=:price,total=:total,su
                     $stmt1->bindParam(":userId", $userId);
                     $stmt1->bindParam(":orderId", $orderId);
                     $stmt1->bindParam(":productId", $order["pid"]);
-                    $stmt1->bindParam(":productSkuId", $order['pSkuid']);
+                    $stmt1->bindParam(":productSkuId", trim($order['pSkuid']));
                     $stmt1->bindParam(":sellerName", $order['sellerName']);
-                    $stmt1->bindParam(":sellerId", $order['sellerId']);
+                    $stmt1->bindParam(":sellerId", trim($order['sellerId']));
                     $stmt1->bindParam(":subId", $prd_id);
 
                     $stmt1->bindParam(":quantity", $order["quantity"]);
@@ -175,7 +175,7 @@ SET  quantity=:quanity-$quantity,createdBy=:createdBy,createdOn=:createdOn";
             $stmt2->bindParam(":orderId", $orderId);
             $stmt2->bindParam(":paymentId", $paymentId);
             //$stmt2->bindParam(":sellerId", $sellerId);
-            $stmt2->bindParam(":sellerId", $order['sellerId']);
+            $stmt2->bindParam(":sellerId", trim($order['sellerId']));
 
             $stmt2->bindParam(":adminCommision", $adminCommision);
             $stmt2->bindParam(":deliveryAddress", $deliveryAddress);
