@@ -94,6 +94,7 @@ $resultOrder = json_decode($response_all);
                 <p><strong>Customer Email:</strong> <?php echo $_SESSION['email'] ?></p>
                 <p><strong>Seller:</strong> <?php echo $resultOrder->records[0]->sellerName."-". $resultOrder->records[0]->sellerId ?></p>
                 <p><strong>Status:</strong> <?php echo $resultOrder->records[0]->status; ?></p>
+                
             </div>
            </div>
         
@@ -104,8 +105,10 @@ $resultOrder = json_decode($response_all);
                         <th>Image</th>
                         <th>Quantity</th>
                         <th>Price</th>
+                        <th>Discount</th>
                         <th>SGST</th>
                         <th>CGST</th>
+                        <th>SubTotal</th>
                         <th>Total</th>
                     </tr>
                 </thead>
@@ -116,16 +119,24 @@ $resultOrder = json_decode($response_all);
                         <td> <img src="seller/productimages/<?php echo trim($resultOrder->records[$i]->productSkuId);?>/<?php echo trim($resultOrder->records[$i]->productSkuId); ?>1.png" class="img-fluid" alt="productimage" height="50" width="50"></td>
                         <td><?php echo $resultOrder->records[$i]->quantity; ?></td>
                         <td> &#8377;<?php echo number_format($resultOrder->records[$i]->price, 2); ?></td>
+                        <td>&#8377;<?php echo $resultOrder->records[$i]->price*$resultOrder->records[$i]->quantity*$resultOrder->records[$i]->discount*0.01 ?></td>
+                       
                         <td> &#8377;<?php echo number_format($resultOrder->records[$i]->sgst, 2); ?></td>
                         <td> &#8377;<?php echo number_format($resultOrder->records[$i]->cgst, 2); ?></td>
-                        <td> &#8377;<?php echo number_format($resultOrder->records[$i]->quantity * $resultOrder->records[$i]->price, 2); ?></td>
+                        <td> &#8377;<?php echo number_format($resultOrder->records[$i]->quantity * $resultOrder->records[$i]->price-($resultOrder->records[$i]->quantity * $resultOrder->records[$i]->price*$resultOrder->records[$i]->discount*0.01), 2); ?></td>
+                  
+                        <td> &#8377;<?php echo number_format($resultOrder->records[$i]->quantity * $resultOrder->records[$i]->price-($resultOrder->records[$i]->quantity * $resultOrder->records[$i]->price*$resultOrder->records[$i]->discount*0.01)+$resultOrder->records[$i]->sgst+$resultOrder->records[$i]->cgst, 2); ?></td>
                     </tr>
                     <?php } ?>
                 </tbody>
             </table>
             <div class="text-right">
-                <p class="font-weight-bold"><strong>Total:</strong> &#8377;<?php echo number_format( $resultOrder->records[0]->orderTotal, 2); ?></p>
-            </div>
+               
+                <p class="font-weight-bold"><strong>Sub Total:</strong> &#8377;<?php echo number_format( $resultOrder->records[0]->orderTotal, 2); ?></p>
+                <p class="font-weight-bold"><strong>Delivery Charges:</strong> &#8377;20</p>
+                <p class="font-weight-bold"><strong>Sub Total:</strong> &#8377;<?php echo number_format( $resultOrder->records[0]->orderTotal+20, 2); ?></p>
+             
+         </div>
             <br>
             <?php }?>
         </div>

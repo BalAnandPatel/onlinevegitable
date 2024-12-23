@@ -1,4 +1,5 @@
 <?php
+session_start();
 if (isset($_POST['pid']) && isset($_POST['condition']) && $_POST['condition'] == "add") {
   $pid = $_POST['pid'];
   $pname = $_POST['pname'];
@@ -51,11 +52,13 @@ function addUpdateItem($pid, $data)
 
     array_push($result, $data);
     setcookie('user_cart', json_encode($result), time() + (86400 * 30), "/"); // Cookie valid for 30 days
-    header('Location:shop.php');
+    $_SESSION['cart']=$_COOKIE['user_cart'];
+  
   } else {
     $cart = ($result == "Empty") ? [] : $result;
     $cart[] = $data;
     setcookie('user_cart', json_encode($cart), time() + (86400 * 30), "/"); // Cookie valid for 30 days
+    $_SESSION['cart']=$_COOKIE['user_cart'];
   }
 }
 
@@ -73,7 +76,7 @@ $newCart=array();
     }
     
     setcookie('user_cart', json_encode($newCart), time() + (86400 * 30), "/"); // Cookie valid for 30 days
-
+    $_SESSION['cart']=$_COOKIE['user_cart'];
   }
 
 

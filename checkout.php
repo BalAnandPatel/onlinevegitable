@@ -175,7 +175,7 @@ $totalprice = 0;
                       <td data-title="Subtotal">
                         <span class="price-amount amount ps-5">
                           <bdi>
-                            <span class="price-currency-symbol">&#8377;</span><?php echo number_format($subTotal,2) ?> </bdi>
+                            <span class="price-currency-symbol">&#8377;</span><?php echo floatval($subTotal) ?> </bdi>
                         </span>
                       </td>
                     </tr>
@@ -184,7 +184,8 @@ $totalprice = 0;
                       <td data-title="Total">
                         <span class="price-amount amount ps-5">
                           <bdi>
-                            <span class="price-currency-symbol">&#8377;</span><?php echo number_format(round(($tax = ($subTotal * $TAX) / 100)*2,2),2) ;?> </bdi>
+                           
+                            <span class="price-currency-symbol">&#8377;</span><?php echo $tax = floatval((($subTotal * $order['cgst']) / 100)+(($subTotal * $order['cgst'])/100) );?> </bdi>
                         </span>
                       </td>
                     </tr>
@@ -199,7 +200,7 @@ $totalprice = 0;
                           
                             $result = json_decode($_COOKIE['user_cart'], true);
                    
-                            echo  $order['shipping']!=""?number_format($order['shipping'],2):0 
+                            echo  $order['shipping']!=""?floatval($order['shipping']):0 
                             ?> </bdi>
                         </span>
                       </td>
@@ -210,7 +211,7 @@ $totalprice = 0;
                       <td data-title="Total">
                         <span class="price-amount amount ps-5">
                           <bdi>
-                            <span class="price-currency-symbol">&#8377;</span><?php echo number_format(round(($subTotal +(($subTotal * $TAX) / 100)*2)+$order['shipping'],2),2) ?> </bdi>
+                            <span class="price-currency-symbol">&#8377;</span><?php echo floatval(round(($subTotal +$tax +$order['shipping']),2)) ?> </bdi>
                        
                           </span>
                       </td>

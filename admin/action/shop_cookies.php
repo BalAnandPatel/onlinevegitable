@@ -43,12 +43,14 @@ $data = array(
 
   if ($result->validation) {
     setcookie('user_cart', json_encode($result->orders), time() + (86400 * 30), "/"); // Cookie valid for 30 days
-header('Location:../../shop.php');
+    $_SESSION['cart']=$_COOKIE['user_cart'];
+    header('Location:../../shop.php');
   } else {
 
     $cart[] = $data;
     setcookie('user_cart', json_encode($cart), time() + (86400 * 30), "/"); // Cookie valid for 30 days
-header('Location:../../shop.php');
+    $_SESSION['cart']=$_COOKIE['user_cart'];
+    header('Location:../../shop.php');
   }
 //   print_r($_COOKIE['user_cart']);
 //   $condition = $url_param_type != "" ? ("crid=" . $url_param_type) : ("spid=" . $url_sub_param_type);
@@ -111,6 +113,7 @@ $tax=number_format(($afterDis*$sgst*0.01)+($afterDis*$cgst*0.01));
       
       }
      // print_r($_COOKIE['user_cart']);
+     $_SESSION['cart']=$_COOKIE['user_cart'];
       header('Location:../../shop.php');
       
       

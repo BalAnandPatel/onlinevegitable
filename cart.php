@@ -7,6 +7,10 @@ if(!isset($_COOKIE['user_cart'])){
 
 json_decode($_COOKIE['user_cart']);
 
+$validPid=isset($_GET['pid'])?$_GET['pid']:"";
+
+$validMessage=isset($_GET['msg'])?$_GET['msg']:"";
+
 //session_start();
 $user = isset($_SESSION['email']) ? $_SESSION['email'] : 'Guest';
 include "constant.php";
@@ -20,7 +24,7 @@ $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
 $resultcart = json_decode($response);
 
 $totalprice = 0;
-$tax=0;
+$tax=0.0;
 ?>
 
 <body>
@@ -57,6 +61,7 @@ $tax=0;
     <script>
 
       $(document).ready(function () {
+        
         var subTotal = 0;
 
         var removeAttr = "";
@@ -66,9 +71,9 @@ $tax=0;
           var removeAttr = "#" + row[0].id;
           var productIdAttr1 = ".productId" + row[0].id;
           var productId1 = $(productIdAttr1).val();
-          alert(productId1);
+         
           $(removeAttr).remove();
-    
+ 
           $.ajax({
             url: 'admin/action/cat_cookies.php', // Calls the same script
             type: 'POST',
@@ -90,38 +95,7 @@ $tax=0;
           });
 
           var id = $(this).attr("id");
-        //   alert(id);
-        //   var productIdAttr = ".productId" + id;
-        //   var pnameAttr = ".pname" + id;
-        //   var qtyAttr = ".allQty" + id;
-        //   var priceAttr = "#hprice" + id;
-        //   var ItemPriceAttr = ".money" + id;
-
-        //   var discountAttr = "#discount" + id;
-        //   var sgstAttr = "#sgst" + id;
-        //   var cgstAttr = "#cgst" + id;
-        //   var sellerNameAttr = "sellerName" + id;
-        //   var shippingAttr = "shipping" + id;
-        //   var gst = 0;
-
-
-        //   var qty = $(qtyAttr).val();
-        //   var pname = $(pnameAttr).text();
-        //   var productId = $(productIdAttr).val();
-        //   var price = $(priceAttr).val();
-        //   var itemTotal = parseFloat(qty) * parseFloat(price);
-
-        //   var discount = $(discountAttr).val();;
-        //   var sgst = $(sgstAttr).val();;
-        //   var cgst = $(cgstAttr).val();;
-        //   var sellerName = $(sellerNameAttr).val();;
-        //   var shipping = $(shippingAttr).val();;
-
-        //   $(ItemPriceAttr).text(itemTotal);
-        //   var sgstAll = "#sgstAmt" + index;
-        //   var cgstAll = "#cgstAmt" + index;
-
-        //   var allTax = number_format($(sgstAll).text(),2) + number_format($(cgstAll).text(),2);
+    
 
           $('table > tbody  > tr').each(function (index, tr) {
             var ItemPriceAttr = ".money" + index;
@@ -137,7 +111,6 @@ $tax=0;
 
           });
           $(".subCartTotalPrice").text(parseFloat(subTotal));
-          // var tax = parseFloat(subTotal * parseFloat($(".sgst").text()) * 0.01).toFixed(2);
           var tax = 0;
           var total = (parseFloat(subTotal) + parseFloat(tax)).toFixed(2);
           $(".cartTotalPrice").text(parseFloat(total));
@@ -149,6 +122,7 @@ $tax=0;
 
 
         $("#cartList tr").click(function () {
+          //alert("**");
           var id = $(this).attr("id");
           var productIdAttr = ".productId" + id;
           var pnameAttr = ".pname" + id;
@@ -196,7 +170,7 @@ $tax=0;
 
 
           $('table > tbody  > tr').each(function (index, tr) {
-           //  alert("uuu"+index);
+             //alert("uuu"+index);
             var ItemPriceAttr = ".money" + index;
             var sgstAmtAttr = "#sgstAmt" + index;
             var cgstAmtAttr = "#cgstAmt" + index;
@@ -210,7 +184,6 @@ $tax=0;
               gst += parseFloat($(sgstAmtAttr).text()) + parseFloat($(cgstAmtAttr).text());
             }
 
-//alert("subtotal"+subtotal);
 
           });
 
@@ -285,7 +258,11 @@ $tax=0;
                   ?>
                   <tr id="<?php echo $customIndex ?>" class="highlight">
                     <input type="hidden" class="productId<?php echo $customIndex ?>" value="<?php echo $order['pid'] ?>">
+              
                     <td scope="row" class="py-4">
+                      <?php if($validPid!="" && ($order['pid']==$validPid)){ ?>
+                    <span style="color:red">You can add only <?php echo $validMessage ?> items . Please remove additional item </span>
+                    <?php } ?>
                       <div class="cart-info d-flex flex-wrap align-items-center mb-4">
                         <div class="col-lg-3">
                           <div class="card-image">
@@ -389,9 +366,12 @@ $tax=0;
                         </a>
                       </div>
                     </td>
+                    
                   </tr>
+                
+                 
                   <?php $totalprice = str_replace(",","",$order['itemTotal']) + $totalprice; ?>
-                  <?php $tax = $order['tax'] + $tax; ?>
+                  <?php $tax = floatval(floatval($order['tax']) + $tax); ?>
                   <?php $customIndex++;
                 } ?>
                 <!-- </form>  -->
@@ -433,7 +413,7 @@ $tax=0;
                       <span class="price-amount amount text-dark ps-5">
                         <bdi>
                           &#8377;<span class="cartTotalPrice"><?php echo number_format(
-                            ($totalprice + $tax),
+                            $totalprice + $tax,
                             2
                           ); ?></bdi>
                       </span>
