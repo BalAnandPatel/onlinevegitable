@@ -1,5 +1,5 @@
 <?php
-		 include('include/header.php');
+ include('include/header.php');
 
 include "../constant.php";
 $url = $URL . "category/readCategory.php";
@@ -45,7 +45,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-print_r($readOrderDetailsResponse);
+// print_r($readOrderDetailsResponse);
 $resultOrderDetails = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetails);
 ?>

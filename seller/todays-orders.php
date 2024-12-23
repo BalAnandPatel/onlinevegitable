@@ -31,7 +31,7 @@ if (strlen($_SESSION['id']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin| Pending Orders</title>
+		<title>Admin| Today Orders</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -85,6 +85,9 @@ if (strlen($_SESSION['id']) == 0) {
 												<th>Total Quantity</th>
 												<th>Total </th>
 												<th>Address</th>
+												<th>Payment Status</th>
+												<th>Payment Id</th>
+												<th>Status</th>
 												<th>Order Date</th>
 											</tr>
 
@@ -118,6 +121,9 @@ if (strlen($_SESSION['id']) == 0) {
 													<td><?php echo $result->records[$i]->totalQuantity ?></td>
 													<td><?php echo $result->records[$i]->total ?></td>
 													<td><?php echo $result->records[$i]->deliveryAddress ?></td>
+													<td><?php echo $result->records[$i]->paymentResponse ?></td>
+													<td><?php echo $result->records[$i]->paymentId ?></td>
+													<td><?php echo $result->records[$i]->status ?></td>
 													<td><?php echo $result->records[$i]->createdOn ?></td>
 													
 												</tr>
