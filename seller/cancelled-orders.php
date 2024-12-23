@@ -1,6 +1,7 @@
 <?php
+include('include/header.php');
 include('include/config.php');
-if (strlen($_SESSION['alogin']) == 0) {
+if (strlen($_SESSION['id']) == 0) {
 	header('location:index.php');
 } else {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
@@ -14,7 +15,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	<head>
 		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Admin| Cancelled Orders</title>
+		<title>Seller| Cancelled Orders</title>
 		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
 		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
 		<link type="text/css" href="css/theme.css" rel="stylesheet">
@@ -33,7 +34,6 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body>
-		<?php include('include/header.php'); ?>
 
 		<div class="wrapper">
 			<div class="container">

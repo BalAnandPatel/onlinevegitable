@@ -223,7 +223,7 @@ return $stmt;
 
 public function readSoldOrder()
 {
-    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE paymentResponse='PAID' AND status='ORDER PLACED'";
+    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='ORDER PLACED'";
     $stmt = $this->conn->prepare($query);
     // $stmt->bindParam(":orderId", $this->orderId);
     $stmt->execute();
@@ -235,7 +235,7 @@ public function readSoldOrder()
 public function readSoldOrderBySeller()
 {
 // Correcting the SQL query
-$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress, sellerId, createdOn, createdBy from  $this->orderdetails WHERE paymentResponse='PAID' AND status='ORDER PLACED' AND sellerId=:sellerId";
+$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity,total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='ORDER PLACED' AND sellerId=:sellerId";
 
 $stmt = $this->conn->prepare($query);
 
@@ -271,16 +271,14 @@ return $stmt;
 public function readSoldOrderByDateSeller()
 {
 // Correcting the SQL query
-$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE createdOn=:date AND sellerId=:sellerId";
+$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE sellerId=:sellerId";
 
 $stmt = $this->conn->prepare($query);
 
 // Sanitize sellerId input
-$this->date = htmlspecialchars(strip_tags($this->date));
 $this->sellerId = htmlspecialchars(strip_tags($this->sellerId));
 
 // Bind the parameter to the query
-$stmt->bindParam(":date", $this->date);
 $stmt->bindParam(":sellerId", $this->sellerId);
 
 // Execute the query

@@ -27,7 +27,6 @@ $db = $database->getConnection();
 $read_order_detail = new Orderdetail($db);
   
 $data = json_decode(file_get_contents("php://input")); 
-$read_order_detail->date = $data->date;
 $read_order_detail->sellerId = $data->sellerId;
 // $read_allusers->userId = $data->userId;
 
