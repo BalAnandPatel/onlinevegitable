@@ -75,7 +75,6 @@ if($num>0){
             "adminCommision"=>$adminCommision,
             "createdOn"=>$createdOn,
             "createdBy"=>$createdBy
-
         );
   
         array_push($read_order_detail_arr["records"], $read_order_detail_item);
