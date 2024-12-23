@@ -10,10 +10,13 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../../config/database.php';
-include_once '../../objects/order.php';
+include_once '../../objects/orderdetail.php';
 include_once '../../constant.php';
-
-
+require '../../php-jwt/src/JWT.php';
+require '../../php-jwt/src/ExpiredException.php';
+require '../../php-jwt/src/SignatureInvalidException.php';
+require '../../php-jwt/src/BeforeValidException.php';
+use \Firebase\JWT\JWT;
 
   
 // instantiate database and product object
@@ -21,10 +24,11 @@ $database = new Database();
 $db = $database->getConnection();
   
 // initialize object
-$read_order = new Order($db);
+$read_order_detail = new Orderdetail($db);
   
 $data = json_decode(file_get_contents("php://input"));
- $read_order->orderId = $data->orderId;
+ $read_order_detail->workingPincode = $data->workingPincode;
+ 
 // $read_allusers->status = $data->status;
 // $read_allusers->userId = $data->userId;
 
@@ -40,40 +44,45 @@ if($jwt){
 
          //$decoded = JWT::decode($jwt, $SECRET_KEY, array('HS256'));
 
-$stmt = $read_order->order_view();
+$stmt = $read_order_detail->readorderdetailsfordelivery();
 $num = $stmt->rowCount();
   
 // check if more than 0 record found
 if($num>0){
   
     // products array
-    $read_order_arr=array();
-    $read_order_arr["records"]=array();
+    $read_order_detail_arr=array();
+    $read_order_detail_arr["records"]=array();
 
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
      
         extract($row);
   
-        $read_order_item=array(
+        $read_order_detail_item=array(
 
             
             "userId"=>$userId,
-            "quantity"=>$quantity,
             "orderId"=>$orderId,
-            "productId"=>$productId,
+            "sellerId"=>$sellerId,
+            "deliveryId"=>$deliveryId,
+            "paymentId"=>$paymentId,
             "total"=>$total,
-            "name"=>$name,
+            "sgst"=>$sgst,
+            "cgst"=>$cgst,
+            "status"=>$status,
+            "verificationCode"=>$verificationCode,
+            "adminCommision"=>$adminCommision,
             "createdOn"=>$createdOn,
-            "productSkuId"=>$productSkuId
+            "createdBy"=>$createdBy
 
         );
   
-        array_push($read_order_arr["records"], $read_order_item);
+        array_push($read_order_detail_arr["records"], $read_order_detail_item);
     }
 
     // show products data in json format
-    echo json_encode($read_order_arr);
+    echo json_encode($read_order_detail_arr);
 
      // set response code - 200 OK
      http_response_code(200);
