@@ -119,9 +119,10 @@
 
   <!-- <?php include 'includes/products/category.php'; ?> -->
   <!-- <?php include 'includes/products/newly-arrived.php'; ?> -->
-  <?php include 'includes/products/trending.php'; ?>
-  <?php include 'includes/products/ads.php'; ?>
-  <?php include 'includes/products/best-selling.php'; ?>
+  <!-- <?php include 'includes/products/trending.php'; ?> -->
+      <?php include 'shop.php' ?>
+  <!-- <?php include 'includes/products/ads.php'; ?> -->
+  <!-- <?php include 'includes/products/best-selling.php'; ?> -->
   <!-- <?php include 'includes/newsletter.php'; ?> -->
   <!-- <?php include 'includes/products/popular.php'; ?> -->
   <!-- <?php include 'includes/products/latest.php'; ?> -->
