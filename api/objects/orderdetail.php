@@ -223,15 +223,7 @@ return $stmt;
 
 public function readSoldOrder()
 {
-    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity,paymentResponse, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='ORDER PLACED'";
-    $stmt = $this->conn->prepare($query);
-    // $stmt->bindParam(":orderId", $this->orderId);
-    $stmt->execute();
-    return $stmt;
-}
-public function readPending()
-{
-    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst,status,adminCommision, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='Pending'";
+    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='ORDER PLACED'";
     $stmt = $this->conn->prepare($query);
     // $stmt->bindParam(":orderId", $this->orderId);
     $stmt->execute();
@@ -261,15 +253,15 @@ return $stmt;
 public function readSoldOrderByDate()
 {
 // Correcting the SQL query
-$query = "Select id, orderId, userId, deliveryId, paymentId,status, cgst, sgst, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails";
+$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE createdOn=:date";
 
 $stmt = $this->conn->prepare($query);
 
 // Sanitize sellerId input
-//$this->date = htmlspecialchars(strip_tags($this->date));
+$this->date = htmlspecialchars(strip_tags($this->date));
 
 // Bind the parameter to the query
-//$stmt->bindParam(":date", $this->date);
+$stmt->bindParam(":date", $this->date);
 
 // Execute the query
 $stmt->execute();
@@ -279,7 +271,7 @@ return $stmt;
 public function readSoldOrderByDateSeller()
 {
 // Correcting the SQL query
-$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,paymentResponse,status, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE sellerId=:sellerId";
+$query = "Select id, orderId, userId, deliveryId,paymentResponse,status, paymentId, cgst, sgst, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE sellerId=:sellerId";
 
 $stmt = $this->conn->prepare($query);
 
@@ -295,38 +287,6 @@ $stmt->execute();
 return $stmt;
 }
 
-
-public function readRejected()
-{
-    if($this->sellerId==TRUE){
-// Correcting the SQL query
-$query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst,status, paymentResponse, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE sellerId=:sellerId AND status='Rejected'";
-
-$stmt = $this->conn->prepare($query);
-
-// Sanitize sellerId input
-$this->sellerId = htmlspecialchars(strip_tags($this->sellerId));
-
-// Bind the parameter to the query
-$stmt->bindParam(":sellerId", $this->sellerId);
-}else{
-    // Correcting the SQL query
-    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst,status, paymentResponse, deliveryAddress, totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='Rejected'";
-    
-    $stmt = $this->conn->prepare($query);
-    
-    // Sanitize sellerId input
-    //$this->sellerId = htmlspecialchars(strip_tags($this->sellerId));
-    
-    // Bind the parameter to the query
-    // $stmt->bindParam(":sellerId", $this->sellerId);
-
-}
-// Execute the query
-$stmt->execute();
-
-return $stmt;
-}
 
 
 
