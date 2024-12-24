@@ -17,12 +17,13 @@
   $readCurl = new CurlHome();
 
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-  //print_r($response_all);
+  // print_r($response_all);
   $resultOrder = json_decode($response_all); 
   ?>
 
   <style>
-    <style>.address-container {
+    <style>
+    .address-container {
       height: 150px;
       /* Adjust height as needed */
       overflow-y: scroll;
@@ -103,7 +104,7 @@
             <h5>Order Information</h5>
             <p><strong>Order ID:</strong> <?php echo $resultOrder->records[$i]->orderId ?></p>
             <p><strong>Status:</strong> <?php echo $resultOrder->records[$i]->status ;?></p>
-            <p><strong>Status:</strong> <?php echo $resultOrder->records[$i]->sellerId."-".$resultOrder->records[$i]->sellerName ;?></p>
+            <p><strong>Seller Name:</strong> <?php echo $resultOrder->records[$i]->sellerId."-".$resultOrder->records[$i]->sellerName ;?></p>
         </div>
         <div class="order-section">
             <h5>Customer Information</h5>
@@ -119,7 +120,7 @@
             <img src="https://via.placeholder.com/150" alt="Product Image" class="product-image">
             <p><strong>Product ID:</strong> <?php echo $resultOrder->records[$i]->productId;?></p>
             <p><strong>Product SKU:</strong> <?php echo $resultOrder->records[$i]->productSkuId;?></p>
-            <p><strong>Quantity:</strong> 1</p>
+            <p><strong>Quantity:</strong> <?php echo $resultOrder->records[$i]->quantity;?></p>
             <p><strong>Price:</strong> &#x20B9;<?php echo $resultOrder->records[$i]->price ;?></p>
         </div>
       </div>

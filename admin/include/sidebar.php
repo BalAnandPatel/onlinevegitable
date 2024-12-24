@@ -91,6 +91,7 @@
 			<li><a href="subcategory.php"><i class="menu-icon icon-tasks"></i>Sub Category </a></li>
 			<li><a href="soldproduct.php"><i class="menu-icon icon-tasks"></i>Sold Products</a></li>
 			<li><a href="paymenthistory.php"><i class="menu-icon icon-tasks"></i>Payment History</a></li>
+			<li><a href="managepromotion.php"><i class="menu-icon icon-tasks"></i>Chnage Promotion</a></li>
 			<li><a href="#"><i class="menu-icon icon-paste"></i>Insert Product </a></li>
 			<li><a href="manage-products.php"><i class="menu-icon icon-table"></i>Manage Products </a></li>
 			<li><a href="insert-delivery.php"><i class="menu-icon icon-paste"></i>Insert Delivery </a></li>
