@@ -28,7 +28,7 @@ isset($_SESSION['pay_page_reload']);
   <link rel="stylesheet" type="text/css" href="css/vendor.css">
   <link rel="stylesheet" type="text/css" href="style.css">
   
-
+  <!-- <link rel="icon" href="images/fav.png" type="image/png"> -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link

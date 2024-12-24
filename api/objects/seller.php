@@ -7,6 +7,7 @@ class Seller
     private $seller = "seller";
     private $selleraddress="selleraddress";
     private $sellerbankdetails="sellerbankdetails";
+    private $orderdetails="orderdetails";
     // private $table_payment = "payment";
 
     public function __construct($db)
@@ -27,6 +28,16 @@ class Seller
         $stmt->execute();
         return $stmt;
     }
+    // *****************************
+    public function readsellerdata()
+    {
+        $query = "Select a.sellerName,a.counterName,a.id,a.password,a.pan,a.gst,b.city,b.pincode,a.createdOn,b.address,a.aadhar,image,phoneNo,regFee,depositAmount,email,status from " . $this->seller .  " as a INNER JOIN " . $this->selleraddress . " as b ON b.sellerId=a.id JOIN " . $this->selleraddress . " as c ON c.sellerId=a.id";
+         $stmt = $this->conn->prepare($query);
+        // $stmt->bindParam(":userName", $this->userName); 
+        $stmt->execute();
+        return $stmt;
+    }
+    // *****************************
 
 
     

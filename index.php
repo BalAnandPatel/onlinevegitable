@@ -1,6 +1,15 @@
 <?php include 'includes/header.php'; ?>
 
 <body>
+<?php include "constant.php";
+include_once 'includes/curl_header_home.php';
+$url = $URL . "promotion/readAllPromotion.php";
+$data = array();
+$postdata = json_encode($data);
+
+$readCurl = new CurlHome();
+$response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
+$resultPromo = json_decode($response); ?>
 
   <?php include 'includes/svg.php' ?>
 
@@ -30,10 +39,10 @@
                   <div class="swiper-slide">
                     <div class="row banner-content p-5">
                       <div class="content-wrapper col-md-7">
-                        <div class="categories my-3">100% natural</div>
-                        <h3 class="display-4">Fresh Smoothie & Summer Juice</h3>
-                        <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Dignissim massa diam elementum.</p>
-                        <a href="shop.php"
+                        <div class="categories my-3"><?php echo $resultPromo->records[0]->tHeading ?></div>
+                        <h3 class="display-4"><?php echo ucwords(strtolower($resultPromo->records[0]->heading)) ?></h3>
+                        <p><?php echo ucwords(strtolower($resultPromo->records[0]->para)) ?></p>
+                        <a href="<?php echo strtolower($resultPromo->records[0]->link) ?>"
                           class="btn btn-outline-dark btn-lg text-uppercase fs-6 rounded-1 px-4 py-3 mt-3">Shop Now</a>
                       </div>
                       <div class="img-wrapper col-md-5">
@@ -83,9 +92,9 @@
               <div class="row banner-content p-5">
 
                 <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">20% off</div>
-                  <h3 class="banner-title">Fruits & Vegetables</h3>
-                  <a href="shop.php" class="d-flex align-items-center nav-link">Shop Collection <svg width="24"
+                  <div class="categories sale mb-3 pb-3"><?php echo $resultPromo->records[1]->tHeading ?></div>
+                  <h3 class="banner-title"><?php echo ucwords(strtolower($resultPromo->records[1]->heading));?></h3>
+                  <a href="<?php echo strtolower($resultPromo->records[1]->link) ?>" class="d-flex align-items-center nav-link">Shop Collection <svg width="24"
                       height="24">
                       <use xlink:href="#arrow-right"></use>
                     </svg></a>
@@ -99,9 +108,9 @@
               <div class="row banner-content p-5">
 
                 <div class="content-wrapper col-md-7">
-                  <div class="categories sale mb-3 pb-3">15% off</div>
-                  <h3 class="item-title">Baked Products</h3>
-                  <a href="#" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
+                  <div class="categories sale mb-3 pb-3"><?php echo $resultPromo->records[2]->tHeading ?></div>
+                  <h3 class="item-title"><?php echo ucwords(strtolower($resultPromo->records[2]->heading));?></h3>
+                  <a href="<?php echo strtolower($resultPromo->records[2]->link) ?>" class="d-flex align-items-center nav-link">Shop Collection <svg width="24" height="24">
                       <use xlink:href="#arrow-right"></use>
                     </svg></a>
                 </div>

@@ -158,14 +158,13 @@ quantity=:quantity,discount=:discount,subId=:subId, price=:price,total=:total,su
                     $stmt1->execute();
                     //print_r($stmt1);
                     // Commit the transaction
-// $pdo->commit()
-//echo "************************". $results[0]['quantity'];
-//echo "*************************";
- $quantity=($results[0]['quantity'])-($order["quantity"]);
- $queryUpdateItem = "UPDATE productskuid 
- SET  quantity=:quantity,createdBy=:createdBy,createdOn=:createdOn";
- $stmt22 = $pdo->prepare($queryUpdateItem);
- $stmt22->bindParam(":quantity", $quantity);
+
+// $pdo->commit();
+$quantity = $results[0]['quantity']-$order["quantity"];
+ $queryUpdateItem = "UPDATE  productskuid 
+SET  quantity=:quantity,createdBy=:createdBy,createdOn=:createdOn";
+  $stmt22 = $pdo->prepare($queryUpdateItem);
+ $stmt22->bindParam(":quantity", $quantity );
  $stmt22->bindParam(":createdBy", $userId);
  $stmt22->bindParam(":createdOn", $createdOn);
 
