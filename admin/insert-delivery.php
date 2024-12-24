@@ -71,7 +71,7 @@ $nextId=$result->records[0]->id;
 										</div>
 										</div>
 										<div class="control-group">
-											<label class="control-label" for="basicinput">phone No</label>
+											<label class="control-label" for="basicinput">Phone No</label>
 											<div class="controls">
 												<input type="text" name="phoneNo" placeholder="Phone No" class="span8 tip" required>
 										</div>

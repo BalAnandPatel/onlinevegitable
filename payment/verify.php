@@ -125,7 +125,8 @@ seller  as d ON a.sellerId=d.id JOIN categories as c ON a.categoriesId=c.id  whe
                     
                     $orderTotal = round(($orderTotal + $total + $sgstItem + $cgstItem), 2);
                     $totalQuantity = $totalQuantity + $order['quantity'];
-                    //echo $order['pSkuid'];
+                    //echo $order['quantity'];
+
 
                       $queryInsertItem = "INSERT INTO orderitem 
 SET      userId=:userId,orderId=:orderId,productId=:productId,productSkuId=:productSkuId,sellerName=:sellerName,sellerId=:sellerId,
@@ -153,10 +154,11 @@ quantity=:quantity,discount=:discount,subId=:subId, price=:price,total=:total,su
                     $stmt1->bindParam(":sgst", $sgstItem);
                     $stmt1->bindParam(":createdBy", $userId);
                     $stmt1->bindParam(":createdOn", $createdOn);
-
+                   
                     $stmt1->execute();
                     //print_r($stmt1);
                     // Commit the transaction
+
 // $pdo->commit();
 $quantity = $results[0]['quantity']-$order["quantity"];
  $queryUpdateItem = "UPDATE  productskuid 
