@@ -209,7 +209,6 @@ if($result_registration->message=="Successfull"){
        // echo "The file ". htmlspecialchars( basename( $_FILES["fileUploadThumb"]["name"])). " has been uploaded.";
         $_SESSION["registration"] = "File uploaded succesfully.";
         header('Location:../manage-deliveryBoy.php');
-        manage-deliveryBo y.php
       }
        else {
         //echo "Sorry, there was an error uploading your file.";
@@ -228,7 +227,7 @@ $client = curl_init($url);
 curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-//print_r($response);
+print_r($response);
 return $result = json_decode($response);
 
 }
