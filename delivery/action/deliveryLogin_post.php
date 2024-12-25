@@ -5,7 +5,7 @@ $id= $_POST["id"];
 $pwd= $_POST["password"];
 $url = $URL."deliveryBoy/deliveryByLogin.php";
 $data = array( "id" =>$id, "pwd" =>$pwd);
-//print_r($data);
+//  print_r($data);
 $postdata = json_encode($data);
 $client = curl_init($url);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
@@ -15,18 +15,20 @@ curl_setopt($client,CURLOPT_RETURNTRANSFER,true);
 $response = curl_exec($client);
 //$response->message;
 curl_close($client);
-//print_r($response);
+//  print_r($response);
 $result = (json_decode($response));
+//  print_r($result);
 $_SESSION["message"]=$result->message;
 if($result->message=="Successfull"){
 
  $_SESSION["JWT"]="123";
  $_SESSION["id"]=$id;
  $_SESSION["pass"]=$pwd;
- header('Location:../change-password.php');
+//  $_SESSION["workingPincode"]=$result->workingPincode;
+   header('Location:../change-password.php');
 } else
 {
- header('Location:../index.php?msg='.$result->message);
+  header('Location:../index.php?msg='.$result->message);
 }
 
 // function giplCurl($api,$postdata){

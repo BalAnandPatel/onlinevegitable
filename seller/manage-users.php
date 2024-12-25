@@ -1,14 +1,15 @@
 <?php
-//session_start();
+session_start();
 // $jwt="123";
 // $request_headers = [
 //   'Authorization:' . $jwt
 // ];
 include "../constant.php";
-$url = $URL . "user/read_user.php";
+$url = $URL . "user/read_user_seller.php";
 //$url="http://localhost/onlinesabjimandiapi/api/src/category/readCategory.php";
-$data = array();
-// //print_r($data);
+$sellerId = $_SESSION['id'];
+$data = array("sellerId"=>$sellerId);
+// print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();
 curl_setopt( $client, CURLOPT_URL,$url);
@@ -17,9 +18,9 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-//print_r($response);
+// print_r($response);
 $result = json_decode($response);
-//print_r($result);
+// print_r($result);
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -85,9 +86,9 @@ $result = json_decode($response);
 												<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
 													<td><?php echo $result->records[$i]->name;?></td>
-													<td><?php echo $result->records[$i]->phoneNo;?></td>
-													<td> <?php echo $result->records[$i]->password;?></td>
-													<td> <?php echo $result->records[$i]->password;?></td>
+													<td><?php echo $result->records[$i]->email;?></td>
+													<td> <?php echo 0;?></td>
+													<td> <?php echo $result->records[$i]->deliveryAddress;?></td>
 													<td><?php echo $result->records[$i]->createdOn;?></td>
 
 												<?php $cnt = $cnt + 1;

@@ -6,7 +6,25 @@ if (strlen($_SESSION['id']) == 0) {
 } else {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
-
+	include "../constant.php";
+	// $url = $URL . "orderdetails/readTodayOrderBySeller.php";
+	$url = $URL . "orderdetails/readOrderDetailsfordelivery.php";
+	$deliveryId = $_SESSION['id'];
+	print_r($_SESSION);
+	$date = date('Y-m-d');
+	$data = array("deliveryId"=>$deliveryId);
+	print_r($data);
+	$postdata = json_encode($data);
+	$client = curl_init();
+	curl_setopt( $client, CURLOPT_URL,$url);
+	//curl_setopt( $client, CURLOPT_HTTPHEADER,  $request_headers);
+	curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($client, CURLOPT_POST, 5);
+	curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
+	$response = curl_exec($client);
+	print_r($response);
+	$result = json_decode($response);
+	print_r($result);
 
 ?>
 	<!DOCTYPE html>

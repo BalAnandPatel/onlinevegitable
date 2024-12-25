@@ -9,9 +9,10 @@ if (strlen($_SESSION['alogin']) == 0) {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
 	include "../constant.php";
-	$url = $URL . "orderdetails/readTodayOrder.php";
+	$url = $URL . "orderdetails/readTodayOrderBySeller.php";
 	$date = date('Y-m-d');
-	$data = array();
+	$sellerId = $_POST['id'];
+	$data = array("sellerId"=>$sellerId);
 	// print_r($data);
 	$postdata = json_encode($data);
 	$client = curl_init();

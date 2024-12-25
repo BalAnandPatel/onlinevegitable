@@ -229,6 +229,14 @@ public function readSoldOrder()
     $stmt->execute();
     return $stmt;
 }
+public function readDeliveredOrder()
+{
+    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity,paymentResponse, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='Delivered'";
+    $stmt = $this->conn->prepare($query);
+    // $stmt->bindParam(":orderId", $this->orderId);
+    $stmt->execute();
+    return $stmt;
+}
 public function readPending()
 {
     $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst,status,adminCommision, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='Pending'";

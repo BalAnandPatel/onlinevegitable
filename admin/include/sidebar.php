@@ -12,7 +12,7 @@
 				</a>
 				<ul id="togglePages" class="collapse unstyled">
 					<li>
-						<a href="todays-orders.php">
+						<a href="todayOrder.php">
 							<i class="icon-tasks"></i>
 							Today's Orders
 							<?php

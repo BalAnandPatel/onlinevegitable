@@ -7,7 +7,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
 	include'../constant.php';
-	$urlreadOrderDetails = $URL . "orderdetails/readSoldOrder.php";
+	$urlreadOrderDetails = $URL . "orderdetails/readDeliveredOrder.php";
 	//$url="http://localhost/onlinesabjimandiapi/api/src/category/readCategory.php";
 	$data = array();
 	// //print_r($data);
@@ -103,6 +103,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 											// $query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no, address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge, orders.GSTN as gsthn, orders.orderStatus as orderstatus,orders.size as size, orders.color, orders.quantity as quantity,orders.paymentMethod as paymentMethod, orders.order_id as order_id, orders.orderDate as orderdate,products.productPrice as productprice,products.skuid as skuid,orders.GSTN as gstn,orders.id as id from orders join users on  orders.userId=users.id join address on users.id=address.user_id join products on products.id=orders.productId where orders.orderStatus='$st'");
 											$cnt = 1;
 											// while ($row = mysqli_fetch_array($query)) {
+											if(is_array($resultOrderDetails->records)){
 											for($i=0; $i<sizeof($resultOrderDetails->records); $i++){
 											?>
 											<tr>
@@ -120,7 +121,8 @@ if (strlen($_SESSION['alogin']) == 0) {
 												</tr>
 
 											<?php $cnt = $cnt + 1;
-											} ?>
+											} }
+											?>
 										</tbody>
 									</table>
 								</div>

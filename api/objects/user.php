@@ -6,14 +6,14 @@ class User
     private $conn;
     private $users = "users";
     private $address = "address";
-    // private $table_payment = "payment";
+    private $orderdetails = "orderdetails";
 
     public function __construct($db)
     {
         $this->conn = $db;
     }
 
-    public $id, $firstName, $lastName, $userName, $name, $email,$dateOfBirth, $contactno, $password, $phoneNo, $userMobile, $updationDate, $businessCategory, $categoryId, $userAddress, $alterMobile, $businessDay, $userWebsite, $businessName, $establishmentYear, $paymentMode, $businessTiming, $userServices, $aboutUser, $status, $remark, $createdOn, $createdBy,$wallImg, $updatedOn,$updatedBy,$lastLogin;
+    public $id, $firstName, $lastName, $userName, $name, $sellerId, $email,$dateOfBirth, $contactno, $password, $phoneNo, $userMobile, $updationDate, $businessCategory, $categoryId, $userAddress, $alterMobile, $businessDay, $userWebsite, $businessName, $establishmentYear, $paymentMode, $businessTiming, $userServices, $aboutUser, $status, $remark, $createdOn, $createdBy,$wallImg, $updatedOn,$updatedBy,$lastLogin;
 
     public $cuId, $cuName,$cuEmail,$userId, $cuAddress, $mobile, $requiredService;
     public function readUser()
@@ -63,7 +63,21 @@ class User
         return $stmt;
     }
 
+    // ******************************************************************
+    public function readAllUserSeller()
+    {
+       $query ="Select name,password,phoneNo,email,dateOfBirth,b.deliveryAddress,a.createdOn,a.createdBy,userName from $this->users as a INNER JOIN $this->orderdetails as b ON b.userId=a.email WHERE b.sellerId=:sellerId GROUP BY a.email ORDER BY 
+        b.id DESC;";
+         $stmt = $this->conn->prepare($query);
+        // $this->email = htmlspecialchars(strip_tags($this->email));
+         //$this->password = htmlspecialchars(strip_tags($this->password));
+         $stmt->bindParam(":sellerId", $this->sellerId);
+         //$stmt->bindParam(":password", $this->password); 
+        $stmt->execute();
+        return $stmt;
+    }
 
+// ************************************************************************************
 
     public function insertUser()
     {

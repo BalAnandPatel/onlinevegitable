@@ -41,7 +41,7 @@ if($jwt){
 // $read_allusers->status = $data->status;
 // $read_allusers->userId = $data->userId;
 
- //print_r($data);
+//  print_r($data);
 
  $stmt = $read_deliveryBody->readDeliveryBoyLogin();
  $num = $stmt->rowCount();
@@ -78,7 +78,7 @@ if($num>0){
             "image"=>$image,
             "createdOn"=>$createdOn,
             "updatedOn"=>$updatedOn,
-            "createdBy"=>$createdBy
+            "createdBy"=>$createdBy         
         );
   
         array_push($read_delivery_arr["records"], $read_delivery_item);
