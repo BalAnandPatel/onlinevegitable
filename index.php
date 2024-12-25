@@ -1,3 +1,48 @@
+
+<?php include 'includes/header.php'; ?>
+<style>
+        .containers, .main{
+            background-color: rgba(255, 157, 0, 0.7);
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%,-50%);
+            z-index: 999;
+            border-radius: 20px;
+        }
+        .main{
+            width: 100%;
+            height: 100vh;
+            background-color: rgba(231, 227, 222, 0.6);
+            border-radius: 0px;
+        }
+        #pform{
+            color: white;
+            height: 400px;
+            display: flex;
+            justify-content: center;
+            flex-direction: column;
+            padding: 20px;
+        }
+        input[name=pincode]{
+            margin: 20px 0px;
+            background: white;
+            color: orange;
+            padding: 10px;
+            font-weight: 800;
+        }
+        button{
+            background-color: green;
+            color: white;
+            padding: 10px;
+            font-weight: 800;
+        }
+        #show{
+          display: block;
+        }
+    </style>
+<body>
+<?php include "constant.php";
 <?php include 'includes/header.php';
 $pincode="8998855";
 setcookie("fanclub_articlesvisited", $pincode);
@@ -166,6 +211,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
     </div>
     <?php include 'includes/menu.php' ?>
   </header>
+<div class="main" id="show">
+    <div class="containers">
+        <form action="" id="pform">
+            <p>Enter Your Pincode to get best experience</p>
+            <label for="pincode">Enter Pincode</label>
+            <input type="text" name="pincode" placeholder="Enter Pincode" required id="pin">
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
+  <section class="py-3"
+    style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
 
   <section class="py-2 mb-4" style="background: url(images/background-pattern.jpg);">
     <div class="container-fluid">
@@ -496,5 +553,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
 
   <?php include 'includes/footer.php'; ?>
   <?php include 'includes/copyright.php'; ?>
-
+  <script>
+    let show = document.getElementById('show');
+    let pincode = true;
+    
+    window.addEventListener('load', ()=>{
+      if(!pincode){
+        show.style.display= "block";
+      }else{
+       show.style.display="none";
+      }
+    })
+  </script>
+    </body>
 </html>

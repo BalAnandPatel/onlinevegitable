@@ -171,7 +171,7 @@ $resultPayment = json_decode($response);
                                             <th>Name</th>
                                             <th>Counter Name</th>
                                             <th>Email</th>
-                                            <th>Total Payment</th>
+                                            <th>Total Order</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -186,7 +186,9 @@ $resultPayment = json_decode($response);
                                             <tr>
                                                 <td><?php echo htmlentities($cnt); ?></td>
                                                 <td><?php echo $resultPayment->records[$i]->id; ?></td>
-                                                <form action="paymentdetails.php" method="POST">
+                                                <form action="todays-orders.php" method="POST">
+                                                <form action="todays-orders.php" method="POST">
+                                                    <input type="hidden" name="id" value="<?php echo $resultPayment->records[$i]->sellerName?>">
                                                     <input type="hidden" name="id" value="<?php echo $resultPayment->records[$i]->id?>">
                                                 <td><button type="submit"><?php echo $resultPayment->records[$i]->sellerName; ?></button></td>
                                                 </form>
