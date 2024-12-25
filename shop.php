@@ -201,7 +201,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                 ?>
               </ul>
             </div> -->
-            <div class="widget-product-tags pt-3">
+            <!-- <div class="widget-product-tags pt-3">
               <h5 class="widget-title">Tags</h5>
               <ul class="product-tags sidebar-list list-unstyled">
                 <li class="tags-item">
@@ -217,7 +217,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                   <a href="#" class="nav-link">Modern</a>
                 </li>
               </ul>
-            </div>
+            </div> -->
             <!-- <div class="widget-product-brands pt-3">
               <h5 class="widget-title">Brands</h5>
               <ul class="product-tags sidebar-list list-unstyled">

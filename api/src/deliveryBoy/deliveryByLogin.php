@@ -10,7 +10,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 
 // include database and object files
 include_once '../../config/database.php';
-include_once '../../objects/DeliveryBoy.php';
+include_once '../../objects/deliveryBoy.php';
 include_once '../../constant.php';
 
 

@@ -9,7 +9,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 //database connection will be here
 
 // include database and object files
-include_once '../../config/database.php';
+include_once '../../config/database.php';   
 include_once '../../objects/orderdetail.php';
 include_once '../../constant.php';
 require '../../php-jwt/src/JWT.php';
