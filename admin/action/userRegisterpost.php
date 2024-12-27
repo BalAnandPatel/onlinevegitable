@@ -23,7 +23,7 @@ $data = array(
   "createdOn"=>$createdOn,
   "createdBy"=>$createdBy);
 
- //print_r($data);
+ print_r($data);
  $postdata = json_encode($data);
 //echo $url;
 //print_r($postdata);
@@ -59,12 +59,12 @@ $result_registration=url_encode_Decode($url,$postdata);
   /* --- get maximum userid -----*/
 
       $_SESSION["registration"] = $result_registration->message;
-        header('Location:../../account.php');
+        //header('Location:../../account.php');
     }
      
    
 else{
-   header('Location:../registration.php?msg=Failed');
+   //header('Location:../registration.php?msg=Failed');
 }
 function url_encode_Decode($url,$postdata){
     $client = curl_init($url);

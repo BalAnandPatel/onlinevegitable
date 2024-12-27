@@ -344,8 +344,7 @@ $resultProduct = json_decode($response_all);
     </div>
   </section>
 
-
-
+  
   <?php include 'includes/footer.php'; ?>
   <?php include 'includes/copyright.php'; ?>
 </body>
