@@ -9,7 +9,7 @@ header("Access-Control-Allow-Headers: Content-Type, Access-Control-Allow-Headers
 //database connection will be here
 
 // include database and object files
-include_once '../../config/database.php';   
+include_once '../../config/database.php';
 include_once '../../objects/orderdetail.php';
 include_once '../../constant.php';
 require '../../php-jwt/src/JWT.php';
@@ -26,14 +26,11 @@ $db = $database->getConnection();
 // initialize object
 $read_order_detail = new Orderdetail($db);
   
-$data = json_decode(file_get_contents("php://input"));
- $read_order_detail->workingPincode = $data->workingPincode;
-//  $read_order_detail->workingPincode = 222202;
- 
-// $read_allusers->status = $data->status;
+$data = json_decode(file_get_contents("php://input")); 
+$read_order_detail->workingPincode = $data->workingPincode;
 // $read_allusers->userId = $data->userId;
 
-// print_r($data);
+//print_r($data);
 
 $getHeaders = apache_request_headers();
 //print_r($getHeaders);
@@ -45,7 +42,7 @@ if($jwt){
 
          //$decoded = JWT::decode($jwt, $SECRET_KEY, array('HS256'));
 
-$stmt = $read_order_detail->readorderdetailsfordelivery();
+$stmt = $read_order_detail->readOrderForDelivery();
 $num = $stmt->rowCount();
   
 // check if more than 0 record found
@@ -62,20 +59,20 @@ if($num>0){
   
         $read_order_detail_item=array(
 
-            
-            "userId"=>$userId,
+            // a.id, orderId, userId, deliveryId, paymentId, deliveryAddress,paymentResponse, total, a.sellerId, a.createdOn, a.createdBy 
+            "id"=>$id,
             "orderId"=>$orderId,
-            "sellerId"=>$sellerId,
+            "userId"=>$userId,
             "deliveryId"=>$deliveryId,
             "paymentId"=>$paymentId,
+            "deliveryAddress"=>$deliveryAddress,
             "total"=>$total,
-            "sgst"=>$sgst,
-            "cgst"=>$cgst,
             "status"=>$status,
-            "verificationCode"=>$verificationCode,
-            "adminCommision"=>$adminCommision,
+            "paymentResponse"=>$paymentResponse,
+            "sellerId"=>$sellerId,
             "createdOn"=>$createdOn,
             "createdBy"=>$createdBy
+
         );
   
         array_push($read_order_detail_arr["records"], $read_order_detail_item);

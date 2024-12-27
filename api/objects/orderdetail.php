@@ -5,6 +5,7 @@ class Orderdetail
     private $orderdetails = "orderdetails";
     private $selleraddress = "selleraddress";
     private $users = "users";
+    private $deliveryboy = "deliveryboy";
      
     // private $table_payment = "payment";
 
@@ -267,6 +268,8 @@ $stmt->execute();
 
 return $stmt;
 }
+
+
 public function readSoldOrderByDate()
 {
 // Correcting the SQL query
@@ -285,6 +288,8 @@ $stmt->execute();
 
 return $stmt;
 }
+
+
 public function readSoldOrderByDateSeller()
 {
 // Correcting the SQL query
@@ -306,7 +311,14 @@ return $stmt;
 
 
 
-
+public function readOrderForDelivery()
+{
+    $query = "Select a.id, orderId, userId, deliveryId, paymentId,status, deliveryAddress,paymentResponse, total, a.sellerId, a.createdOn, a.createdBy from  $this->orderdetails as a INNER JOIN $this->selleraddress as b on a.sellerId=b.sellerId where b.pincode='222202'";
+    $stmt = $this->conn->prepare($query);
+    // $stmt->bindParam(":workingPincode", $this->workingPincode);
+    $stmt->execute();
+    return $stmt;
+}
 
     // ***************************
 
