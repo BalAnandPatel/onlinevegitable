@@ -38,12 +38,12 @@
             font-weight: 800;
         }
         #show{
-          display: block;
+          display: none;
         }
     </style>
 <body>
 <?php include "constant.php";
-<?php include 'includes/header.php';
+ include 'includes/header.php';
 $pincode="8998855";
 setcookie("fanclub_articlesvisited", $pincode);
 echo $_COOKIE['fanclub_articlesvisited']; 

@@ -1,10 +1,10 @@
 <?php
 include('include/header.php');
 include "../constant.php";
-$urlreadOrderDetails = $URL . "orderdetails/readOrderDetailsfordelivery.php";
+$urlreadOrderDetails = $URL . "orderdetails/readOrderForDelivery.php";
 $urlreadDelivery = $URL . "deliveryBoy/readDeliveryBoyId.php";
 $datadelivery = array("id"=>$_SESSION['id']);
-//print_r($datadelivery);
+// print_r($datadelivery);
 $postdatadelivery = json_encode($datadelivery);
 $clientdelivery = curl_init();
 curl_setopt( $clientdelivery, CURLOPT_URL,$urlreadDelivery);
@@ -15,7 +15,7 @@ curl_setopt($clientdelivery, CURLOPT_POSTFIELDS, $postdatadelivery);
 $read_deliveryResponse = curl_exec($clientdelivery);
 //print_r($read_deliveryResponse);
 $resultDelivery = json_decode($read_deliveryResponse);
-//print_r($resultDelivery);
+// print_r($resultDelivery);
 $pincode=$resultDelivery->records[0]->workingPincode;
 
 $data = array("workingPincode"=>$pincode);
@@ -28,7 +28,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
- //print_r($readOrderDetailsResponse);
+//  print_r($readOrderDetailsResponse);
 $resultOrderDetail = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetail);
 ?>
@@ -113,7 +113,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
 										<?php
                 // print_r($result);
 				$cnt=0;
-                print_r($result['records']);
+                // print_r($result['recosrds']);
                 for($i=0; $i<sizeof($resultOrderDetail->records);$i++)
                 { //print_r($result->records[$i]);
                 ?>	

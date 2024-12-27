@@ -1,12 +1,42 @@
 <?php
+include('include/header.php');
 include('include/config.php');
-if (strlen($_SESSION['alogin']) == 0) {
+if (strlen($_SESSION['id']) == 0) {
 	header('location:index.php');
 } else {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
-
-
+	include "../constant.php";
+	$urlreadOrderDetails = $URL . "orderdetails/readOrderForDelivery.php";
+	$urlreadDelivery = $URL . "deliveryBoy/readDeliveryBoyId.php";
+	$datadelivery = array("id"=>$_SESSION['id']);
+	// print_r($datadelivery);
+	$postdatadelivery = json_encode($datadelivery);
+	$clientdelivery = curl_init();
+	curl_setopt( $clientdelivery, CURLOPT_URL,$urlreadDelivery);
+	//curl_setopt( $client, CURLOPT_HTTPHEADER,  $request_headers);
+	curl_setopt($clientdelivery, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($clientdelivery, CURLOPT_POST, 5);
+	curl_setopt($clientdelivery, CURLOPT_POSTFIELDS, $postdatadelivery);
+	$read_deliveryResponse = curl_exec($clientdelivery);
+	//print_r($read_deliveryResponse);
+	$resultDelivery = json_decode($read_deliveryResponse);
+	// print_r($resultDelivery);
+	$pincode=$resultDelivery->records[0]->workingPincode;
+	
+	$data = array("workingPincode"=>$pincode);
+	//print_r($data);
+	$postdata = json_encode($data);
+	$client = curl_init();
+	curl_setopt( $client, CURLOPT_URL,$urlreadOrderDetails);
+	//curl_setopt( $client, CURLOPT_HTTPHEADER,  $request_headers);
+	curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
+	curl_setopt($client, CURLOPT_POST, 5);
+	curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
+	$readOrderDetailsResponse = curl_exec($client);
+	//  print_r($readOrderDetailsResponse);
+	$resultOrderDetail = json_decode($readOrderDetailsResponse);
+	//print_r($resultOrderDetail);
 ?>
 	<!DOCTYPE html>
 	<html lang="en">
@@ -33,7 +63,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	</head>
 
 	<body>
-		<?php include('include/header.php'); ?>
+		
 
 		<div class="wrapper">
 			<div class="container">
@@ -86,14 +116,15 @@ if (strlen($_SESSION['alogin']) == 0) {
 											<?php
 											$st = 'Delivered';
 											// $query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,products.productName as productname,products.shippingCharge as shippingcharge,orders.quantity as quantity,orders.orderDate as orderdate,products.productPrice as productprice,orders.id as id  from orders join users on  orders.userId=users.id join address on users.id=address.user_id join products on products.id=orders.productId where orders.orderStatus='$st'");
-											$query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no, address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge, orders.GSTN as gsthn, orders.orderStatus as orderstatus,orders.size as size, orders.color, orders.quantity as quantity,orders.paymentMethod as paymentMethod, orders.order_id as order_id, orders.orderDate as orderdate,products.productPrice as productprice,products.skuid as skuid,orders.GSTN as gstn,orders.id as id from orders join users on  orders.userId=users.id join address on users.id=address.user_id join products on products.id=orders.productId where orders.orderStatus='$st'");
+											// $query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no, address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge, orders.GSTN as gsthn, orders.orderStatus as orderstatus,orders.size as size, orders.color, orders.quantity as quantity,orders.paymentMethod as paymentMethod, orders.order_id as order_id, orders.orderDate as orderdate,products.productPrice as productprice,products.skuid as skuid,orders.GSTN as gstn,orders.id as id from orders join users on  orders.userId=users.id join address on users.id=address.user_id join products on products.id=orders.productId where orders.orderStatus='$st'");
 											$cnt = 1;
-											while ($row = mysqli_fetch_array($query)) {
+											for($i=0; $i<sizeof($resultOrderDetail->records); $i++){
+												// print_r($resultOrderDetail);
 											?>
 											<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
-													<td><?php echo htmlentities($row['order_id']); ?></td>
-													<td><?php echo htmlentities($row['username']); ?></td>
+													<td><?php echo $resultOrderDetail->records[$i]->orderId; ?></td>
+													<td><?php echo "heloo" ?></td>
 													<td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td>
 													<td><?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?><br><?php echo isset($row['mobile_no']) ? "Mobile no.- " . $row['mobile_no'] : ""; ?></td>
 													<td><?php echo htmlentities($row['billingaddress'] . "," . $row['billingcity'] . "," . $row['billingstate'] . "-" . $row['billingpincode']); ?> GSTN-<?php echo htmlentities($row['gstn']); ?></td>
