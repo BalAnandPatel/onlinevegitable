@@ -213,12 +213,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   </header>
 <div class="main" id="show">
     <div class="containers">
-        <form action="" id="pform">
+        <form action="#" id="pform" method="post">
             <p>Enter Your Pincode to get best experience</p>
             <label for="pincode">Enter Pincode</label>
             <input type="text" name="pincode" placeholder="Enter Pincode" required id="pin">
-            <button type="submit">Submit</button>
+            <button type="submit" name="submit" id="btn">Submit</button>
         </form>
+        <?php
+    if ($_SERVER["REQUEST_METHOD"] == "POST") {
+        $pincode = $_POST['pincode'];
+        $_SESSION['pincode'] = $pincode;
+        echo "<p>Form submitted successfully. Your Pincode is: " . $pincode . "</p>";
+    }
+    ?>
     </div>
 </div>
   <section class="py-3"
@@ -555,6 +562,50 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   <?php include 'includes/copyright.php'; ?>
   <script>
     let show = document.getElementById('show');
+    let input = document.getElementById('pin');
+    let btn = document.getElementById('btn');
+    let form = document.getElementById('pform');
+    btn.addEventListener('click', ()=>{
+      var pin = document.getElementById("pin").value;
+
+            // var form = document.createElement("form");
+            // form.method = "POST";  // POST method
+            // form.action = "";  // Submit to the same page (empty string means the current page)
+
+            // Create a hidden input to send the username value
+            var input = document.createElement("input");
+            input.type = "hidden";
+            input.name = "pincode";
+            input.value = pin;
+            form.appendChild(input);
+
+            // Append the form to the body and submit
+            document.body.appendChild(form);            
+            form.submit();
+      
+    })
+    // function setCookie(name, value, days) {
+    //         let expires = "";
+    //         if (days) {
+    //             const date = new Date();
+    //             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Days in milliseconds
+    //             expires = "; expires=" + date.toUTCString();
+    //         }
+    //         document.cookie = name + "=" + (value || "") + expires + "; path=/"; // Cookie is available for the entire site
+    //     }
+    //     // Event listener for form submission
+    //     function handleFormSubmit(event) {
+    //         event.preventDefault(); // Prevent form from submitting normally
+
+    //         // Get form data (example: we are using the input field with the name 'username')
+    //         const pincoode = document.getElementById('pin').value;
+
+    //         // Set a cookie with the username
+    //         setCookie('username', username, 1); // Cookie expires in 7 days
+
+    //         // Optionally, you can handle other actions (like redirecting, showing a message, etc.)
+    //         alert('Form submitted! Cookie set with username: ' + username);
+    //     }
     let pincode = true;
     
     window.addEventListener('load', ()=>{
