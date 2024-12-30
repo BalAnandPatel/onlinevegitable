@@ -7,8 +7,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	date_default_timezone_set('Asia/Kolkata'); // change according timezone
 	$currentTime = date('d-m-Y h:i:s A', time());
 	include'../constant.php';
-	$urlreadOrderDetails = $URL . "orderdetails/readDeliveredOrder.php";
-	//$url="http://localhost/onlinesabjimandiapi/api/src/category/readCategory.php";
+	echo $urlreadOrderDetails = $URL . "orderdetails/readDeliveredOrder.php";
 	$data = array();
 	// //print_r($data);
 	$postdata = json_encode($data);
@@ -19,7 +18,7 @@ if (strlen($_SESSION['alogin']) == 0) {
 	curl_setopt($client, CURLOPT_POST, 5);
 	curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 	$readOrderDetailsResponse = curl_exec($client);
-	// print_r($readOrderDetailsResponse);
+	print_r($readOrderDetailsResponse);
 	$resultOrderDetails = json_decode($readOrderDetailsResponse);
 	// print_r($resultOrderDetails);
 ?>
