@@ -232,7 +232,7 @@ public function readSoldOrder()
 }
 public function readDeliveredOrder()
 {
-    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity,paymentResponse, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='Delivered'";
+     $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity,paymentResponse, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='Order_Delivery_Successfully'";
     $stmt = $this->conn->prepare($query);
     // $stmt->bindParam(":orderId", $this->orderId);
     $stmt->execute();
@@ -241,7 +241,16 @@ public function readDeliveredOrder()
 public function readPending()
 {
   
-    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='ORDER PLACED'";
+    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst, deliveryAddress,totalQuantity,adminCommision,status, verificationCode, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='ORDER PLACED'";
+    $stmt = $this->conn->prepare($query);
+    // $stmt->bindParam(":orderId", $this->orderId);
+    $stmt->execute();
+    return $stmt;
+}
+public function readRejected()
+{
+  
+    $query = "Select id, orderId, userId, deliveryId, paymentId, cgst, sgst,paymentResponse,status, deliveryAddress,totalQuantity, total, sellerId, createdOn, createdBy from  $this->orderdetails WHERE status='rejected' ORDER BY id desc";
     $stmt = $this->conn->prepare($query);
     // $stmt->bindParam(":orderId", $this->orderId);
     $stmt->execute();
@@ -313,9 +322,9 @@ return $stmt;
 
 public function readOrderForDelivery()
 {
-    $query = "Select a.id, orderId, userId, deliveryId, paymentId,status, deliveryAddress,paymentResponse, total, a.sellerId, a.createdOn, a.createdBy from  $this->orderdetails as a INNER JOIN $this->selleraddress as b on a.sellerId=b.sellerId where b.pincode='222202'";
+    $query = "Select a.id, orderId, userId, deliveryId, paymentId,status, deliveryAddress,paymentResponse, total, a.sellerId, a.createdOn, a.createdBy from  $this->orderdetails as a INNER JOIN $this->selleraddress as b on a.sellerId=b.sellerId where b.pincode=:workingPincode";
     $stmt = $this->conn->prepare($query);
-    // $stmt->bindParam(":workingPincode", $this->workingPincode);
+    $stmt->bindParam(":workingPincode", $this->workingPincode);
     $stmt->execute();
     return $stmt;
 }

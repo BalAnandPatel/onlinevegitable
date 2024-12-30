@@ -94,16 +94,15 @@ if (strlen($_SESSION['id']) == 0) {
 												<tr>
 												<th>#</th>
 												<th>Order_id</th>
-												<th> Name</th>
-												<th width="50">Email /Contact no</th>
+												<th>User Id</th>
+												<th width="50">Seller Id</th>
 												<th>Shipping Address</th>
-												<th>Billing Address</th>
-												<th>Product </th>
-												<th>Qty</th>
-												<th>Amount </th>
+												<th>Total Amount</th>
+												<th>PamentId </th>
+												<th>Payment Response</th>
+												
 												<th>Order Date</th>
-												<th>Payment Status/Method</th>
-												<th>Action</th>
+												
 
 
 											</tr>
@@ -124,16 +123,13 @@ if (strlen($_SESSION['id']) == 0) {
 											<tr>
 													<td><?php echo htmlentities($cnt); ?></td>
 													<td><?php echo $resultOrderDetail->records[$i]->orderId; ?></td>
-													<td><?php echo "heloo" ?></td>
-													<td><?php echo htmlentities($row['useremail']); ?>/<?php echo htmlentities($row['usercontact']); ?></td>
-													<td><?php echo htmlentities($row['shippingaddress'] . "," . $row['shippingcity'] . "," . $row['shippingstate'] . "-" . $row['shippingpincode']); ?><br><?php echo isset($row['mobile_no']) ? "Mobile no.- " . $row['mobile_no'] : ""; ?></td>
-													<td><?php echo htmlentities($row['billingaddress'] . "," . $row['billingcity'] . "," . $row['billingstate'] . "-" . $row['billingpincode']); ?> GSTN-<?php echo htmlentities($row['gstn']); ?></td>
-													<td><?php echo htmlentities($row['productname']); ?> <br> Color-<?php echo htmlentities($row['color']); ?> Size-<?php echo htmlentities($row['size']); ?> SKUID-<?php echo htmlentities($row['skuid']); ?> </td>
-													<td><?php echo htmlentities($row['quantity']); ?></td>
-													<td><?php echo htmlentities($row['quantity'] * $row['productprice'] + $row['shippingcharge']); ?></td>
-													<td><?php echo htmlentities($row['orderdate']); ?></td>
-													<td><?php echo htmlentities($row['paymentMethod']); ?></td>
-													<td> <a href="updateorder.php?oid=<?php echo htmlentities($row['id']); ?>" title="Update order" target="_blank"><i class="icon-edit"></i></a>
+													<td><?php echo $resultOrderDetail->records[$i]->userId; ?></td>
+													<td><?php echo $resultOrderDetail->records[$i]->sellerId; ?></td>
+													<td><?php echo $resultOrderDetail->records[$i]->deliveryAddress; ?></td>
+													<td><?php echo $resultOrderDetail->records[$i]->total; ?> </td>
+													<td><?php echo $resultOrderDetail->records[$i]->paymentId; ?></td>
+													<td><?php echo $resultOrderDetail->records[$i]->paymentResponse; ?></td>
+													<td><?php echo $resultOrderDetail->records[$i]->createdOn; ?></td>
 													</td>
 												</tr>
 
