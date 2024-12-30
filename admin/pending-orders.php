@@ -13,7 +13,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-//print_r($readOrderDetailsResponse);
+// print_r($readOrderDetailsResponse);
 $resultOrderDetails = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetails);
 ?>
@@ -131,7 +131,7 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 				$cnt=0;
                 // print_r($result['records']);
                 for($i=0; $i<sizeof($resultOrderDetails->records);$i++)
-                { //print_r($result->records[$i]);
+                { 	// print_r($resultOrderDetails->records[$i]);
                 ?>	
 												<tr>
 												<td><?php echo htmlentities($cnt); ?></td>
@@ -148,7 +148,7 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 												<td><?php echo $resultOrderDetails->records[$i]->cgst;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->verificationCode;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->status;?></td>
-												<td><?php echo $resultOrderDetails->records[$i]->totalCommision;?></td>
+												<td><?php echo $resultOrderDetails->records[$i]->adminCommision;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->createdOn;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->createdBy;?></td>
 												<td>

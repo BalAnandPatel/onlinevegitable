@@ -30,7 +30,7 @@ $data = json_decode(file_get_contents("php://input"));
 // $read_allusers->status = $data->status;
 // $read_allusers->userId = $data->userId;
 
-//print_r($data);
+// print_r($data);
 
 $getHeaders = apache_request_headers();
 //print_r($getHeaders);
@@ -44,7 +44,7 @@ if($jwt){
 
 $stmt = $read_order_detail->readDeliveredOrder();
 $num = $stmt->rowCount();
-  
+//   print_r($stmt);
 // check if more than 0 record found
 if($num>0){
   
