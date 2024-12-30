@@ -555,7 +555,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   <?php include 'includes/copyright.php'; ?>
   <script>
     let show = document.getElementById('show');
-    let pincode = true;
+    let pincode = false;
     
     window.addEventListener('load', ()=>{
       if(!pincode){
