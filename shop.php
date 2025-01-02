@@ -1,7 +1,10 @@
 <?php include 'includes/header.php';
 
 //setcookie('user_cart', '', time() - 3600, "/");
-   //print_r($_COOKIE['user_cart']);
+   $pincode=222202;
+        setcookie("pin", $pincode, time() + 3600);
+   
+  
   include 'constant.php';
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
@@ -14,12 +17,12 @@
 
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   // echo "--sort";
-  // print_r($response_all);
+  //print_r($response_all);
   $resultProduct = json_decode($response_all);
   $resultcat = json_decode($response_cat);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $data = array("crid" => "","spid"=>"","pid"=>"","filter"=>"","pageSize"=>"","sort"=>"","extra"=>$_POST['search']);
   $postdata = json_encode($data);
   //print_r($postdata);
@@ -44,16 +47,17 @@ $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 include "constant.php";
 include_once 'includes/curl_header_home.php';
 
-$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "extra" => "");
+$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize,  "pincode" => $pincode, "sort" => "", "extra" => "");
 $postdata = json_encode($data);
 // echo "**********". $_POST["sorting"];
- //print_r($data);
+//print_r($data);
 $url_all = $URL . "product/readProductById.php";
 $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
 
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
 $response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
+//print_r($response_all);
  
 $resultcat = json_decode($response_cat);
 $resultProduct = json_decode($response_all);
