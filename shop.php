@@ -323,7 +323,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                         class="rating"><svg width="24" height="24" class="text-primary">
                           <use xlink:href="#star-solid"></use>
                         </svg> <?php echo $resultProduct->records[$i]->rating; ?></span>
-                      <h6>Seller: <?php echo $resultProduct->records[$i]->sellerName; ?></h6>
+                      <!-- <h6>Seller: <?php // echo $resultProduct->records[$i]->sellerName; ?></h6> -->
                       <span class="price">Price: &#8377;<?php echo $resultProduct->records[$i]->price; ?></span>
                       <input type="hidden" name="pname" style="display:none;"
                         value="<?php echo $resultProduct->records[$i]->productName; ?>" />

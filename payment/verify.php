@@ -155,6 +155,7 @@ quantity=:quantity,discount=:discount,subId=:subId, price=:price,total=:total,su
                     $stmt1->bindParam(":createdBy", $userId);
                     $stmt1->bindParam(":createdOn", $createdOn);
                    
+                    print_r($order);
                     $stmt1->execute();
                     //print_r($stmt1);
                     // Commit the transaction
@@ -167,7 +168,7 @@ SET  quantity=:quantity,createdBy=:createdBy,createdOn=:createdOn where productI
  $stmt22->bindParam(":quantity", $quantity );
  $stmt22->bindParam(":createdBy", $userId);
  $stmt22->bindParam(":createdOn", $createdOn);
- $stmt22->bindParam(":productId", $productId);
+ $stmt22->bindParam(":productId", $order['pid']);
 
  $stmt22->execute();
 
@@ -218,7 +219,7 @@ SET  quantity=:quantity,createdBy=:createdBy,createdOn=:createdOn where productI
     } catch (SignatureVerificationError $e) {
         $success = false;
         $error = 'Razorpay Error : ' . $e->getMessage();
-        header('Location:../shop.php');
+       header('Location:../shop.php');
     }
 }
 
@@ -379,7 +380,7 @@ else{
 
            
     }
-    //echo "$abc";
+    // echo "$abc"yourform;
     setcookie('user_cart', '', time() - 3600, "/");
     echo '
     <form action="../receipt.php" id="yourform" method="POST">

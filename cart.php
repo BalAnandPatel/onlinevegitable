@@ -279,9 +279,9 @@ $tax=0.0;
                             <small>&#8377; <?php echo $order['price'] ?></small><br>
                             <small><b>Discount :</b> <?php echo $order['discount'] != "" ? $order['discount'] : 0 ?>
                               %</small><br>
-                            <small><b>Seller Name :</b>
-                              <?php echo $order['sellerName'] != "" ? $order['sellerName'] : "" ?>
-                            </small><br>
+                            <!-- <small><b>Seller Name :</b>
+                              <?php // echo $order['sellerName'] != "" ? $order['sellerName'] : "" ?>
+                            </small><br> -->
                             <small><b>SGST:</b> <?php echo $order['sgst'] != "" ? $order['sgst'] : 0 ?> %</small> &
                             <small>CGST: <?php echo $order['cgst'] != "" ? $order['cgst'] : 0 ?> %</small><br>
 
