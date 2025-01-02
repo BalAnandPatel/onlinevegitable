@@ -21,8 +21,8 @@ include 'includes/header.php';
 include "constant.php";
 include_once 'includes/curl_header_home.php';
 
-$data = array("crid" => "", "spid" => "",
-"pincode" => "", "pid" => $_GET['id'], "filter" => "", "pageSize" => "", "sort" => "","extra"=>"");
+
+$data = array("crid" => "", "spid" => "","pincode"=>"", "pid" => $_GET['id'], "filter" => "", "pageSize" => "", "sort" => "","extra"=>"");
 
 $postdata = json_encode($data);
 //print_r($postdata);
@@ -117,7 +117,7 @@ $resultProduct = json_decode($response_all);
         <a class="breadcrumb-item" href="#">Home</a>
         <a class="breadcrumb-item" href="#">Pages</a>
         <span class="breadcrumb-item active" aria-current="page">
-          <?php echo $resultProduct->records[0]->sellerName ?></span>
+          <?php //echo $resultProduct->records[0]->sellerName ?></span>
       </nav>
       <div class="row g-5">
         <div class="col-lg-7">
@@ -218,7 +218,7 @@ $resultProduct = json_decode($response_all);
               </div>
               <div class="meta-item d-flex align-items-baseline">
               
-                <h6>Seller: <?php echo $resultProduct->records[0]->sellerName; ?></h6>
+                <!-- <h6>Seller: <?php //echo $resultProduct->records[0]->sellerName; ?></h6> -->
               </div>
            
             <p><?php echo $resultProduct->records[0]->description ?></p>
