@@ -3,7 +3,7 @@
 //setcookie('user_cart', '', time() - 3600, "/");
    $pincode=222202;
         setcookie("pin", $pincode, time() + 3600);
-   
+        echo $_COOKIE['pin'];
   
   include 'constant.php';
   include 'includes/curl_header_home.php';

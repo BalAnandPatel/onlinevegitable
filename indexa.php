@@ -1,5 +1,4 @@
 <?php include 'includes/header.php'; ?>
-
 <body>
 <?php include "constant.php";
 include_once 'includes/curl_header_home.php';
