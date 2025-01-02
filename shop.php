@@ -1,8 +1,10 @@
 <?php include 'includes/header.php';
 
 //setcookie('user_cart', '', time() - 3600, "/");
-   $pincode=222202;
-        setcookie("pin", $pincode, time() + 3600);
+  //  $pincode=222202;
+  $pincode =  $_POST['pincode'];
+  // setcookie("pincode", "", time() - 30, "/");
+        setcookie("pin", $pincode, time() + 30);
    
   
   include 'constant.php';
