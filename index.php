@@ -213,19 +213,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   </header>
 <div class="main" id="show">
     <div class="containers">
-        <form action="#" id="pform" method="post">
+        <form action="shop.php" id="pform" method="post">
             <p>Enter Your Pincode to get best experience</p>
             <label for="pincode">Enter Pincode</label>
             <input type="text" name="pincode" placeholder="Enter Pincode" required id="pin">
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
-        <?php
-    if ($_SERVER["REQUEST_METHOD"] == "POST") {
-        $pincode = $_POST['pincode'];
-        $_SESSION['pincode'] = $pincode;
-        echo "<p>Form submitted successfully. Your Pincode is: " . $pincode . "</p>";
-    }
-    ?>
     </div>
 </div>
   <section class="py-3"
@@ -584,29 +577,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
             form.submit();
       
     })
-    // function setCookie(name, value, days) {
-    //         let expires = "";
-    //         if (days) {
-    //             const date = new Date();
-    //             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000)); // Days in milliseconds
-    //             expires = "; expires=" + date.toUTCString();
-    //         }
-    //         document.cookie = name + "=" + (value || "") + expires + "; path=/"; // Cookie is available for the entire site
-    //     }
-    //     // Event listener for form submission
-    //     function handleFormSubmit(event) {
-    //         event.preventDefault(); // Prevent form from submitting normally
-
-    //         // Get form data (example: we are using the input field with the name 'username')
-    //         const pincoode = document.getElementById('pin').value;
-
-    //         // Set a cookie with the username
-    //         setCookie('username', username, 1); // Cookie expires in 7 days
-
-    //         // Optionally, you can handle other actions (like redirecting, showing a message, etc.)
-    //         alert('Form submitted! Cookie set with username: ' + username);
-    //     }
-    let pincode = true;    
+    let pincode = false;    
     window.addEventListener('load', ()=>{
       if(!pincode){
         show.style.display= "block";
@@ -614,6 +585,30 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
        show.style.display="none";
       }
     })
+    console.log(document.cookie);
+    function getCookie(name) {
+    let cookieArr = document.cookie.split(";");
+    for (let i = 0; i < cookieArr.length; i++) {
+        let cookie = cookieArr[i].trim();  // Trim any leading whitespace
+        if (cookie.startsWith(name + "=")) {
+            return cookie.substring(name.length + 1);  // Return the cookie value
+        }
+    }
+    return null;  // Return null if cookie is not found
+}
+function checkPinInCookie() {
+    let pin = getCookie("pin");  // Get pin cookie value
+
+    if (pin) {  // Check if pin cookie exists
+      console.log("freg ", pin);
+      
+        pincode = true;
+    } else {
+       pincode = false;
+    }
+}
+checkPinInCookie();
+    
   </script>
     </body>
 </html>
