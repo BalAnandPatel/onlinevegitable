@@ -5,8 +5,8 @@
   <?php
 
 include 'includes/header.php';
-   echo htmlentities($_COOKIE['fanclub_articlesvisited'], ENT_QUOTES, 'UTF-8'); 
-   unset($_COOKIE['fanclub_articlesvisited']);
+  //  echo htmlentities($_COOKIE['fanclub_articlesvisited'], ENT_QUOTES, 'UTF-8'); 
+  //  unset($_COOKIE['fanclub_articlesvisited']);
   
    if (isset($_COOKIE['pin'])) {
     echo $_COOKIE['pin'];
@@ -20,6 +20,7 @@ include 'includes/header.php';
 <?php
 include "constant.php";
 include_once 'includes/curl_header_home.php';
+
 
 $data = array("crid" => "", "spid" => "","pincode"=>"", "pid" => $_GET['id'], "filter" => "", "pageSize" => "", "sort" => "","extra"=>"");
 

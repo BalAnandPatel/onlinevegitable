@@ -7,7 +7,7 @@ error_reporting(E_ALL);
 isset($_SESSION['pay_page_reload']);
 // $decode = $_SESSION['decoded'];
 // $currentTime=time();
-// if($decoded->exp>$currentTime){
+// if($decoded->exp>$currentTime){s
 //   unset($_SESSION['email']);
 // }
 ?>
