@@ -8,6 +8,7 @@ class Product
     private $categories = "categories";
     private $productskuid = "productskuid";
     private $cart = "cart";
+    private $selleraddress = "selleraddress";
     private $producthistory = "producthistory";
 
     private $wall_upload_history = "wall_upload_history";
@@ -20,7 +21,7 @@ class Product
 
     public $id,$status, $pid, $name, $productId, $description, $price, $quantity, $discount, $userId, $minVal,$maxVal,$sgst,$cgst,
     $image,$mainImage, $skuId, $papular, $trending, $arrival, $bestselling, $categoriesId, $createdOn,$createdBy,$filter, $extra,
-    $updatedOn,$subCategoryId, $summary, $sellerId, $shippingCharge, $updatedBy, $productType, $subCat, $sort, $catId, $pageSize;
+    $updatedOn,$subCategoryId, $summary, $sellerId, $shippingCharge, $updatedBy, $productType, $subCat, $sort, $pincode,$catId, $pageSize;
 
 
     public function readProductById()
@@ -42,13 +43,13 @@ class Product
                 $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where  a.id=:pid ";
         } 
         else if ($this->pid == "" && $this->catId != "" && $this->filter != "" && $this->extra == ""  && $this->pageSize == "") {
-            $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
+             $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
                 a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
                  INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
                 $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where  a.id=:pid ";
         } 
         else if ($this->pid == "" && $this->subCat != "" && $this->filter != "" && $this->extra == ""  && $this->pageSize == "") {
-            $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
+             $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
                 a.sellerId,d.sellerName,a.skuId,a.price ,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
                  INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
                 $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where  a.subCategoryId=:sid ";
@@ -64,15 +65,36 @@ class Product
                a.sellerId,d.sellerName,a.skuId,a.price ,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
                 INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
                $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where a.name LIKE :search ";
-       }        
-         else {
-            $query = "Select a.name ,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
-                    a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
-                      INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid
-                      JOIN   $this->seller  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id";
+       }    
+
+         else if($this->pincode!=="")
+          {
+            //$this->pincode;
+             $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
+            a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
+             INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
+                    $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id  JOIN ". $this->selleraddress . " f ON f.sellerId=d.id where f.pincode=:pincode";
+            
+       }
+        else{
+            //   echo $this->pincode;
+             $query = "Select a.name ,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
+            a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
+              INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid
+              JOIN   $this->seller  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id";
+
         }
 
+        
+        
+        
+      
 
+
+        // $stmt = $this->conn->prepare($query);
+
+        // $stmt->bindParam(":pincode", $this->pincode);
+        // print_r($stmt);
         if ($this->sort != "") {
          
             $query .= " ORDER BY a." . str_replace("_"," ",$this->sort);
@@ -80,7 +102,7 @@ class Product
 
 
         $stmt = $this->conn->prepare($query);
-
+        
         if ($this->catId != "" && $this->pid == null && $this->filter == "" && $this->extra == "") {
             $stmt->bindParam(":catId", $this->catId);
         } else if ($this->subCat != "") {
@@ -91,6 +113,7 @@ class Product
             $this->pid = htmlspecialchars(strip_tags(trim($this->pid)));
 
             $stmt->bindParam(":pid", $this->pid);
+            
 
         }
         else if ($this->extra != "") {
@@ -104,40 +127,13 @@ $searchTerm =  '%' . $this->extra . '%';;
             $stmt->bindParam(":minVal", $this->minVal,PDO::PARAM_INT);  
             $stmt->bindParam(":maxVal", $this->maxVal,PDO::PARAM_INT);  
         }
-    
-     
-        // } else if ($this->catId != "" && $this->sort != "") {
-        //     $stmt->bindParam(":catId", $this->pid);
-        // }
-        // else if ($this->subCat != "" && $this->sort != "") {
-        //     $stmt->bindParam(":pid", $this->pid);
-        // }
-        // else if ($this->sort != "" && $this->catId == "" && $this->subCat == "") {
-        //     $stmt->bindParam(":sort", $this->sort);
-        // }
-        // if ($this->pid != "" && $this->catId != "") {
+        else if($this->pincode!==""){
+            $stmt->bindParam(":pincode", $this->pincode);
+            //$stmt->bindParam(":catId", $this->catId);
+        }
 
-        //     $this->pid = htmlspecialchars(strip_tags(trim($this->pid)));
-        //     $this->catId = htmlspecialchars(strip_tags(trim($this->catId)));
-
-        //     $stmt->bindParam(":catId", $this->catId);
-        //     $stmt->bindParam(":pid", $this->pid);
-
-
-        // } else if ($this->pid != "") {
-
-        //     $this->pid = htmlspecialchars(strip_tags(trim($this->pid)));
-
-        //     $stmt->bindParam(":pid", $this->pid);
-
-
-        // } else if ($this->subCat != "") {
-
-        //     $stmt->bindParam(":sid", $this->subCat);
-        // } else if ($this->filter != "") {
-        //     $res=  '%' . $this->filter . '%';
-        //     $stmt->bindParam(":filter", $res);
-        // }
+       
+       
         $stmt->execute();
         return $stmt;
 
