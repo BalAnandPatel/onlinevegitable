@@ -92,7 +92,7 @@ $resultOrder = json_decode($response_all);
                 <p><strong>Date:</strong> <?php echo $resultOrder->records[0]->createdOn; ?></p>
                 <p><strong>Customer Name:<?php echo $_SESSION["name"]?></strong> </p>
                 <p><strong>Customer Email:</strong> <?php echo $_SESSION['email'] ?></p>
-                <p><strong>Seller:</strong> <?php echo $resultOrder->records[0]->sellerName."-". $resultOrder->records[0]->sellerId ?></p>
+                <!-- <p><strong>Seller:</strong> <?php // echo $resultOrder->records[0]->sellerName."-". $resultOrder->records[0]->sellerId ?></p> -->
                 <p><strong>Status:</strong> <?php echo $resultOrder->records[0]->status; ?></p>
                 
             </div>
