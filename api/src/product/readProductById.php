@@ -27,6 +27,7 @@ $read_product = new Product($db);
 $data = json_decode(json: file_get_contents("php://input"));
 $read_product->catId = $data->crid;
 $read_product->pid = $data->pid;
+$read_product->pincode = $data->pincode;
 $read_product->subCat = $data->spid;
 $read_product->sort = $data->sort;
 $read_product->pageSize = $data->pageSize;

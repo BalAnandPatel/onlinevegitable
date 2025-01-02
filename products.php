@@ -7,7 +7,13 @@
 include 'includes/header.php';
    echo htmlentities($_COOKIE['fanclub_articlesvisited'], ENT_QUOTES, 'UTF-8'); 
    unset($_COOKIE['fanclub_articlesvisited']);
-
+  
+   if (isset($_COOKIE['pin'])) {
+    echo $_COOKIE['pin'];
+} else {
+    echo 'not found';
+}
+   //echo $pincode;
   
   ?>
 </head>
