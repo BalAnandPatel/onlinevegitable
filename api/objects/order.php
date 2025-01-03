@@ -7,6 +7,7 @@ class Order
     private $orderdetails = "orderdetails";
     private $orderItem = "orderitem";
     private $products = "products";
+    private $users = "users";
     // private $table_payment = "payment";
 
     public function __construct($db)
@@ -16,7 +17,7 @@ class Order
 
     public $productSkuId, $cgst, $sgst, $orderSGST,$orderCGST, $price, $discount, $quantity, $productId, $orderId, $createdBy, $adminCommision;
     public $id, $userId, $sellerId, $sellerName,$deliveryBoyId, $paymentId, $total, $paymentResponse;
-    public $cuId, $cuName, $cuEmail, $cuAddress, $cuMobile, $requiredService,$totalQuantity;
+    public $cuId, $cuName, $name,$cuEmail, $cuAddress, $cuMobile, $requiredService,$totalQuantity;
     public function readOrder()
     {
         $query = "Select userId,sellerId,deliveryBoyId,paymentId from " . $this->orderItem;
@@ -45,16 +46,16 @@ class Order
         if ($this->paymentId == "ALL" && $this->userId != "") {
             
                          $query = "Select b.userId,a.orderId,a.productId,a.productSkuId,a.quantity,a.discount,a.price,a.total itemTotal,b.total orderTotal, 
-            a.sgst,a.cgst,b.sgst as orderSGST,b.cgst as orderCGST,b.sellerId as mainSeller,b.deliveryId,b.status,b.deliveryAddress,b.deliveryInstruction,b.paymentResponse,b.totalQuantity,
+            a.sgst,a.cgst,b.sgst as orderSGST,b.cgst as orderCGST,f.name as name,b.sellerId as mainSeller,b.deliveryId,b.status,b.deliveryAddress,b.deliveryInstruction,b.paymentResponse,b.totalQuantity,
             a.createdOn,a.createdBy,b.paymentId,a.subId,a.sellerId, a.sellerName from " . $this->orderItem . "  a left join " . $this->orderdetails . " b on a.orderId=b.orderid 
-            where a.userId=:userId";
+            INNER JOIN " . $this->users . " as f ON f.email = b.userId where a.userId=:userId";
 
         } else if ($this->paymentId != "ALL" && $this->userId != "") {
             
-            $query = "Select b.userId,a.orderId,a.productId,a.productSkuId,a.quantity,a.discount,a.price,a.total itemTotal,b.total orderTotal, 
-            a.sgst,a.cgst,b.sgst as orderSGST,b.cgst as orderCGST,b.sellerId as mainSeller,b.deliveryId,b.status,b.deliveryAddress,b.deliveryInstruction,b.paymentResponse,b.totalQuantity,
+             $query = "Select b.userId,a.orderId,a.productId,a.productSkuId,a.quantity,a.discount,a.price,a.total itemTotal,b.total orderTotal, 
+            a.sgst,a.cgst,f.name as name,b.sgst as orderSGST,b.cgst as orderCGST,b.sellerId as mainSeller,b.deliveryId,b.status,b.deliveryAddress,b.deliveryInstruction,b.paymentResponse,b.totalQuantity,
             a.createdOn,a.createdBy,b.paymentId,a.subId,a.sellerId, a.sellerName  from " . $this->orderItem . "  a left join " . $this->orderdetails . " b on a.orderId=b.orderid
-             where b.orderId=:paymentResponse or a.subId=:paymentResponse and a.userId=:userId";
+             INNER JOIN " . $this->users . " as f ON f.email = b.userId where b.orderId=:paymentResponse or a.subId=:paymentResponse and a.userId=:userId";
         }
         else {
             $query = "Select b.userId,a.orderId,a.productId,a.productSkuId,a.quantity,a.discount,a.price,a.total itemTotal,b.total orderTotal, 

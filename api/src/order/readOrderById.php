@@ -60,6 +60,7 @@ if ($read_order->userId!="") {
                     "orderId" => $orderId,
                     "productId" => $productId,
                     "paymentId"=>$paymentId,
+                    "name"=>$name,
                     "subId"=>$subId,
 
                     "productSkuId" => $productSkuId,

@@ -1,6 +1,5 @@
 <?php include 'includes/header.php';
 
-//setcookie('user_cart', '', time() - 3600, "/");
 
   //  $pincode=222202;
   $pincode =  $_POST['pincode'];
