@@ -44,21 +44,22 @@
 <body>
 <?php include "constant.php";
  include 'includes/header.php';
-$pincode="8998855";
-setcookie("fanclub_articlesvisited", $pincode);
-echo $_COOKIE['fanclub_articlesvisited']; 
-unset($_COOKIE['fanclub_articlesvisited']);
+$pincode="88";
+setcookie("pin", $pincode);
+echo $_COOKIE['pin']; 
+unset($_COOKIE['pin']);
 
 // $pincode = "222202";
 // $cookie_value = "222202";
 // setcookie($pincode, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 //setcookie('user_cart', '', time() - 3600, "/");
    //print_r($_COOKIE['user_cart']);
-  include 'constant.php';
+
+   include 'constant.php';
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
-  $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "sort" => $_POST['sorts'], "extra" => "");
+  $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
   $postdata = json_encode($data);
 
   $url_all = $URL . "product/readProductById.php";
@@ -68,6 +69,7 @@ unset($_COOKIE['fanclub_articlesvisited']);
   // echo "--sort";
   // print_r($response_all);
   $resultProduct = json_decode($response_all);
+  //print_r($response_all);
   $resultcat = json_decode($response_cat);
 }
 
@@ -95,8 +97,7 @@ $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 
 include "constant.php";
 include_once 'includes/curl_header_home.php';
-
-$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "extra" => "");
+$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
 // echo "**********". $_POST["sorting"];
  //print_r($data);
@@ -105,6 +106,7 @@ $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
 
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
+//print_r($response_all);
 $response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
  
 $resultcat = json_decode($response_cat);

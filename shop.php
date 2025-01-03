@@ -1,7 +1,7 @@
 <?php include 'includes/header.php';
 
 //setcookie('user_cart', '', time() - 3600, "/");
-   $pincode=222202;
+   $pincode=88;
         setcookie("pin", $pincode, time() + 3600);
         echo $_COOKIE['pin'];
   

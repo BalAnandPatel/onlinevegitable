@@ -204,13 +204,6 @@ $searchTerm =  '%' . $this->extra . '%';;
         return $stmt;
     }
 
-
-
-
-
-
-
-
     public function readAllProduct()
     {
         $query = " Select name,categoriesId,description,image,sellerId,skuId,price,discount from " . $this->products . "INNER JOIN ON";
