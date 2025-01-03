@@ -608,7 +608,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
     //         // Optionally, you can handle other actions (like redirecting, showing a message, etc.)
     //         alert('Form submitted! Cookie set with username: ' + username);
     //     }
-    let pincode = true;    
+    let pincode = false;    
     window.addEventListener('load', ()=>{
       if(!pincode){
         show.style.display= "block";

@@ -2,8 +2,6 @@
 
 <!DOCTYPE html>
 <html lang="en">
-
-
 <head>
 <?php
   include "constant.php";
@@ -104,11 +102,11 @@
             <h5>Order Information</h5>
             <p><strong>Order ID:</strong> <?php echo $resultOrder->records[$i]->orderId ?></p>
             <p><strong>Status:</strong> <?php echo $resultOrder->records[$i]->status ;?></p>
-            <p><strong>Seller Name:</strong> <?php echo $resultOrder->records[$i]->sellerId."-".$resultOrder->records[$i]->sellerName ;?></p>
+            <!-- <p><strong>Seller Name:</strong> <?php //echo $resultOrder->records[$i]->sellerId."-".$resultOrder->records[$i]->sellerName ;?></p> -->
         </div>
         <div class="order-section">
             <h5>Customer Information</h5>
-            <p><strong>Name:</strong> John Doe</p>
+            <p><strong>Name: </strong><?php echo $resultOrder->records[$i]->name ?> </p>
             <p><strong>Email:</strong> <?php echo $_SESSION['email'] ;?></p>
         </div>
       </div>
