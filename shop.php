@@ -1,12 +1,12 @@
 <?php include 'includes/header.php';
-
-
   //  $pincode=222202;
-  $pincode =  $_POST['pincode'];
+  $pincode="";
+  if(isset($_POST['pincode'])){
+   $pincode =  $_POST['pincode'];
   // setcookie("pincode", "", time() - 30, "/");
-        setcookie("pin", $pincode, time() + 30);
-   
-  
+        setcookie("pin", $pincode, time() + 300);
+  } 
+  //$pincode=$pincode;
   include 'constant.php';
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {

@@ -7,6 +7,7 @@
 
   // if (isset($_SESSION['email'])) {
     $result = isset($_COOKIE['user_cart']) ? json_decode($_COOKIE['user_cart'], true) : null;
+   // print_r($result);
     $total = 0;
     $countproduct = 0;
     if ($result != null) {

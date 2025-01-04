@@ -3,7 +3,7 @@ include('include/header.php');
 include "../constant.php";
 $urlreadOrderDetails = $URL . "orderdetails/readOrderDetails.php";
 $data = array("sellerId"=>$_SESSION['id']);
-//print_r($data);
+print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();
 curl_setopt( $client, CURLOPT_URL,$urlreadOrderDetails);
@@ -12,7 +12,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-//print_r($readOrderDetailsResponse);
+print_r($readOrderDetailsResponse);
 $resultOrderDetails = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetails);
 ?>
@@ -151,6 +151,8 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 												<td><?php echo $resultOrderDetails->records[$i]->createdOn;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->createdBy;?></td>
 												<td>
+												<?php	if($resultOrderDetail->records[$i]->status=="Order_Delivery_Successfully")
+													{?>
 												<form class="form-horizontal row-fluid"  action="action/orderAction_post.php" name="Category" method="post" enctype="multipart/form-data">
 															<input type="hidden" name="orderId" value="<?php echo $resultOrderDetails->records[$i]->orderId ?>">
 															<input type="hidden" name="status" value="Order_Accepted">
@@ -167,6 +169,13 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 															<input type="hidden" name="status" value="Order_Handover_To_Delivery_Boy">
 															<button type="submit" class="btn btn-warning">Verify Order</button>
 														</form>
+
+														<?php
+												}else
+												{
+                                                   echo "Order_Delivery_Successfully";
+												}
+												?>
 												</td>
 								
 												</tr>
