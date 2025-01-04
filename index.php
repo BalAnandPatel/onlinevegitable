@@ -428,7 +428,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                             </button>
                           </span>
                           <input type="text" id="quantity" name="quantity" class="form-control input-number text-center"
-                            value="1">
+                            value="5">
                           <span class="input-group-btn">
                             <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus"
                               data-field="">
