@@ -43,8 +43,7 @@
     </style>
 <body>
 <?php include "constant.php";
- include 'includes/header.php';
-$pincode="88";
+$pincode="";
 setcookie("pin", $pincode);
 echo $_COOKIE['pin']; 
 unset($_COOKIE['pin']);
@@ -53,9 +52,9 @@ unset($_COOKIE['pin']);
 // $cookie_value = "222202";
 // setcookie($pincode, $cookie_value, time() + (86400 * 30), "/"); // 86400 = 1 day
 //setcookie('user_cart', '', time() - 3600, "/");
-   //print_r($_COOKIE['user_cart']);
+//print_r($_COOKIE['user_cart']);
 
-   include 'constant.php';
+ //  include 'constant.php';
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
@@ -73,7 +72,7 @@ unset($_COOKIE['pin']);
   $resultcat = json_decode($response_cat);
 }
 
-if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
+if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $data = array("crid" => "","spid"=>"","pid"=>"","filter"=>"","pageSize"=>"","sort"=>"","extra"=>$_POST['search']);
   $postdata = json_encode($data);
   //print_r($postdata);

@@ -64,7 +64,7 @@ if($num>0){
             "deliveryId"=>$deliveryId,
             "paymentId"=>$paymentId,
             "total"=>$total,
-            "name"=>$name,
+            //"name"=>$name,
             "sgst"=>$sgst,
             "verificationCode"=>$verificationCode,
             "cgst"=>$cgst,
