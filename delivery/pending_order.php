@@ -126,7 +126,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
 												<td><?php echo $resultOrderDetail->records[$i]->createdOn;?></td>
 												<td><?php echo $resultOrderDetail->records[$i]->createdBy;?></td>
 												<td>
-												<?php	if($resultOrderDetail->records[$i]->status=="Order_Delivery_Successfully")
+												<?php	if($resultOrderDetail->records[$i]->status!="Order_Delivery_Successfully")
 													{?>
 												<form class="form-horizontal row-fluid"  action="action/deliveryOrder_post.php" name="Category" method="post" enctype="multipart/form-data">
 

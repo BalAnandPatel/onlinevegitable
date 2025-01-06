@@ -22,7 +22,7 @@ class Orderdetail
     {
         if($this->sellerId==true){
            //$this->sellerId;
-     $query ="Select b.name,b.userId,a.orderId,a.deliveryId,a.sellerId,a.paymentId,a.total,a.cgst,a.verificationCode, a.sgst, a.status, a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a INNER JOIN $this->users as b ON a.userId=b.userId where
+      $query ="Select userId,orderId,deliveryId,sellerId,paymentId,total,cgst,verificationCode, sgst,status,adminCommision,createdOn,createdBy from $this->orderdetails where
       sellerId=:sellerId";
          $stmt = $this->conn->prepare($query);
          $this->sellerId = htmlspecialchars(strip_tags($this->sellerId)); 

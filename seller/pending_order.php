@@ -12,7 +12,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-print_r($readOrderDetailsResponse);
+//print_r($readOrderDetailsResponse);
 $resultOrderDetails = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetails);
 ?>
@@ -151,8 +151,11 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 												<td><?php echo $resultOrderDetails->records[$i]->createdOn;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->createdBy;?></td>
 												<td>
-												<?php	if($resultOrderDetail->records[$i]->status=="Order_Delivery_Successfully")
-													{?>
+												<?php
+
+												if($resultOrderDetails->records[$i]->status!="Order_Delivery_Successfully")
+													{
+														?>
 												<form class="form-horizontal row-fluid"  action="action/orderAction_post.php" name="Category" method="post" enctype="multipart/form-data">
 															<input type="hidden" name="orderId" value="<?php echo $resultOrderDetails->records[$i]->orderId ?>">
 															<input type="hidden" name="status" value="Order_Accepted">
@@ -171,7 +174,8 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 														</form>
 
 														<?php
-												}else
+												}
+												else
 												{
                                                    echo "Order_Delivery_Successfully";
 												}
