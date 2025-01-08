@@ -67,6 +67,8 @@ $resultcat = json_decode($response_cat);
               <option>Shop by Category</option>
               <option value="shop.php">All Items</option>
               <?php
+              echo "******";
+               if(isset($resultcat))
               foreach ($resultcat->records[0] as $key => $value) {
                 ?>
                 <option value="shop.php?crid=<?php echo $value->id ?>"><?php echo $key ?></option>
@@ -115,6 +117,7 @@ $resultcat = json_decode($response_cat);
 
     <?php
               $count = 0;
+                  if(isset($resultcat))
               foreach ($resultcat->records[0] as $key => $value) {
                 $count++;
                 if ($count >= 5) {
