@@ -41,7 +41,7 @@
             <li class="list-group-item d-flex justify-content-between lh-sm">
               <div>
                 <h6 class="my-0"><?php echo $order['productName']; ?> X <?php echo $order['quantity']; ?></h6>
-                <!-- <small class="text-body-secondary"><?php echo $order['description']; ?></small> -->
+                <!-- <small class="text-body-secondary"><?php //echo $order['description']; ?></small> -->
               </div>
               <span class="text-body-secondary">&#8377;<?php echo ($order['itemTotal']) ?></span>
             </li>

@@ -37,12 +37,9 @@ if(1
 )
 
 {
-    $update_user->firstName=$data->firstName;
-    $update_user->email=$data->email;
-    $update_user->phoneNo=$data->phoneNo;
-    $update_user->password=$data->password;
+    $update_user->pincode=$data->pincode;
    
-    if($update_user->updateUser()){
+    if($update_user->updateUserPincode()){
   
         // set response code - 201 created
         http_response_code(201);

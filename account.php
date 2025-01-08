@@ -1,4 +1,11 @@
+
 <?php include 'includes/header.php' ?>
+
+<?php 
+// echo $_SESSION["abc"] = "session set";
+$abc=$_POST['pincode'];
+//$_SESSION["pincode"] = "222202";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -74,6 +81,7 @@ width:49%;
             <div class="col-12 pb-3">
               <label class="d-none">Password *</label>
               <input type="password" name="password"  placeholder="Password" class="form-control" autocomplete="off">
+              <input type="hidden" name="pincode" class="form-control" autocomplete="off" value="<?php echo $abc ?>">
             </div>
             <!-- <div class="col-12 pb-3">
               <label>

@@ -13,7 +13,7 @@ class User
         $this->conn = $db;
     }
 
-    public $id, $firstName, $lastName, $userName, $name, $sellerId, $email,$dateOfBirth, $contactno, $password, $phoneNo, $userMobile, $updationDate, $businessCategory, $categoryId, $userAddress, $alterMobile, $businessDay, $userWebsite, $businessName, $establishmentYear, $paymentMode, $businessTiming, $userServices, $aboutUser, $status, $remark, $createdOn, $createdBy,$wallImg, $updatedOn,$updatedBy,$lastLogin;
+    public $id, $firstName, $lastName, $userName, $name, $sellerId, $email,$dateOfBirth, $contactno, $password, $phoneNo, $userMobile, $updationDate, $businessCategory, $categoryId, $userAddress, $alterMobile, $businessDay, $userWebsite, $businessName, $establishmentYear, $paymentMode, $businessTiming, $userServices, $aboutUser,$pincode, $status, $remark, $createdOn, $createdBy,$wallImg, $updatedOn,$updatedBy,$lastLogin;
 
     public $cuId, $cuName,$cuEmail,$userId, $cuAddress, $mobile, $requiredService;
     public function readUser()
@@ -199,6 +199,38 @@ class User
 
         return false;
     }
+
+
+    function updateUserPincode()
+    {
+
+        // query to update record
+        $query = "UPDATE 
+         " . $this->users . "
+     SET
+        pincode=:pincode
+        where email=:email";
+
+ 
+        // prepare query
+        $stmt = $this->conn->prepare($query);
+ 
+        $this->email = htmlspecialchars(strip_tags($this->email));
+        $this->pincode = htmlspecialchars(strip_tags($this->pincode));
+
+        //bind values with stmt
+        $stmt->bindParam(":pincode", $this->pincode);
+        $stmt->bindParam(":email", $this->email);
+        
+        // execute query
+        if ($stmt->execute()){
+            return true;
+        }
+
+        return false;
+    }
+
+
 
     function countUser()
     {
