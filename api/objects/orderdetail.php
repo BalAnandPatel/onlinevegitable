@@ -322,9 +322,20 @@ return $stmt;
 
 public function readOrderForDelivery()
 {
-    $query = "Select a.id, orderId, userId, deliveryId, paymentId,status, deliveryAddress,paymentResponse, total, a.sellerId, a.createdOn, a.createdBy from  $this->orderdetails as a INNER JOIN $this->selleraddress as b on a.sellerId=b.sellerId where b.pincode=:workingPincode";
-    $stmt = $this->conn->prepare($query);
-    $stmt->bindParam(":workingPincode", $this->workingPincode);
+    if($this->status!='Order_Delivery_Successfully'){
+        $query = "Select a.id, orderId, userId, deliveryId, paymentId,status, deliveryAddress,paymentResponse,verificationCode, total, a.sellerId, a.createdOn, a.createdBy from  $this->orderdetails as a INNER JOIN $this->selleraddress as b on a.sellerId=b.sellerId where b.pincode=:workingPincode and (status='Order_Accepted' or status='Order_Handover_To_Delivery_Boy' or status='Ready_To_Deliver') ORDER BY id desc";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":workingPincode", $this->workingPincode);
+        // $stmt->bindParam(":status", $this->status);
+        // $stmt->bindParam(":deliveryId", $this->deliveryId);
+    }
+        else{
+        $query = "Select a.id, orderId, userId, deliveryId, paymentId,status, deliveryAddress,paymentResponse,verificationCode, total, a.sellerId, a.createdOn, a.createdBy from  $this->orderdetails as a INNER JOIN $this->selleraddress as b on a.sellerId=b.sellerId where b.pincode=:workingPincode and (status='Order_Accepted' or status='Order_Handover_To_Delivery_Boy' or status='Order_Delivery_Successfully') and deliveryId=:deliveryId ORDER BY id desc";
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":workingPincode", $this->workingPincode);
+        $stmt->bindParam(":deliveryId", $this->deliveryId);
+    }
+   
     $stmt->execute();
     return $stmt;
 }

@@ -42,7 +42,7 @@ $resultDelivery = json_decode($read_deliveryResponse);
 //print_r($resultDelivery);
 $pincode=$resultDelivery->records[0]->workingPincode;
 
-$data = array("workingPincode"=>$pincode);
+$data = array("workingPincode"=>$pincode, "status"=>"","deliveryId"=>"");
 // print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();

@@ -28,9 +28,11 @@ $read_order_detail = new Orderdetail($db);
   
 $data = json_decode(file_get_contents("php://input")); 
 $read_order_detail->workingPincode = $data->workingPincode;
+$read_order_detail->status = $data->status;
+$read_order_detail->deliveryId = $data->deliveryId;
 // $read_allusers->userId = $data->userId;
 
-//print_r($data);
+// print_r($data);
 
 $getHeaders = apache_request_headers();
 //print_r($getHeaders);
@@ -66,6 +68,7 @@ if($num>0){
             "deliveryId"=>$deliveryId,
             "paymentId"=>$paymentId,
             "deliveryAddress"=>$deliveryAddress,
+            "verificationCode"=>$verificationCode,
             "total"=>$total,
             "status"=>$status,
             "paymentResponse"=>$paymentResponse,

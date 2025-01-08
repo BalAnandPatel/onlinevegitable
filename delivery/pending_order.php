@@ -18,7 +18,7 @@ $resultDelivery = json_decode($read_deliveryResponse);
 // print_r($resultDelivery);
 $pincode=$resultDelivery->records[0]->workingPincode;
 
-$data = array("workingPincode"=>$pincode);
+$data = array("workingPincode"=>$pincode, "status"=>"","deliveryId"=>$_SESSION['id']);
 //print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();
@@ -28,7 +28,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-//print_r($readOrderDetailsResponse);
+// print_r($readOrderDetailsResponse);
 $resultOrderDetail = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetail);
 ?>
@@ -116,6 +116,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
                 // print_r($result['recosrds']);
                 for($i=0; $i<sizeof($resultOrderDetail->records);$i++)
                 { //print_r($result->records[$i]);
+					if($resultOrderDetail->records[$i]->deliveryId==$_SESSION['id'] || $resultOrderDetail->records[$i]->status=="Order_Accepted"){
                 ?>	
 												<tr class="table-primary">
 												<td><?php echo htmlentities($cnt); ?></td>
@@ -140,7 +141,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
 															<input type="hidden" name="status" value="Order_Delivery_Successfully">
 															<button type="submit" class="btn btn-success">Verify Order</button>
 														</form>
-													<?php
+													<?php 
 												}else
 												{
                                                    echo "Order_Delivery_Successfully";
@@ -149,7 +150,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
 												</td>
 								
 												</tr>
-											<?php $cnt = $cnt + 1;
+											<?php } $cnt = $cnt + 1;
 											} ?>
 
 									</table>
