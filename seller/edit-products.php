@@ -9,7 +9,7 @@ include "../constant.php";
 $id=trim(strtoupper($_POST["id"]));
 $url = $URL . "product/readProductById.php";
 //$url="http://localhost/onlinesabjimandiapi/api/src/category/readCategory.php";
-$data = array("crid" =>"", "spid" => "", "pid" =>$id, "filter" =>"", "pageSize" =>"", "sort" => "", "extra" => "");
+$data = array("crid" =>"", "spid" => "", "pid" =>$id, "filter" =>"", "pageSize" =>"", "sort" => "", "extra" => "","pincode"=>"");
 // //print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();
@@ -19,7 +19,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-//print_r($response);
+// print_r($response);
 $result = json_decode($response);
 //print_r($result);
 

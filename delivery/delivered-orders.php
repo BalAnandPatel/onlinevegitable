@@ -23,9 +23,9 @@ if (strlen($_SESSION['id']) == 0) {
 	$resultDelivery = json_decode($read_deliveryResponse);
 	// print_r($resultDelivery);
 	$pincode=$resultDelivery->records[0]->workingPincode;
-	
-	$data = array("workingPincode"=>$pincode);
-	//print_r($data);
+	$deliveryId = $_SESSION['id'];
+	$data = array("workingPincode"=>$pincode, "status"=>"Order_Delivery_Successfully", "deliveryId"=>$deliveryId);
+	// print_r($data);
 	$postdata = json_encode($data);
 	$client = curl_init();
 	curl_setopt( $client, CURLOPT_URL,$urlreadOrderDetails);
@@ -118,7 +118,8 @@ if (strlen($_SESSION['id']) == 0) {
 											// $query = mysqli_query($con, "select users.name as username,users.email as useremail,users.contactno as usercontact,address.shippingAddress as shippingaddress,address.shippingCity as shippingcity,address.shippingState as shippingstate,address.shippingPincode as shippingpincode,address.mobile_no as mobile_no, address.billingAddress as billingaddress,address.billingCity as billingcity,address.billingState as billingstate,address.billingPincode as billingpincode,products.productName as productname,products.shippingCharge as shippingcharge, orders.GSTN as gsthn, orders.orderStatus as orderstatus,orders.size as size, orders.color, orders.quantity as quantity,orders.paymentMethod as paymentMethod, orders.order_id as order_id, orders.orderDate as orderdate,products.productPrice as productprice,products.skuid as skuid,orders.GSTN as gstn,orders.id as id from orders join users on  orders.userId=users.id join address on users.id=address.user_id join products on products.id=orders.productId where orders.orderStatus='$st'");
 											$cnt = 1;
 											for($i=0; $i<sizeof($resultOrderDetail->records); $i++){
-												// print_r($resultOrderDetail);
+												
+												//  print_r($resultOrderDetail);
 											?>
 											<tr>
 													<td><?php echo htmlentities($cnt); ?></td>

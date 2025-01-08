@@ -195,7 +195,7 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Pending Orders</h3>
+									<h3>Delivered Orders</h3>
 								</div>
 								<div class="module-body table">
 									<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
@@ -237,7 +237,7 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 												<td><?php echo $resultOrderDetails->records[$i]->createdOn;?></td>
 												<td><?php echo $resultOrderDetails->records[$i]->createdBy;?></td>
 												<td>
-												<form class="form-horizontal row-fluid"  action="action/orderAction_post.php" name="Category" method="post" enctype="multipart/form-data">
+												<!-- <form class="form-horizontal row-fluid"  action="action/orderAction_post.php" name="Category" method="post" enctype="multipart/form-data">
 															<input type="text" name="orderId" value="<?php echo $resultOrderDetails->records[$i]->orderId ?>">
 															<input type="hidden" name="status" value="1">
 															<button type="submit" >Accept</button>
@@ -247,8 +247,8 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 															<input type="hidden" name="orderId" value="<?php echo $resultOrderDetails->records[$i]->orderId ?>">
 															<input type="hidden" name="status" value="2">
 															<button type="submit">Reject</button>
-														</form>
-												</td>
+														</form> -->
+												</td> 
 								
 												</tr>
 											<?php $cnt = $cnt + 1;
