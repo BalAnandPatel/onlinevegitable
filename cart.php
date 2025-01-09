@@ -350,6 +350,7 @@ $tax=0.0;
                           value="<?php echo ($order['price']); ?>">
                         &#8377;<span class="money<?php echo $customIndex ?> text-dark" id="<?php echo $order['pid'] ?>">
                           <?php echo number_format(str_replace(",","",$order['itemTotal']), 2); ?>
+                          <br>  <small><b>Disc :</b> &#8377; <?php echo $order['discount'] != "" ? ($order['discount']*$order['itemTotal']*0.01) : 0 ?>
                         </span>
                       </div>
 
@@ -370,8 +371,9 @@ $tax=0.0;
                   </tr>
                 
                  
-                  <?php $totalprice = str_replace(",","",$order['itemTotal']) + $totalprice; ?>
-                  <?php $tax = floatval(floatval($order['tax']) + $tax); ?>
+                  <?php $totalprice = str_replace(",","",$order['itemTotal']) + $totalprice; 
+                  ?>
+                  <?php $tax = number_format(($order['tax']) + $tax,2); ?>
                   <?php $customIndex++;
                 } ?>
                 <!-- </form>  -->
@@ -392,7 +394,7 @@ $tax=0.0;
                     <td data-title="Subtotal">
                       <span class="price-amount amount text-dark ps-5">
                         <bdi>
-                          &#8377;<span class="subCartTotalPrice"><?php echo number_format($totalprice, 2); ?>
+                          &#8377;<span class="subCartTotalPrice"><?php echo number_format($totalprice,2); ?>
                         </bdi>
                       </span>
                     </td>
@@ -403,7 +405,7 @@ $tax=0.0;
                     <td data-title="Total">
                       <span class="price-amount amount text-dark ps-5">
                         <bdi>
-                          &#8377;<span class="cartTotalTax"><?php echo $tax; ?></bdi>
+                          &#8377;<span class="cartTotalTax"><?php echo number_format($tax,2); ?></bdi>
                       </span>
                     </td>
                   </tr>

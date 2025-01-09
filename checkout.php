@@ -169,6 +169,20 @@ $totalprice = 0;
                     foreach ($result as $index => $order) {
                       $subTotal = $order['itemTotal'] + $subTotal;
                       //echo $order['itemTotal'];
+                      echo $id=$order['sellerId'];
+
+$pincode_url = $URL . "seller/read_seller_pincode.php";
+$datapincode = array("id" =>$id);
+//print_r($datapincode);
+$postdatapincode = json_encode($datapincode);
+$readCurlpincode = new CurlHome();
+$response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
+//echo "------------";
+print_r($response_pincode); 
+$resultpincode = json_decode($response_pincode);
+
+//$pincode=$resultpincode->records[0]->pincode;
+
                     } ?>
                     <tr class="subtotal border-top border-bottom pt-2 pb-2 text-uppercase">
                       <th>Subtotal</th>

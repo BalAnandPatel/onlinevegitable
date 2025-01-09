@@ -16,19 +16,20 @@ $pwd = $_POST["password"];
 $email = $_POST["email"];
 $pincode = $_POST["pincode"];
 $url = $URL . "user/read_userById.php";
-$urlupdatedpincode = $URL . "user/updateUserPincode.php";
+$urlupdatedpincode = $URL . "user/update_user_pincode.php";
 $data = array("password" => $pwd, "email" => $email);
-print_r($data);
+//print_r($data);
 $postdata = json_encode($data);
 $readCurl = new Curl();
 $response = $readCurl->createCurl($url, $postdata, 0, 10, 1);
 $result = (json_decode($response));
 
 $datapin = array("pincode" => $pincode, "email" => $email);
-print_r($datapin);
+//print_r($datapin);
 $postdatapin = json_encode($datapin);
 $readCurlpin = new Curl();
 $responsepin = $readCurl->createCurl($urlupdatedpincode, $postdatapin, 0, 10, 1);
+//print_r($responsepin);
 $resultpin = (json_decode($responsepin));
  //print_r($result);
 if ($result->message == "Successfull") {
@@ -46,7 +47,7 @@ if ($result->message == "Successfull") {
     } 
     {
         //print_r($_SESSION['decoded']);
-        header('Location:../../index.php');
+       header('Location:../../index.php');
     }
 }
 else {

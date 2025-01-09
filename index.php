@@ -1,59 +1,57 @@
-<?php include 'includes/header.php';
-include "constant.php";?>
-
-<?php 
-
-
- //  include 'constant.php';
+<?php
+  include 'includes/header.php';
+  $email=$_SESSION['email'];
+  include "constant.php";
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
   $postdata = json_encode($data);
-
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-  // echo "--sort";
-  // print_r($response_all);
   $resultProduct = json_decode($response_all);
-  //print_r($response_all);
   $resultcat = json_decode($response_cat);
 }
-
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $data = array("crid" => "","spid"=>"","pid"=>"","filter"=>"","pageSize"=>"","sort"=>"","extra"=>$_POST['search']);
   $postdata = json_encode($data);
   //print_r($postdata);
-   $url_all_x = $URL . "product/readProductById.php";
-  
+   $url_all_x = $URL . "product/readProductById.php";  
   $readCurl = new CurlHome();
-  
   $response_all = $readCurl->createCurl($url_all_x, $postdata, 0, 5, 1);
   //print_r($response_all);
   $resultProduct = json_decode($response_all);
   }
-
-
-  
 $url_param_type = isset($_GET['crid']) ? $_GET['crid'] : "";
 $url_sub_param_type = isset($_GET['spid']) ? $_GET['spid'] : "";
 $filter = isset($_GET['filter']) ? $_GET['filter'] : "";
 $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : "";
 $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
-$pincode=isset($_POST[''])?$_POST['pincode']:0;
-
+$pincode=isset($_POST[''])?$_POST['pincode']:"";
 if($pincode!=0){
    setcookie("pincode", $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
 }
 
-include "constant.php";
+// Read Pincode From DataBase
+
+
+$pincode_url = $URL . "user/read_user_pincode.php";
+$datapincode = ($email!="")? array("email" => $_SESSION['email']):array("email" =>"");
+//print_r($datapincode);
+$postdatapincode = json_encode($datapincode);
+$readCurlpincode = new CurlHome();
+$response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
+//print_r($response_pincode); 
+$resultpincode = json_decode($response_pincode);
+$pincode=$resultpincode->records[0]->pincode;
+
+
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
 // echo "**********". $_POST["sorting"];
- //print_r($data);
+///print_r($data);
 $url_all = $URL . "product/readProductById.php";
 $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
@@ -202,7 +200,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
     </div>
     <?php include 'includes/menu.php' ?>
   </header>
+
 <div class="main" id="show">
+  <?php if($pincode!=""){?>
     <div class="containers">
         <form action="account.php" id="pform" method="post">
             <p>Enter Your Pincode to get best experience</p>
@@ -211,6 +211,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
     </div>
+    <?php
+     }
+    ?>
 </div>
   <section class="py-3"
     style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
@@ -568,7 +571,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
             form.submit();
       
     })
-    let pincode =<?php echo isset($_POST['pincode'])?$_POST['pincode']:0 ?>;    
+    let pincode =<?php ($pincode!="")?$pincode:""?>;    
     window.addEventListener('load', ()=>{
       if(!pincode){
         show.style.display= "block";
