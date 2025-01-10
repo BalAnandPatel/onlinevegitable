@@ -44,8 +44,9 @@ $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
 //print_r($response_pincode); 
 $resultpincode = json_decode($response_pincode);
-$pincode=$resultpincode->records[0]->pincode;
-
+//echo "*************************";
+$pincode=(isset($email)?$resultpincode->records[0]->pincode:0);
+//$pincode="";
 
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
@@ -202,17 +203,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   </header>
 
 <div class="main" id="show">
-  <?php if($pincode!=""){?>
+  <?php //if($pincode!=""){?>
     <div class="containers">
         <form action="account.php" id="pform" method="post">
             <p>Enter Your Pincode to get best experience</p>
             <label for="pincode">Enter Pincode</label>
-            <input type="text" minlength="6" name="pincode" placeholder="Enter Pincode" required id="pin" autocomplete="off">
+            <input type="text" minlength="6" name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
     </div>
     <?php
-     }
+     //}
     ?>
 </div>
   <section class="py-3"
@@ -571,9 +572,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
             form.submit();
       
     })
-    let pincode =<?php ($pincode!="")?$pincode:""?>;    
+
     window.addEventListener('load', ()=>{
-      if(!pincode){
+      let pincode =<?php echo ($pincode!=0)?$pincode:0 ; ?>;    
+      //alert(pincode);
+      if(pincode==0){
         show.style.display= "block";
       }else{
        show.style.display="none";

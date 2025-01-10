@@ -1,14 +1,19 @@
 <?php
 session_start();
-
 ob_start();
+//echo $a=$_SESSION['userpin'];
+//echo"***************";
+//echo $b=$_POST['sellerpincode'];
+if($_POST['sellerpincode']!=$_SESSION['userpin']){
+    header('Location:../checkout.php?messageid=Pincode is not Delivereble');    
+}
 //print_r($_COOKIE['user_cart']);
 ($_SESSION['decoded']);
 $currentTime = time();
 // if($decoded->exp>$curre
 $decoded = $_SESSION['decoded'];
 //echo "**".intval($decoded->exp)>$currentTime;
-//   unset($_SESSION['email']);
+ unset($_SESSION['email']);
 // }
 if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
     unset($_SESSION['email']);
@@ -138,7 +143,7 @@ if ($displayCurrency !== 'INR') {
 }
 
 $checkout = 'success';
-
+unset($_SESSION['userpincode']);
 $data = [
     "key" => $keyId,
     "amount" => $amount,

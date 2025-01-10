@@ -1,22 +1,13 @@
 <?php include 'includes/header.php';
-  //  $pincode=222202;
-  $pincode="";
-  if(isset($_POST['pincode'])){
-   $pincode =  $_POST['pincode'];
-  // setcookie("pincode", "", time() - 30, "/");
-        setcookie("pin", $pincode, time() + 300);
-  } 
-  //$pincode=$pincode;
-  include 'constant.php';
-  include 'includes/curl_header_home.php';
-  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
+include "constant.php";
+include_once 'includes/curl_header_home.php';
+$email=$_SESSION['email'];
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "sort" => $_POST['sorts'], "extra" => "");
   $postdata = json_encode($data);
-
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   // echo "--sort";
   //print_r($response_all);
@@ -46,11 +37,23 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : "";
 $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 
 
-include "constant.php";
-include_once 'includes/curl_header_home.php';
 
-$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize,  "pincode" => $pincode, "sort" => "", "extra" => "");
+$pincode_url = $URL . "user/read_user_pincode.php";
+$datapincode = ($email!="")? array("email" => $_SESSION['email']):array("email" =>"");
+//print_r($datapincode);
+$postdatapincode = json_encode($datapincode);
+$readCurlpincode = new CurlHome();
+$response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
+//print_r($response_pincode); 
+$resultpincode = json_decode($response_pincode);
+//echo "*************************";
+$pincode=(isset($email)?$resultpincode->records[0]->pincode:0);
+//$pincode="";
+
+include_once 'includes/curl_header_home.php';
+$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
+
 // echo "**********". $_POST["sorting"];
 //print_r($data);
 $url_all = $URL . "product/readProductById.php";

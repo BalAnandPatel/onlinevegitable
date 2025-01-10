@@ -24,8 +24,8 @@ $db = $database->getConnection();
 $read_seller = new Seller($db);
   
 $data = json_decode(file_get_contents("php://input"));
-$read_seller->id = $data->id;;
-// print_r($data);
+$read_seller->id = trim($data->id);
+//print_r($data);
 $getHeaders = apache_request_headers();
 //print_r($getHeaders);
 $jwt ="123";
@@ -61,9 +61,9 @@ if($num>0){
 
 
     while ($row = $stmt->fetch(PDO::FETCH_ASSOC)){
-     
+      //print_r($row);
         extract($row);
-  
+     
         $read_seller_item=array(
 
             
