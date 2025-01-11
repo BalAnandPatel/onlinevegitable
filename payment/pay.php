@@ -1,12 +1,13 @@
 <?php
 session_start();
 ob_start();
-//echo $a=$_SESSION['userpin'];
-//echo"***************";
-//echo $b=$_POST['sellerpincode'];
+echo $_SESSION['email'];
+echo $_SESSION['userpin'];
+echo"***************";
+echo $_POST['sellerpincode'];
 if($_POST['sellerpincode']!=$_SESSION['userpin']){
     header('Location:../checkout.php?messageid=Pincode is not Delivereble');    
-}
+
 //print_r($_COOKIE['user_cart']);
 ($_SESSION['decoded']);
 $currentTime = time();
@@ -14,11 +15,11 @@ $currentTime = time();
 $decoded = $_SESSION['decoded'];
 //echo "**".intval($decoded->exp)>$currentTime;
  unset($_SESSION['email']);
-// }
+} 
 if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
     unset($_SESSION['email']);
 
-    header("Location: ../shop.php");
+    //header("Location: ../shop.php");
 }
 
 require('../constant.php');
@@ -275,7 +276,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });         
 </script>
 ';
-
+unset($_SESSION['userpin']);
 
 } else {
     header('Location:../account.php');

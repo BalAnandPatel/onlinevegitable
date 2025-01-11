@@ -60,7 +60,7 @@ $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
 //echo "****$$";
 //print_r($response);
 $resultAddress = json_decode($response);
-//print_r($resultAddress);
+print_r($resultAddress);
 
 $totalprice = 0;
 
@@ -151,10 +151,13 @@ $totalprice = 0;
                    <label for="address<?php echo $index; ?>"><b>Pincode:</b><?php echo $resultAddress->records[$i]->postalCode; ?></label><br>
                    <label for="address<?php echo $index; ?>"><b>Landmark:</b> <?php echo $resultAddress->records[$i]->landmark; ?></label><br>
                    <label for="address<?php echo $index; ?>"><b>Mob:</b> <?php echo $resultAddress->records[$i]->mobile; ?></label>
-                    <?php $_SESSION['userpin']=$resultAddress->records[$i]->postalCode;?>
-                </div>
-              <?php echo "**************************************************************"; }} ?>
-            </div><br>
+                    <?php $_SESSION["userpin"]=$resultAddress->records[$i]->postalCode;?>
+                    
+                  </div>
+              <?php  }} ?>
+            </div>
+           <?php $_SESSION["userpin"];?>
+            <br>
             <div class="button-wrap row g-2">
              
               <div class="col-md-5"><button  type="button" class="btn btn-success py-3 px-4 text-uppercase btn-rounded-none w-100"
