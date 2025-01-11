@@ -1,10 +1,18 @@
+<?php 
+echo $pincode=$_POST['pincode'];
+if(isset($pincode)){
+setcookie('pincode', $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
 
-<?php include 'includes/header.php' ?>
+}include 'includes/header.php' ?>
 
 <?php 
-// echo $_SESSION["abc"] = "session set";
-$abc=isset($_POST['pincode'])?$_POST['pincode']:0;
-//$_SESSION["pincode"] = "222202";
+
+
+if(isset($pincode) && strlen($pincode)!=6){
+header('Location:index.php?validPincode=fail');
+}
+
+ $_SESSION['pincodes']=$pincode;
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +89,7 @@ width:49%;
             <div class="col-12 pb-3">
               <label class="d-none">Password *</label>
               <input type="password" name="password"  placeholder="Password" class="form-control" autocomplete="off">
-              <input type="text" name="pincode" class="form-control" autocomplete="off" value="<?php echo $abc ?>">
+             <input type="hidden" name="pincode" value="<?php echo $_SESSION['pincodes']?>">
             </div>
             <!-- <div class="col-12 pb-3">
               <label>

@@ -12,11 +12,22 @@ require '../../api/php-jwt/src/SignatureInvalidException.php';
 require '../../api/php-jwt/src/BeforeValidException.php';
 use \Firebase\JWT\JWT;
 
+
 $pwd = $_POST["password"];
 $email = $_POST["email"];
 $pincode = $_POST["pincode"];
 $url = $URL . "user/read_userById.php";
-$urlupdatedpincode = $URL . "user/update_user_pincode.php";
+ $urlupdatedpincode = $URL . "user/update_user_pincode.php";
+ 
+ 
+ $datapin = array("pincode" => $pincode, "email" => $email);
+// print_r($datapin);
+$postdatapin = json_encode($datapin);
+$readCurlpin = new Curl();
+
+$responsepin = $readCurlpin->createCurl($urlupdatedpincode, $postdatapin, 0, 10, 1);
+// print_r($responsepin);
+$resultpin = (json_decode($responsepin));;
 $data = array("password" => $pwd, "email" => $email);
 //print_r($data);
 $postdata = json_encode($data);
@@ -24,13 +35,7 @@ $readCurl = new Curl();
 $response = $readCurl->createCurl($url, $postdata, 0, 10, 1);
 $result = (json_decode($response));
 
-$datapin = array("pincode" => $pincode, "email" => $email);
-//print_r($datapin);
-$postdatapin = json_encode($datapin);
-$readCurlpin = new Curl();
-$responsepin = $readCurl->createCurl($urlupdatedpincode, $postdatapin, 0, 10, 1);
-//print_r($responsepin);
-$resultpin = (json_decode($responsepin));
+
  //print_r($result);
 if ($result->message == "Successfull") {
     $decoded = JWT::decode($result->jwt, $SECRET_KEY, array('HS256'));
@@ -51,6 +56,7 @@ if ($result->message == "Successfull") {
     }
 }
 else {
-    header('Location:../../account.php?msg=Username or password is incorrect' );
+   header('Location:../../account.php?msg=Username or password is incorrect' );
 }
+
 ?>

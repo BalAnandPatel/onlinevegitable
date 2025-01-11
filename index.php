@@ -1,6 +1,8 @@
 <?php
   include 'includes/header.php';
   $email=$_SESSION['email'];
+
+
   include "constant.php";
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
@@ -13,6 +15,7 @@
   $resultProduct = json_decode($response_all);
   $resultcat = json_decode($response_cat);
 }
+
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $data = array("crid" => "","spid"=>"","pid"=>"","filter"=>"","pageSize"=>"","sort"=>"","extra"=>$_POST['search']);
   $postdata = json_encode($data);
@@ -30,7 +33,7 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : "";
 $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 $pincode=isset($_POST[''])?$_POST['pincode']:"";
 if($pincode!=0){
-   setcookie("pincode", $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
+  // setcookie("pincode", $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
 }
 
 // Read Pincode From DataBase
@@ -203,17 +206,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   </header>
 
 <div class="main" id="show">
-  <?php //if($pincode!=""){?>
+  <?php
+
+  if(isset($_COOKIE['pincode']) &&  $_COOKIE['pincode']==""){?>
     <div class="containers">
         <form action="account.php" id="pform" method="post">
-            <p>Enter Your Pincode to get best experience</p>
-            <label for="pincode">Enter Pincode</label>
-            <input type="text" minlength="6" name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
+            <p style="color:#000">Enter Your Pincode to get best experience
+              <?php if(isset($_GET['validPincode'])) {
+               echo "<p style='color:red'>Please enter valid pincode</p>"; 
+              }
+                ?>
+            </p>
+            <label for="pincode" style="color:#000">Enter Pincode</label>
+            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
     </div>
     <?php
-     //}
+     }
     ?>
 </div>
   <section class="py-3"

@@ -22,21 +22,27 @@ class Curl
 
                 curl_setopt_array($ch, $options);
                 $response = curl_exec($ch);
-                $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                
+                echo $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+              
                 curl_close($ch);
                 //echo "<pre>" . htmlspecialchars($response) . "</pre>";
-                if ($httpCode == 200 || $httpCode == 201) {
-                       
+                if ($httpCode === 200 || $httpCode === 201) {
+            
                 $this->response_code=$httpCode;
+                print_r($response);
                         return $response;
 
                 } else {
-                        return "Return code is {$httpCode} \n"
+                        return "Return old code is {$httpCode} \n"
                                 . curl_error($ch);
                 }
 
 
         }
+
+
+        
 
 }
 ?>
