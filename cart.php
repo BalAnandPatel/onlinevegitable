@@ -166,7 +166,7 @@ $tax=0.0;
           var cgstAll = "#cgstAmt" + id;
           var itemTotal = parseFloat((qty) * (price) - ((qty) * (price) * discount * 0.01)).toFixed(2);
           $(ItemPriceAttr).text(itemTotal);
-          $(actualPriceAttr).text(discount*price*qty*0.01).toFixed(2);
+          $(actualPriceAttr).text((discount*price*qty*0.01).toFixed(2));
 
           $(sgstAmtAttr).text(parseFloat(itemTotal * 0.01 * sgst).toFixed(2));
           $(cgstAmtAttr).text(parseFloat(itemTotal * 0.01 * cgst).toFixed(2));
@@ -177,7 +177,7 @@ $tax=0.0;
 
 
           $('table > tbody  > tr').each(function (index, tr) {
-             //alert("uuu"+index);
+ 
             var ItemPriceAttr = ".money" + index;
             var sgstAmtAttr = "#sgstAmt" + index;
             var cgstAmtAttr = "#cgstAmt" + index;
