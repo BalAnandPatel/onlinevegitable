@@ -1,7 +1,7 @@
 <?php
 
 include 'includes/header.php';
-  $email=isset($_SESSION['email'])?$_SESSION['email']:"";
+  $email=$_SESSION['email'];
 
 
   include "constant.php";
@@ -205,12 +205,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
     </div>
     <?php include 'includes/menu.php' ?>
   </header>
-
+<?php echo "&&&&&&".isset($_COOKIE['pincode']) ; ?>
 <div class="main" id="show">
   <?php
 
-
-  if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){ ?>
+if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
+  
+  ?>
     <div class="containers">
         <form action="account.php" id="pform" method="post">
             <p style="color:#000">Enter Your Pincode to get best experience
@@ -225,7 +226,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
         </form>
     </div>
     <?php
-     }
+    }
     ?>
 </div>
   <section class="py-3"

@@ -1,6 +1,6 @@
-
-<button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Current Location : <?php echo $_COOKIE['pincode']?> <a href="">*Change location)</a></button>
-
+<?php if(isset($_COOKIE['pincode'])){?>
+<button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Current Location : <?php echo $_COOKIE['pincode']?> <a href="unset_pincode.php"> (Change location)</a></button>
+<?php } ?>
 <div class="row py-3 border-bottom">
 
   <div class="col-sm-2   col-lg-3 text-center text-sm-start">
