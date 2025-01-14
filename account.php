@@ -1,9 +1,12 @@
 <?php 
 echo $pincode=$_POST['pincode'];
 if(isset($pincode)){
-setcookie('pincode', $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
+setcookie('pincode', $pincode, time() + (86400 * 30), "/"); // 86400 = 1 day
 
-}include 'includes/header.php' ?>
+}
+
+echo $_COOKIE['pincode']
+;include 'includes/header.php' ?>
 
 <?php 
 

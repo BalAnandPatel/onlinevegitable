@@ -1,7 +1,9 @@
 
+<button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Current Location : <?php echo $_COOKIE['pincode']?> <a href="">*Change location)</a></button>
+
 <div class="row py-3 border-bottom">
 
-  <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+  <div class="col-sm-2   col-lg-3 text-center text-sm-start">
     <div class="main-logo">
       <a href="index.php">
         <img src="images/mainlogo.png" alt="logo" width="40%" class="img-fluid">
@@ -9,7 +11,9 @@
     </div>
   </div>
 
-  <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
+
+  <div class="col-sm-5 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
+    
   <form id="search-form" class="text-center" action="shop.php" method="POST">
     <div class="search-bar row bg-light p-2 my-2 rounded-4">
       <div class="col-md-4 d-none d-md-block">
