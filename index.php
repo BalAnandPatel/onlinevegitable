@@ -49,7 +49,9 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 //print_r($response_pincode); 
 $resultpincode = json_decode($response_pincode);
 //echo "*************************";
-$pincode=(isset($email)?$resultpincode->records[0]->pincode:0);
+// print_r($resultpincode);
+// echo isset($_COOKIE['pincode']);
+ $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$resultpincode->records[0]->pincode:0));
 //$pincode="";
 
 include_once 'includes/curl_header_home.php';
@@ -62,6 +64,7 @@ $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
 
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
+
 //print_r($response_all);
 $response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
  
@@ -205,7 +208,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
     </div>
     <?php include 'includes/menu.php' ?>
   </header>
-<?php echo "&&&&&&".isset($_COOKIE['pincode']) ; ?>
+
 <div class="main" id="show">
   <?php
 

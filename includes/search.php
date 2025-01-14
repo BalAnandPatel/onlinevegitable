@@ -74,8 +74,8 @@
                     class="badge bg-success text-dark ms-2"></span></a></li>
               <li><a href="orders.php" class="dropdown-item">Orders <span class="badge bg-success text-dark ms-2"></span></a>
               </li>
-              <li><a href="settings.php" class="dropdown-item">Settings <span
-                    class="badge bg-success text-dark ms-2"></span></a></li>
+              <!-- <li><a href="settings.php" class="dropdown-item">Settings <span
+                    class="badge bg-success text-dark ms-2"></span></a></li> -->
               <li><a href="logout.php" class="dropdown-item">Logout <span
                     class="badge bg-success text-dark ms-2"></span></a></li>
             </ul>
@@ -127,8 +127,8 @@
       <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
         <span class="fs-6 text-muted dropdown-toggle">Your Cart</span>
-        <span class="cart-total fs-5 fw-bold">&#8377;
-          <?php echo isset($_SESSION["cartTotalAmount"]) ? $_SESSION["cartTotalAmount"] : 0 ?></span>
+        <span class="cart-total fs-6 fw-bold">&#8377;
+          <?php echo  isset($_SESSION["cartTotalAmount"]) ? $_SESSION["cartTotalAmount"] : 0 ?></span>
       </button>
     </div>
   </div>

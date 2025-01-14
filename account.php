@@ -1,5 +1,5 @@
 <?php 
-echo $pincode=$_POST['pincode'];
+ $pincode=$_POST['pincode'];
 if(isset($pincode)){
 setcookie('pincode', $pincode, time() + (86400 * 30), "/"); // 86400 = 1 day
 

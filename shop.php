@@ -2,6 +2,20 @@
 include "constant.php";
 include_once 'includes/curl_header_home.php';
 $email=$_SESSION['email'];
+
+if ( isset($_GET['filter'])) {
+
+  $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => $_GET['filter'], "pageSize" => "", "sort" => "", "extra" => "");
+  $postdata = json_encode($data);
+  $url_all = $URL . "product/readProductById.php";
+  $readCurl = new CurlHome();
+  $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
+
+  // print_r($response_all);
+  $resultProduct = json_decode($response_all);
+  $resultcat = json_decode($response_cat);
+}
+
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "sort" => $_POST['sorts'], "extra" => "");
@@ -311,7 +325,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                 <div class="col">
                   <form id="cart" class="form-group flex-wrap" action="admin/action/shop_cookies.php" method="POST">
                     <div class="product-item ">
-                      <span class="badge bg-success position-absolute m-3">&#8377;<?php
+                      <span class="badge bg-primary position-absolute m-3">&#8377;<?php
                       $total = $resultProduct->records[$i]->price;
                       $discount = $resultProduct->records[$i]->discount;
                       echo floatval(round($total * $discount * 0.01, 2)) ?>

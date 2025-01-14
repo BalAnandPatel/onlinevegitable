@@ -35,6 +35,7 @@ class CurlHome
 
                 curl_setopt_array($ch, $options);
                 $response = curl_exec($ch);
+               // print_r($response);
                 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
                 curl_close($ch);
                  // echo "<pre>" . htmlspecialchars($response) . "</pre>";

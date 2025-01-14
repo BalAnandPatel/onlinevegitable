@@ -24,10 +24,10 @@
   <div class="offcanvas-body">
     <div class="order-md-last">
       <h4 class="d-flex justify-content-between align-items-center mb-3">
-        <span class="text-primary">Your cart</span>
+        <span class="text-primary">Your cart:</span>
         <span
           class="badge bg-primary rounded-pill"><?php 
-            echo number_format($_SESSION['cartsize'],2);
+            echo floatval(isset($_SESSION['cartsize'])?$_SESSION['cartsize']:0);
           ?></span>
       </h4>
 
@@ -47,7 +47,7 @@
             </li>
             <?php
             
-            $total =floatVal($order['itemTotal']) + floatVal($total); ?>
+            $total =floatVal(str_replace(",", "", $order['itemTotal'])) + floatVal($total); ?>
           <?php }
         }
         //} ?>
