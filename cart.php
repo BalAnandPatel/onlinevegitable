@@ -123,7 +123,7 @@ $tax=0.0;
 
         $("#cartList tr").click(function () {
           //alert("**");
-          alert("aa");
+       
           var id = $(this).attr("id");
           var productIdAttr = ".productId" + id;
           var pnameAttr = ".pname" + id;
@@ -152,7 +152,7 @@ $tax=0.0;
           var price = $(priceAttr).val();
 
           var actualPrice=$(actualPriceAttr).val();
-
+       
           var discount = $(discountAttr).val();;
           var sgst = $(sgstAttr).val();;
           var cgst = $(cgstAttr).val();;
@@ -166,7 +166,7 @@ $tax=0.0;
           var cgstAll = "#cgstAmt" + id;
           var itemTotal = parseFloat((qty) * (price) - ((qty) * (price) * discount * 0.01)).toFixed(2);
           $(ItemPriceAttr).text(itemTotal);
-          $(actualPriceAttr).text(2000);
+          $(actualPriceAttr).text(discount*price*qty*0.01).toFixed(2);
 
           $(sgstAmtAttr).text(parseFloat(itemTotal * 0.01 * sgst).toFixed(2));
           $(cgstAmtAttr).text(parseFloat(itemTotal * 0.01 * cgst).toFixed(2));
@@ -191,7 +191,6 @@ $tax=0.0;
               gst += parseFloat($(sgstAmtAttr).text()) + parseFloat($(cgstAmtAttr).text());
             }
 
-
           });
 
 
@@ -199,7 +198,6 @@ $tax=0.0;
           $(".cartTotalTax").text(parseFloat(gst).toFixed(2));
           var total = parseFloat(parseFloat(subTotal) + (gst)).toFixed(2);
           $(".cartTotalPrice").text(parseFloat(total));
-
 
           $.ajax({
             url: 'admin/action/cat_cookies.php', // Calls the same script
@@ -352,18 +350,17 @@ $tax=0.0;
 
                     </td>
                     <td class="py-4">
-                      <div class="total-price">
+                    <div class="total-price">
                         <input type="hidden" id="hprice<?php echo $customIndex ?>"
                           value="<?php echo ($order['price']); ?>">
-
                         &#8377;<span class="money<?php echo $customIndex ?> text-dark" id="<?php echo $order['pid'] ?>">
                           <?php echo number_format(str_replace(",","",$order['itemTotal']), 2); ?>
-                     
-                       <!-- <small><b>Total  :</b><br>  &#8377; <del>    </del></small>               -->
-                       &#8377;<span class="actualTotal<?php echo $customIndex ?> text-dark" id="<?php echo $order['pid'] ?>">
-                       <?php echo number_format(str_replace(",","",$order['itemTotal']), 2); ?>
-                       </span>
+                        </span>
+                       
+                          <br><br>  <small><b>Discount :</b><br> &#8377; <span class="actualTotal<?php echo $customIndex ?>"> <?php echo $order['discount'] != "" ? ($order['discount']*$order['quantity']*$order['price']*0.01) : 0 ?></span>
+                        </span>
                       </div>
+
 
 
 
