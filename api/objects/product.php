@@ -48,12 +48,12 @@ class Product
                  INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
                 $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where  a.id=:pid ";
         } 
-        else if ($this->pid == "" && $this->catId == "" && $this->filter != "" && $this->extra == ""  && $this->pageSize == "") {
-            $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
-               a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
-                INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
-               $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where  a.id=:pid ";
-       } 
+    //     else if ($this->pid == "" && $this->catId == "" && $this->filter != "" && $this->extra == ""  && $this->pageSize == "") {
+    //         $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
+    //            a.sellerId,d.sellerName,a.skuId,a.price,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
+    //             INNER JOIN " . $this->productskuid . " as b ON b.skuid=a.skuid JOIN " .
+    //            $this->seller . "  as d ON a.sellerId=d.id JOIN ". $this->categories . " e ON a.categoriesId=e.id where  a.id=:pid ";
+    //    } 
         else if ($this->pid == "" && $this->subCat != "" && $this->filter != "" && $this->extra == ""  && $this->pageSize == "") {
              $query = "Select a.name,a.id,a.categoriesId,a.rating, a.subCategoryId,a.description,b.quantity,a.createdOn,a.image,
                 a.sellerId,d.sellerName,a.skuId,a.price ,a.shippingCharge,a.discount, e.sgst,e.cgst from " . $this->products . " as a
@@ -123,10 +123,11 @@ class Product
             
 
         }
-        else if ($this->filter != "") {
+        // else if ($this->filter != "") {
 
-            $stmt->bindParam(":filter", $this->filter);
-        }
+        //     $stmt->bindParam(":minVal", $this->minVal,PDO::PARAM_INT);  
+        //     $stmt->bindParam(":maxVal", $this->maxVal,PDO::PARAM_INT);  
+        // }
         else if ($this->extra != "") {
 
             $this->extra = htmlspecialchars(strip_tags(trim($this->extra)));

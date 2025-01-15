@@ -5,15 +5,22 @@ $email=$_SESSION['email'];
 
 if ( isset($_GET['filter'])) {
 
-  $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => $_GET['filter'], "pageSize" => "", "sort" => "", "extra" => "");
+  $data = array("crid" => "",
+   "spid" => "",
+    "pid" => "",
+     "filter" => $_GET['filter'],
+      "pageSize" => "", 
+      "sort" => "", 
+      "extra" => "",
+      "pincode"=>"");
   $postdata = json_encode($data);
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
 
-  // print_r($response_all);
+  //print_r($response_all);
   $resultProduct = json_decode($response_all);
-  $resultcat = json_decode($response_cat);
+  //$resultcat = json_decode($response_cat);
 }
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
