@@ -112,7 +112,7 @@ if( $decode->data->email==$_SESSION['email'] ){
                   <th scope="row"><?php echo $i+1 ?></th>
                   <td><a href="orderItems.php?id=<?php echo $resultOrder->records[$i]->orderId ?>"><?php echo $resultOrder->records[$i]->orderId ;?></a></td>
                   <td><?php echo $resultOrder->records[$i]->totalQuantity ;?></td>
-                  <td><?php echo $resultOrder->records[$i]->orderTotal ;?></td>
+                  <td>&#8377;<?php echo $resultOrder->records[$i]->orderTotal ;?></td>
                   <td><?php echo $resultOrder->records[$i]->status ;?></td>
                   <td><?php echo $resultOrder->records[$i]->deliveryId ;?></td>
                   <td><?php echo $resultOrder->records[$i]->paymentId ;?></td>

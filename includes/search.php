@@ -1,7 +1,9 @@
-
+<?php if(isset($_COOKIE['pincode'])){?>
+<button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Current Location : <?php echo $_COOKIE['pincode']?> <a href="unset_pincode.php"> (Change location)</a></button>
+<?php } ?>
 <div class="row py-3 border-bottom">
 
-  <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+  <div class="col-sm-2   col-lg-3 text-center text-sm-start">
     <div class="main-logo">
       <a href="index.php">
         <img src="images/mainlogo.png" alt="logo" width="40%" class="img-fluid">
@@ -9,7 +11,9 @@
     </div>
   </div>
 
-  <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
+
+  <div class="col-sm-5 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
+    
   <form id="search-form" class="text-center" action="shop.php" method="POST">
     <div class="search-bar row bg-light p-2 my-2 rounded-4">
       <div class="col-md-4 d-none d-md-block">
@@ -70,8 +74,8 @@
                     class="badge bg-success text-dark ms-2"></span></a></li>
               <li><a href="orders.php" class="dropdown-item">Orders <span class="badge bg-success text-dark ms-2"></span></a>
               </li>
-              <li><a href="settings.php" class="dropdown-item">Settings <span
-                    class="badge bg-success text-dark ms-2"></span></a></li>
+              <!-- <li><a href="settings.php" class="dropdown-item">Settings <span
+                    class="badge bg-success text-dark ms-2"></span></a></li> -->
               <li><a href="logout.php" class="dropdown-item">Logout <span
                     class="badge bg-success text-dark ms-2"></span></a></li>
             </ul>
@@ -123,8 +127,8 @@
       <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
         <span class="fs-6 text-muted dropdown-toggle">Your Cart</span>
-        <span class="cart-total fs-5 fw-bold">&#8377;
-          <?php echo isset($_SESSION["cartTotalAmount"]) ? $_SESSION["cartTotalAmount"] : 0 ?></span>
+        <span class="cart-total fs-6 fw-bold">&#8377;
+          <?php echo  isset($_SESSION["cartTotalAmount"]) ? $_SESSION["cartTotalAmount"] : 0 ?></span>
       </button>
     </div>
   </div>

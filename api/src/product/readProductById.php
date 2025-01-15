@@ -36,7 +36,7 @@ $read_product->extra = $data->extra;
 
 // echo convert_uudecode(base64_decode($data->filter));
  //$cond = explode("_", convert_uudecode(base64_decode($data->filter)));
-//print_r($data);
+// print_r($data);
 if ($data->filter != "") {
 
      $cond = explode("_", convert_uudecode(base64_decode($data->filter)));

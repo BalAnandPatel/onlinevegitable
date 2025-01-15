@@ -61,7 +61,7 @@ $tax=0.0;
     <script>
 
       $(document).ready(function () {
-        
+    
         var subTotal = 0;
 
         var removeAttr = "";
@@ -123,11 +123,14 @@ $tax=0.0;
 
         $("#cartList tr").click(function () {
           //alert("**");
+       
           var id = $(this).attr("id");
           var productIdAttr = ".productId" + id;
           var pnameAttr = ".pname" + id;
           var qtyAttr = ".allQty" + id;
           var priceAttr = "#hprice" + id;
+
+          var actualPriceAttr=".actualTotal"+id;
 
           var ItemPriceAttr = ".money" + id;
           var discountAttr = "#discount" + id;
@@ -148,11 +151,13 @@ $tax=0.0;
           var productId = $(productIdAttr).val();
           var price = $(priceAttr).val();
 
+          var actualPrice=$(actualPriceAttr).val();
+       
           var discount = $(discountAttr).val();;
           var sgst = $(sgstAttr).val();;
           var cgst = $(cgstAttr).val();;
           var sellerName = $(sellerNameAttr).val();;
-          var sellerId = $(sellerIdAttr).val();;
+          var sellerId = $(sellerIdAttr).val();
           var catId = $(catIdAttr).val();;
           var pSkuid = $(pSkuidAttr).val();;
           var shipping = $(shippingAttr).val();;
@@ -161,16 +166,18 @@ $tax=0.0;
           var cgstAll = "#cgstAmt" + id;
           var itemTotal = parseFloat((qty) * (price) - ((qty) * (price) * discount * 0.01)).toFixed(2);
           $(ItemPriceAttr).text(itemTotal);
-
+          $(actualPriceAttr).text((discount*price*qty*0.01).toFixed(2));
 
           $(sgstAmtAttr).text(parseFloat(itemTotal * 0.01 * sgst).toFixed(2));
           $(cgstAmtAttr).text(parseFloat(itemTotal * 0.01 * cgst).toFixed(2));
+
+        
 
           allTax = parseFloat(itemTotal * 0.01 * sgst + itemTotal * 0.01 * cgst).toFixed(2);
 
 
           $('table > tbody  > tr').each(function (index, tr) {
-             //alert("uuu"+index);
+ 
             var ItemPriceAttr = ".money" + index;
             var sgstAmtAttr = "#sgstAmt" + index;
             var cgstAmtAttr = "#cgstAmt" + index;
@@ -184,7 +191,6 @@ $tax=0.0;
               gst += parseFloat($(sgstAmtAttr).text()) + parseFloat($(cgstAmtAttr).text());
             }
 
-
           });
 
 
@@ -192,7 +198,6 @@ $tax=0.0;
           $(".cartTotalTax").text(parseFloat(gst).toFixed(2));
           var total = parseFloat(parseFloat(subTotal) + (gst)).toFixed(2);
           $(".cartTotalPrice").text(parseFloat(total));
-
 
           $.ajax({
             url: 'admin/action/cat_cookies.php', // Calls the same script
@@ -345,14 +350,17 @@ $tax=0.0;
 
                     </td>
                     <td class="py-4">
-                      <div class="total-price">
+                    <div class="total-price">
                         <input type="hidden" id="hprice<?php echo $customIndex ?>"
                           value="<?php echo ($order['price']); ?>">
                         &#8377;<span class="money<?php echo $customIndex ?> text-dark" id="<?php echo $order['pid'] ?>">
                           <?php echo number_format(str_replace(",","",$order['itemTotal']), 2); ?>
-                          <br>  <small><b>Disc :</b> &#8377; <?php echo $order['discount'] != "" ? ($order['discount']*$order['itemTotal']*0.01) : 0 ?>
+                        </span>
+                       
+                          <br><br>  <small><b>Discount :</b><br> &#8377; <span class="actualTotal<?php echo $customIndex ?>"> <?php echo $order['discount'] != "" ? ($order['discount']*$order['quantity']*$order['price']*0.01) : 0 ?></span>
                         </span>
                       </div>
+
 
 
 

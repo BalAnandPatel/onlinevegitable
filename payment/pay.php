@@ -1,10 +1,10 @@
 <?php
 session_start();
 ob_start();
-echo $_SESSION['email'];
-echo $_SESSION['userpin'];
-echo"***************";
-echo $_POST['sellerpincode'];
+//echo $_SESSION['email'];
+//echo $_SESSION['userpin'];
+//echo"***************";
+//echo $_POST['sellerpincode'];
 if($_POST['sellerpincode']!=$_SESSION['userpin']){
     header('Location:../checkout.php?messageid=Pincode is not Delivereble');    
 

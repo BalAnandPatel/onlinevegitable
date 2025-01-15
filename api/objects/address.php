@@ -5,7 +5,7 @@ class Address
 
     private $conn;
     private $address = "address";
-    private $users = "users";
+    private string $users = "users";
 
     private $cart = "cart";
 

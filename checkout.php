@@ -170,7 +170,7 @@ $totalprice = 0;
           </div>
           <div class="col-lg-6">
 
-          <font color="red"> <?php echo $message=$_GET['messageid'];?></font>
+          <font color="red"> <?php echo $message= isset($_GET['messageid'])?$_GET['messageid']:"";?></font>
             <div class="your-order mt-5">
               <h4 class="display-7 text-dark pb-4">Cart Total</h4>
               <div class="total-price">
@@ -245,14 +245,7 @@ $totalprice = 0;
                       <small class="d-block text-body-secondary">Pay online to your orders</small>
                     </span>
                   </label>
-                  <label class="list-group-item d-flex gap-2 border-0">
-                    <input class="form-check-input flex-shrink-0" type="radio" required name="listGroupRadios"
-                      id="listGroupRadios3" value="cod">
-                    <span>
-                      <strong class="text-uppercase">Cash on delivery</strong>
-                      <small class="d-block text-body-secondary">Pay with cash upon delivery.</small>
-                    </span>
-                  </label>
+                 
                  
                 </div>
               <?php if(!empty($resultAddress)){
