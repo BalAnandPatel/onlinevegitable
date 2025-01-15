@@ -1,12 +1,9 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
   <?php include 'includes/header.php' ?>
-  
 </head>
 <?php
-
 if (isset($_GET['msg'])) {
   $_SESSION['alert_msg'] = $_GET['msg'];
   header("Location:" . $_SERVER['PHP_SELF']);
@@ -15,16 +12,10 @@ if (isset($_GET['msg'])) {
   unset($_SESSION['alert_msg']);
 }
 ?>
-
 <body>
-
   <?php include 'includes/svg.php' ?>
-
-
 <?php include 'includes/preloader.php' ?>
-
   <?php  include 'includes/global-cart.php' ?>
-
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasSearch">
     <div class="offcanvas-header justify-content-center">
       <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
@@ -38,16 +29,11 @@ if (isset($_GET['msg'])) {
       </div>
     </div>
   </div>
-
-
   <header>
     <div class="container-fluid">
       <?php include 'includes/search.php' ?>
     </div>
-
   </header>
-
-
   <section class="py-2 mb-4" style="background: url(images/background-pattern.jpg);">
     <div class="container-fluid">
       <?php include 'includes/breadcrumb.php' ?>
@@ -74,9 +60,7 @@ if (isset($_GET['msg'])) {
       </div>
     </div>
   </section>
-
   <?php include 'includes/footer.php' ?>
   <?php include 'includes/copyright.php' ?>
 </body>
-
 </html>

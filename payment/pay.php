@@ -30,7 +30,7 @@ $host = "localhost";
 $dsn = 'mysql:host=localhost;dbname=vegitabledb';
 $db_name = "vegitabledb";
 $username = "root";
-$password = "root";
+$password = "";
 $conn;
 $shippingC=0;
 $discount=0;
