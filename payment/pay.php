@@ -24,8 +24,6 @@ if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empt
 
 require('../constant.php');
 require('razorpay-php/Razorpay.php');
-
-
 $host = "localhost";
 $dsn = 'mysql:host=localhost;dbname=vegitabledb';
 $db_name = "vegitabledb";

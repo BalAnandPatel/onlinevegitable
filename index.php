@@ -1,5 +1,4 @@
 <?php
-
 include 'includes/header.php';
   $email=$_SESSION['email'];
   include "constant.php";
@@ -47,15 +46,10 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 //print_r($response_pincode); 
 $resultpincode = json_decode($response_pincode);
 //echo "*************************";
-<<<<<<< HEAD
-$pincode=(isset($email)?$resultpincode->records[0]->pincode:0);
-echo $pincode="";
-=======
 // print_r($resultpincode);
 // echo isset($_COOKIE['pincode']);
  $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$resultpincode->records[0]->pincode:0));
 //$pincode="";
->>>>>>> a368164a093a9467d14d72e1841e0d2ecc46a56a
 
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
@@ -215,13 +209,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
 <div class="main" id="show">
   <?php
 
-<<<<<<< HEAD
-  //if(!isset($_COOKIE['pincode']) &&  $_COOKIE['pincode']==""){?>
-=======
 if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
   
   ?>
->>>>>>> a368164a093a9467d14d72e1841e0d2ecc46a56a
     <div class="containers">
         <form action="account.php" id="pform" method="post">
             <p style="color:#000">Enter Your Pincode to get best experience
@@ -236,11 +226,7 @@ if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
         </form>
     </div>
     <?php
-<<<<<<< HEAD
-    // }
-=======
     }
->>>>>>> a368164a093a9467d14d72e1841e0d2ecc46a56a
     ?>
 </div>
   <section class="py-3"
