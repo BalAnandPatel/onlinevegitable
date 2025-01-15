@@ -1,3 +1,12 @@
+<?php
+include "constant.php";
+include_once 'curl_header_home.php';
+$url_cat = $URL . "category/readSubCategory.php";
+$readCurl = new CurlHome();
+$response_cat = $readCurl->createCurl($url_cat, null, 0, 2, 1);
+$resultcat = json_decode($response_cat);
+//print_r($response_cat);
+?>
 <?php if(isset($_COOKIE['pincode'])){?>
 <button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Current Location : <?php echo $_COOKIE['pincode']?> <a href="unset_pincode.php"> (Change location)</a></button>
 <?php } ?>
@@ -18,10 +27,14 @@
     <div class="search-bar row bg-light p-2 my-2 rounded-4">
       <div class="col-md-4 d-none d-md-block">
         <select class="form-select border-0 bg-transparent" name="category">
-          <option>All Categories</option>
-          <option>Groceries</option>
-          <option>Drinks</option>
-          <option>Chocolates</option>
+        <option value="shop.php">All Items</option>
+              <?php
+             
+               if(isset($resultcat))
+              foreach ($resultcat->records[0] as $key => $value) {
+                ?>
+                <option value="shop.php?crid=<?php echo $value->id ?>"><?php echo $key ?></option>
+              <?php } ?>
         </select>
       </div>
       <div class="col-11 col-md-7">

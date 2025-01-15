@@ -27,7 +27,7 @@ $read_product = new Product($db);
 $data = json_decode(json: file_get_contents("php://input"));
 $read_product->catId = $data->crid;
 $read_product->pid = $data->pid;
-$read_product->pincode = $data->pincode;
+$read_product->pincode = isset($data->pincode)?($data->pincode):"";
 $read_product->subCat = $data->spid;
 $read_product->sort = $data->sort;
 $read_product->pageSize = $data->pageSize;
@@ -36,7 +36,7 @@ $read_product->extra = $data->extra;
 
 // echo convert_uudecode(base64_decode($data->filter));
  //$cond = explode("_", convert_uudecode(base64_decode($data->filter)));
-// print_r($data);
+//print_r(value: $data);
 if ($data->filter != "") {
 
      $cond = explode("_", convert_uudecode(base64_decode($data->filter)));
