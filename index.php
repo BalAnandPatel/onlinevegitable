@@ -1,8 +1,6 @@
 <?php
   include 'includes/header.php';
   $email=$_SESSION['email'];
-
-
   include "constant.php";
   include 'includes/curl_header_home.php';
   if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
@@ -49,7 +47,7 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 $resultpincode = json_decode($response_pincode);
 //echo "*************************";
 $pincode=(isset($email)?$resultpincode->records[0]->pincode:0);
-//$pincode="";
+echo $pincode="";
 
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
@@ -208,7 +206,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
 <div class="main" id="show">
   <?php
 
-  if(isset($_COOKIE['pincode']) &&  $_COOKIE['pincode']==""){?>
+  //if(!isset($_COOKIE['pincode']) &&  $_COOKIE['pincode']==""){?>
     <div class="containers">
         <form action="account.php" id="pform" method="post">
             <p style="color:#000">Enter Your Pincode to get best experience
@@ -223,7 +221,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
         </form>
     </div>
     <?php
-     }
+    // }
     ?>
 </div>
   <section class="py-3"
