@@ -22,19 +22,18 @@ $id=$order['sellerId'];
 
 $pincode_url = $URL . "seller/read_seller_pincode.php";
 $datapincode = array("id" =>$id);
-//print_r($datapincode);
+print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
 //echo "------------";
 //print_r($response_pincode); 
-$resultpincode = json_decode($response_pincode);
+ $resultpincode = json_decode($response_pincode);
 //print_r($resultpincode);
-$sellerpincode=$resultpincode->records[0]->pincode;
-
+ $sellerpincode=$resultpincode->records[0]->pincode;
+//echo "*******";
 //print_r($_COOKIE['user_cart']);
-if($decoded=="" ){
-    
+if($decoded=="" ){    
 header('location:account.php');
 }
 else if($decoded->exp<$currentTime){
@@ -60,7 +59,7 @@ $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
 //echo "****$$";
 //print_r($response);
 $resultAddress = json_decode($response);
-print_r($resultAddress);
+//print_r($resultAddress);
 
 $totalprice = 0;
 
@@ -122,7 +121,7 @@ $totalprice = 0;
             </div><br>
             <h4 class="text-dark pb-4">Delivery Type </h4>
             <div class="billing-details ">
-             <input type="hidden" name="sellerpincode" value=<?php echo $sellerpincode; ?>> 
+            <input type="hidden" name="sellerpincode" value=<?php echo $sellerpincode; ?>> 
             <input type="radio" id="html" required accept="" checked="checked" name="fav_language" value="HTML">
 <label for="html">Standard Delivery (2 PM Next day)</label><br>
 <input type="radio" id="deliveryTypeStn" disabled name="Delivery" value="Standard Delivery">
@@ -135,23 +134,26 @@ $totalprice = 0;
             <div class="billing-details scrollable-div-address">
             <?php 
             
-          //  echo "****".sizeof($resultAddress);
+           //echo "****".sizeof($resultAddress);
+           //print_r($resultAddress);
             if(!empty($resultAddress)){
-              for ($i = 0; $i < sizeof($resultAddress->records); $i++) {
+              for($i = 0; $i < sizeof($resultAddress->records); $i++) {
               $add=  "<pre>".$resultAddress->records[$i]->name."<br>". $resultAddress->records[$i]->addressLine1 ."<br>". $resultAddress->records[$i]->addressLine2."<br>".
               $resultAddress->records[$i]->city.",". $resultAddress->records[$i]->state."," .$resultAddress->records[$i]->postalCode."<br>Landmark:".
               $resultAddress->records[$i]->landmark."<br>Mobile:". $resultAddress->records[$i]->mobile."</pre>";
               ?>
                 <div class="address-item">
-                  <input type="radio" id="address<?php echo $index; ?>" required name="address" value="<?php echo $add ?>">
+                  <input type="radio" id="address<?php echo $index; ?>" required name="address" value="<?php $add; ?>">
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->addressLine1; ?></label>,
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->addressLine2; ?></label>,<br>
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->city; ?></label>,
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->state; ?></label>,<br>
-                   <label for="address<?php echo $index; ?>"><b>Pincode:</b><?php echo $resultAddress->records[$i]->postalCode; ?></label><br>
+                   <label for="address<?php echo $index; ?>"><b>Pincodeabc:</b><?php echo $resultAddress->records[$i]->postalCode; ?></label><br>
                    <label for="address<?php echo $index; ?>"><b>Landmark:</b> <?php echo $resultAddress->records[$i]->landmark; ?></label><br>
                    <label for="address<?php echo $index; ?>"><b>Mob:</b> <?php echo $resultAddress->records[$i]->mobile; ?></label>
-                    <?php $_SESSION["userpin"]=$resultAddress->records[$i]->postalCode;?>
+                    <?php $_SESSION["userpin"]=$resultAddress->records[$i]->postalCode;
+                   //print_r($add);
+                    ?>
                     
                   </div>
               <?php  }} ?>

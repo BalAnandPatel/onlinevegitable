@@ -1,12 +1,15 @@
 <?php
 session_start();
 ob_start();
+echo $_POST['address'];
+$useradd=json_decode($_POST['address']);
+//print_r($useradd);
 //echo $_SESSION['email'];
-//echo $_SESSION['userpin'];
-//echo"***************";
-//echo $_POST['sellerpincode'];
+echo $_SESSION['userpin'];
+echo"***************";
+echo $_POST['sellerpincode'];
 if($_POST['sellerpincode']!=$_SESSION['userpin']){
-    header('Location:../checkout.php?messageid=Pincode is not Delivereble');    
+    //header('Location:../checkout.php?messageid=Pincode is not Delivereble');    
 
 //print_r($_COOKIE['user_cart']);
 ($_SESSION['decoded']);
@@ -262,7 +265,7 @@ SET      userId=:userId, orderId=:orderId,paymentId=:paymentId,sellerId=:sellerI
     setcookie('user_cart', '', time() - 3600, "/");
 
     echo '
-    <form action="reciept.php" id="yourform" method="POST">
+    <form action="reciept.php" id="" method="POST">
         <input type="hidden" name="roi" value="' . $orderId . '">
          <input type="hidden" name="rpi" value="' . $paymentId . '">
           <input type="hidden" name="rs" value="GLINTEL">
@@ -277,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 unset($_SESSION['userpin']);
 
 } else {
-    header('Location:../account.php');
+    //header('Location:../account.php');
 }
 
 ob_end_flush();

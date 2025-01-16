@@ -50,6 +50,17 @@ class User
         return $stmt;
     }
 
+    public function changeUserPincode()
+    {
+        echo $query = "update " . $this->users . " SET pincode=''
+           where email=:email";
+         $stmt = $this->conn->prepare($query);
+         $this->email = htmlspecialchars(strip_tags($this->email));
+         $stmt->bindParam(":email", $this->email);
+        $stmt->execute();
+        return $stmt;
+    }
+
     public function readUserAddress()
     {
          $query = "SELECT `id`, `name`,`userId`, `addressLine1`, `addressLine2`, `mobile`, 
