@@ -4,31 +4,22 @@ ob_start();
 $useradd=$_POST['address'];
 $haystack = $_POST['address'];
 $needle   = $_POST['sellerpincode'];
-if (!str_contains($haystack, $needle)) {
+if(!str_contains($haystack, $needle)) {
     //echo "Match hai";
      header('Location:../checkout.php?messageid=Pincode is not Delivereble');
-}
-//echo $useradd=json_decode($_POST['address']);
-//print_r($useradd);
-//echo $_SESSION['email'];
-//echo $_SESSION['userpin'];
-//echo"sellerpin";
-//$_POST['sellerpincode'];
-if($_POST['sellerpincode']!=$_SESSION['userpin']){
-       
 
-//print_r($_COOKIE['user_cart']);
-($_SESSION['decoded']);
+
+//echo "**".intval($decoded->exp)>$currentTime;
+ //unset($_SESSION['email']);
+}
+//($_SESSION['decoded']);
 $currentTime = time();
 // if($decoded->exp>$curre
-$decoded = $_SESSION['decoded'];
-//echo "**".intval($decoded->exp)>$currentTime;
- unset($_SESSION['email']);
-} 
+$decoded = $_SESSION['decoded']; 
 if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
     unset($_SESSION['email']);
 
-    //header("Location: ../shop.php");
+    header("Location: ../shop.php");
 }
 
 require('../constant.php');
@@ -271,7 +262,7 @@ SET      userId=:userId, orderId=:orderId,paymentId=:paymentId,sellerId=:sellerI
     setcookie('user_cart', '', time() - 3600, "/");
 
     echo '
-    <form action="reciept.php" id="" method="POST">
+    <form action="reciept.php" id="yourform" method="POST">
         <input type="hidden" name="roi" value="' . $orderId . '">
          <input type="hidden" name="rpi" value="' . $paymentId . '">
           <input type="hidden" name="rs" value="GLINTEL">

@@ -1,5 +1,6 @@
 <?php
 session_start();
+echo $_SESSION['email'];
 require('../constant.php');
 require('razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
