@@ -1,6 +1,6 @@
 <?php
 session_start();
-echo $_SESSION['email'];
+//echo $_SESSION['email'];
 require('../constant.php');
 require('razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
@@ -251,7 +251,7 @@ seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
                 print_r($results);
 
                 $subTotal = (floatval($results[0]['price']) * floatval($order['quantity']));
-                echo $adminCommision = (floatval($adminCommision * 0.01) * $subTotal);
+                $adminCommision = (floatval($adminCommision * 0.01) * $subTotal);
                 $adminCommisionTotal = $adminCommisionTotal + $adminCommision;
                 $orderSubtotal = $orderSubtotal + $subTotal;
                 $sgstItem = round($subTotal * round($results[0]['sgst'] * 0.01, 2), 2);
@@ -260,7 +260,7 @@ seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
                 $cgstTotal = $cgstTotal + $cgstItem;
 
                 $total = $subTotal + $sgstItem + $cgstItem;
-              $orderTotal = round(($orderTotal + $subTotal + $sgstItem + $cgstItem), 2);
+                $orderTotal = round(($orderTotal + $subTotal + $sgstItem + $cgstItem), 2);
                 $totalQuantity = $totalQuantity + $order['quantity'];
 
                  $queryInsertItem = "INSERT INTO

@@ -2,16 +2,18 @@
   include 'includes/header.php';
   //unset($_COOKIE['pincode']);
 //  print_r($_COOKIE['pincode']);
-  $email=$_SESSION['email'];
+   $email=$_SESSION['email'];
   include "constant.php";
   include 'includes/curl_header_home.php';
-  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
+  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
+  print_r($data);
   $postdata = json_encode($data);
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
+  //print_r($response_all);
   $resultProduct = json_decode($response_all);
   $resultcat = json_decode($response_cat);
 }
@@ -45,46 +47,36 @@ $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
 //print_r($response_pincode); 
-$resultpincode = json_decode($response_pincode);
+ $resultpincode = json_decode($response_pincode);
 //echo "*************************";
 // print_r($resultpincode);
 // echo isset($_COOKIE['pincode']);
- $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$resultpincode->records[0]->pincode:0));
-//$pincode="";
+  $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$pincode=$resultpincode->records[0]->pincode:0));
 
+// Read all Product
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
 // echo "**********". $_POST["sorting"];
-///print_r($data);
+//print_r($data);
 $url_all = $URL . "product/readProductById.php";
 $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
-
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-
 //print_r($response_all);
 $response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
- 
 $resultcat = json_decode($response_cat);
 $resultProduct = json_decode($response_all);
-
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
-
   $filter =$_GET['filter'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => $sorts, "extra" => "");
   $postdata = json_encode($data);
-
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   // echo "---filter"; 
   // print_r($response_all);
   $resultProduct = json_decode($response_all);
-
 }
 
 ?>

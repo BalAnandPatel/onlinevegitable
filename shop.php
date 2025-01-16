@@ -41,15 +41,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $postdata = json_encode($data);
   //print_r($postdata);
    $url_all_x = $URL . "product/readProductById.php";
-  
   $readCurl = new CurlHome();
-  
   $response_all = $readCurl->createCurl($url_all_x, $postdata, 0, 5, 1);
   //print_r($response_all);
   $resultProduct = json_decode($response_all);
   }
-
-
   
 $url_param_type = isset($_GET['crid']) ? $_GET['crid'] : "";
 $url_sub_param_type = isset($_GET['spid']) ? $_GET['spid'] : "";
@@ -58,7 +54,7 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : "";
 $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 
 
-
+// Read Pincode
 $pincode_url = $URL . "user/read_user_pincode.php";
 $datapincode = ($email!="")? array("email" => $_SESSION['email']):array("email" =>"");
 //print_r($datapincode);
@@ -66,25 +62,27 @@ $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
 //print_r($response_pincode); 
-$resultpincode = json_decode($response_pincode);
+ $resultpincode = json_decode($response_pincode);
 //echo "*************************";
-$pincode=(isset($email)?$resultpincode->records[0]->pincode:0);
-//$pincode="";
+// print_r($resultpincode);
+// echo isset($_COOKIE['pincode']);
+  $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$pincode=$resultpincode->records[0]->pincode:0));
 
+
+// Read All Product from here
+
+// Read all Product
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
-
 // echo "**********". $_POST["sorting"];
 //print_r($data);
 $url_all = $URL . "product/readProductById.php";
 $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
-
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-$response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
 //print_r($response_all);
- 
+$response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
 $resultcat = json_decode($response_cat);
 $resultProduct = json_decode($response_all);
 
@@ -105,11 +103,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   $resultProduct = json_decode($response_all);
 
 }
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">

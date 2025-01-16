@@ -277,7 +277,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
 unset($_SESSION['userpin']);
 
 } else {
-    //header('Location:../account.php');
+    header('Location:../account.php');
 }
 
 ob_end_flush();
