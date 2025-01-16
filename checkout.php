@@ -143,7 +143,7 @@ $totalprice = 0;
               $resultAddress->records[$i]->landmark."<br>Mobile:". $resultAddress->records[$i]->mobile."</pre>";
               ?>
                 <div class="address-item">
-                  <input type="radio" id="address<?php echo $index; ?>" required name="address" value="<?php $add; ?>">
+                  <input type="radio" id="address<?php echo $index; ?>" required name="address" value="<?php echo $add; ?>">
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->addressLine1; ?></label>,
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->addressLine2; ?></label>,<br>
                   <label for="address<?php echo $index; ?>"><?php echo $resultAddress->records[$i]->city; ?></label>,

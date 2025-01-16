@@ -1,15 +1,21 @@
 <?php
 session_start();
 ob_start();
-echo $_POST['address'];
-$useradd=json_decode($_POST['address']);
+$useradd=$_POST['address'];
+$haystack = $_POST['address'];
+$needle   = $_POST['sellerpincode'];
+if (!str_contains($haystack, $needle)) {
+    //echo "Match hai";
+     header('Location:../checkout.php?messageid=Pincode is not Delivereble');
+}
+//echo $useradd=json_decode($_POST['address']);
 //print_r($useradd);
 //echo $_SESSION['email'];
-echo $_SESSION['userpin'];
-echo"***************";
-echo $_POST['sellerpincode'];
+//echo $_SESSION['userpin'];
+//echo"sellerpin";
+//$_POST['sellerpincode'];
 if($_POST['sellerpincode']!=$_SESSION['userpin']){
-    //header('Location:../checkout.php?messageid=Pincode is not Delivereble');    
+       
 
 //print_r($_COOKIE['user_cart']);
 ($_SESSION['decoded']);
