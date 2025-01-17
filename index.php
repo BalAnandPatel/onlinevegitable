@@ -8,7 +8,7 @@
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
-  print_r($data);
+ // print_r($data);
   $postdata = json_encode($data);
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
