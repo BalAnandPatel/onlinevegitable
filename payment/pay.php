@@ -1,6 +1,7 @@
 <?php
 session_start();
 ob_start();
+$_POST['postalCode'];
 $useradd=$_POST['address'];
 $haystack = $_POST['address'];
 $needle   = $_POST['sellerpincode'];

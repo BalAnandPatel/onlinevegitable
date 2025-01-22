@@ -21,7 +21,7 @@ $update_user = new User($db);
 $data = json_decode(file_get_contents("php://input"));
 $update_user->email=$data->email;
 $update_user->pincode=$data->pincode;
-print_r($data);
+//print_r($data);
 //$getHeaders = apache_request_headers();
 //print_r($getHeaders);
 $jwt = "123";

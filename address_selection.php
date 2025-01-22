@@ -202,10 +202,10 @@
                     <label class="list-group-item d-flex gap-2 border-0">
                       <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios"
                         id="listGroupRadios3" value="cod" required>
-                      <span>
+                      <!-- <span>
                         <strong class="text-uppercase">Cash on delivery</strong>
                         <small class="d-block text-body-secondary">Pay with cash upon delivery.</small>
-                      </span>
+                      </span> -->
                     </label>
 
                   </div>
