@@ -30,7 +30,7 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 //print_r($response_pincode); 
  $resultpincode = json_decode($response_pincode);
 //print_r($resultpincode);
- $sellerpincode=$resultpincode->records[0]->pincode;
+ echo $sellerpincode=$resultpincode->records[0]->pincode;
 //echo "*******";
 //print_r($_COOKIE['user_cart']);
 if($decoded=="" ){    

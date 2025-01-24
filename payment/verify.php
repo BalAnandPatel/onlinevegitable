@@ -156,7 +156,7 @@ quantity=:quantity,discount=:discount,subId=:subId, price=:price,total=:total,su
                     $stmt1->bindParam(":createdBy", $userId);
                     $stmt1->bindParam(":createdOn", $createdOn);
                    
-                    print_r($order);
+                    //print_r($order);
                     $stmt1->execute();
                     //print_r($stmt1);
                     // Commit the transaction
@@ -248,7 +248,7 @@ seller  as d ON a.sellerId=d.id where a.categoriesId=:catId and a.id=:pid ";
                 $stmt->execute();
                 // $pdo->commit();
                 $results = $stmt->fetchAll(PDO::FETCH_ASSOC);
-                print_r($results);
+                //print_r($results);
 
                 $subTotal = (floatval($results[0]['price']) * floatval($order['quantity']));
                 $adminCommision = (floatval($adminCommision * 0.01) * $subTotal);
