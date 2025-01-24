@@ -11,7 +11,6 @@ include_once '../../config/database.php';
 include_once '../../objects/user.php';
 include_once '../../constant.php';
 
-
   
 $database = new Database();
 $db = $database->getConnection();
@@ -21,7 +20,9 @@ $update_user = new User($db);
 // get posted data
 $data = json_decode(file_get_contents("php://input"));
 $update_user->email=$data->email;
-$getHeaders = apache_request_headers();
+$update_user->pincode=$data->pincode;
+//print_r($data);
+//$getHeaders = apache_request_headers();
 //print_r($getHeaders);
 $jwt = "123";
 
@@ -37,7 +38,7 @@ if(1
 )
 
 {
-    $update_user->pincode=$data->pincode;
+
    
     if($update_user->updateUserPincode()){
   

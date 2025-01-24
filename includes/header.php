@@ -5,11 +5,7 @@ ini_set('display_errors', 1);
 ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 isset($_SESSION['pay_page_reload']);
-// $decode = $_SESSION['decoded'];
-// $currentTime=time();
-// if($decoded->exp>$currentTime){s
-//   unset($_SESSION['email']);
-// }
+
 ?>
 <head>
   <title></title>
@@ -42,5 +38,6 @@ isset($_SESSION['pay_page_reload']);
             background-image: url('https://www.shutterstock.com/shutterstock/photos/2445103455/display_1500/stock-vector-abstract-colorful-d-effects-triangular-shapes-background-2445103455.jpg');
             background-repeat: repeat-x; /* Repeat the image horizontally */
         }
+     
     </style>
 </head>

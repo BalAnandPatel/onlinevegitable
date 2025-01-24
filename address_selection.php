@@ -1,3 +1,32 @@
+<?php 
+include "constant.php";
+include_once 'includes/curl_header_home.php';
+include 'includes/header.php';
+if(isset($_SESSION)){
+  $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+  //echo $decoded;
+  $result = json_decode($_COOKIE['user_cart'], true);
+                      //print_r($result);
+                      $subTotal = 0;
+                      foreach ($result as $index => $order) {
+                        $subTotal = $order['itemTotal'] + $subTotal;
+  $id=$order['sellerId'];
+      }
+  //echo $resultAddress->records[$i]->postalCode;
+  
+  $pincode_url = $URL . "seller/read_seller_pincode.php";
+  $datapincode = array("id" =>$id);
+ // print_r($datapincode);
+  $postdatapincode = json_encode($datapincode);
+  $readCurlpincode = new CurlHome();
+  $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
+  //echo "------------";
+  //print_r($response_pincode); 
+   $resultpincode = json_decode($response_pincode);
+  //print_r($resultpincode);
+  $sellerpincode=$resultpincode->records[0]->pincode;
+    }
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -15,7 +44,6 @@
       padding: 10px;
       margin: 20px 0;
     }
-
     .address-item {
       margin-bottom: 10px;
     }
@@ -73,7 +101,7 @@
               <h4 class="text-dark pb-4">Billing Details</h4>
               <div class="billing-details">
 
-                <input type="checkbox" name="saveAddress" id="save" value="yes">
+                <input type="checkbox" name="saveAddress" id="save" value="yes" checked>
                 <label for="lname"><b>Save Address</b></label><br><br>
                 <label for="lname"><b>Name*</b></label>
                 <input type="text" id="name" name="name" value="" required class="form-control mt-2 mb-4 ps-3">
@@ -127,10 +155,10 @@
                   <option value="Puducherry">Puducherry</option>
                   <option value="Ladakh">Ladakh</option>
                   <option value="Jammu and Kashmir">Jammu and Kashmir</option>
-
                 </select>
                 <label for="zip"><b>Zip Code *</b></label>
                 <input type="number" id="zip" name="postalCode" value="" required class="form-control mt-2 mb-4 ps-3">
+                <input type="number"  name="sellerpincode" value="<?php echo $sellerpincode; ?>" required class="form-control mt-2 mb-4 ps-3">
                 <label for="email"><b>Phone *</b></label>
                 <input type="number" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
                 <label for="email"><b>landmark *</b></label>
@@ -199,14 +227,14 @@
                         <small class="d-block text-body-secondary">Pay online</small>
                       </span>
                     </label>
-                    <label class="list-group-item d-flex gap-2 border-0">
+                    <!-- <label class="list-group-item d-flex gap-2 border-0">
                       <input class="form-check-input flex-shrink-0" type="radio" name="listGroupRadios"
                         id="listGroupRadios3" value="cod" required>
                       <span>
                         <strong class="text-uppercase">Cash on delivery</strong>
                         <small class="d-block text-body-secondary">Pay with cash upon delivery.</small>
                       </span>
-                    </label>
+                    </label> -->
 
                   </div>
                   <button type="submit" name="submit"

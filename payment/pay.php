@@ -1,25 +1,35 @@
 <?php
 session_start();
+ ob_start();
+//  $_POST['postalCode'];
+//  echo "seller".$_POST['sellerpincode'];
+ if($_POST['address']==""){
+     if($_POST['postalCode']!=$_POST['sellerpincode']){
+      header('Location:../checkout.php?messageid=Pincode is not Delivereble');
+      //echo "pincode not match";
+ }
+}
+ else
+ {
+$haystack = $_POST['address'];   
+$needle   = $_POST['sellerpincode'];
+if(!str_contains($haystack, $needle)) {
+    header('Location:../checkout.php?messageid=Pincode is not Delivereble');
+}
+}
 
-ob_start();
-//print_r($_COOKIE['user_cart']);
-($_SESSION['decoded']);
+//($_SESSION['decoded']);
 $currentTime = time();
 // if($decoded->exp>$curre
-$decoded = $_SESSION['decoded'];
-//echo "**".intval($decoded->exp)>$currentTime;
-//   unset($_SESSION['email']);
-// }
+$decoded = $_SESSION['decoded']; 
 if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
     unset($_SESSION['email']);
 
-    header("Location: ../shop.php");
+    //header("Location: ../shop.php");
 }
 
 require('../constant.php');
 require('razorpay-php/Razorpay.php');
-
-
 $host = "localhost";
 $dsn = 'mysql:host=localhost;dbname=vegitabledb';
 $db_name = "vegitabledb";
@@ -80,11 +90,11 @@ foreach ($result as $index => $order) {
     if ($order['quantity'] <= $counts) {
          $total = floatval(($results1[0]['price']) * ($order['quantity']));
        
-         $subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
+         echo"*".$subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
       
-         $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
+         echo"*". $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
        
-          $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
+          echo"*". $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
         
         $updatedBy = "Admin";
         $updatedOn = time();
@@ -138,7 +148,7 @@ if ($displayCurrency !== 'INR') {
 }
 
 $checkout = 'success';
-
+unset($_SESSION['userpincode']);
 $data = [
     "key" => $keyId,
     "amount" => $amount,
@@ -270,7 +280,7 @@ document.addEventListener("DOMContentLoaded", function(event) {
         });         
 </script>
 ';
-
+unset($_SESSION['userpin']);
 
 } else {
     header('Location:../account.php');

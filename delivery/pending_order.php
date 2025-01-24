@@ -15,9 +15,8 @@ curl_setopt($clientdelivery, CURLOPT_POSTFIELDS, $postdatadelivery);
 $read_deliveryResponse = curl_exec($clientdelivery);
 //print_r($read_deliveryResponse);
 $resultDelivery = json_decode($read_deliveryResponse);
-// print_r($resultDelivery);
+//print_r($resultDelivery);
 $pincode=$resultDelivery->records[0]->workingPincode;
-
 $data = array("workingPincode"=>$pincode, "status"=>"","deliveryId"=>$_SESSION['id']);
 //print_r($data);
 $postdata = json_encode($data);
@@ -28,7 +27,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $readOrderDetailsResponse = curl_exec($client);
-// print_r($readOrderDetailsResponse);
+//print_r($readOrderDetailsResponse);
 $resultOrderDetail = json_decode($readOrderDetailsResponse);
 //print_r($resultOrderDetail);
 ?>
@@ -102,6 +101,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
 												<th>Order Id</th>
 												<th>Total</th>
 												<th>STATUS</th>
+												<th>Address</th>
 												<th>OTP</th>
 												<th>Created On</th>
 												<th>Created By</th>
@@ -123,6 +123,7 @@ $resultOrderDetail = json_decode($readOrderDetailsResponse);
 												<td><?php echo $resultOrderDetail->records[$i]->orderId;?></td>
 												<td><?php echo $resultOrderDetail->records[$i]->total;?></td>
 												<td><?php echo $resultOrderDetail->records[$i]->status;?></td>
+												<td><?php echo $resultOrderDetail->records[$i]->deliveryAddress;?></td>
 												<td><?php echo $resultOrderDetail->records[$i]->verificationCode;?></td>
 												<td><?php echo $resultOrderDetail->records[$i]->createdOn;?></td>
 												<td><?php echo $resultOrderDetail->records[$i]->createdBy;?></td>

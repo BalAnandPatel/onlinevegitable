@@ -1,22 +1,34 @@
 <?php include 'includes/header.php';
-  //  $pincode=222202;
-  $pincode="";
-  if(isset($_POST['pincode'])){
-   $pincode =  $_POST['pincode'];
-  // setcookie("pincode", "", time() - 30, "/");
-        setcookie("pin", $pincode, time() + 300);
-  } 
-  //$pincode=$pincode;
-  include 'constant.php';
-  include 'includes/curl_header_home.php';
-  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
+include "constant.php";
+include_once 'includes/curl_header_home.php';
+$email=$_SESSION['email'];
+
+if ( isset($_GET['filter'])) {
+
+  $data = array("crid" => "",
+   "spid" => "",
+    "pid" => "",
+     "filter" => $_GET['filter'],
+      "pageSize" => "", 
+      "sort" => "", 
+      "extra" => "",
+      "pincode"=>"");
+  $postdata = json_encode($data);
+  $url_all = $URL . "product/readProductById.php";
+  $readCurl = new CurlHome();
+  $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
+
+  //print_r($response_all);
+  $resultProduct = json_decode($response_all);
+  //$resultcat = json_decode($response_cat);
+}
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "sort" => $_POST['sorts'], "extra" => "");
   $postdata = json_encode($data);
-
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   // echo "--sort";
   //print_r($response_all);
@@ -29,15 +41,11 @@ if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $postdata = json_encode($data);
   //print_r($postdata);
    $url_all_x = $URL . "product/readProductById.php";
-  
   $readCurl = new CurlHome();
-  
   $response_all = $readCurl->createCurl($url_all_x, $postdata, 0, 5, 1);
   //print_r($response_all);
   $resultProduct = json_decode($response_all);
   }
-
-
   
 $url_param_type = isset($_GET['crid']) ? $_GET['crid'] : "";
 $url_sub_param_type = isset($_GET['spid']) ? $_GET['spid'] : "";
@@ -46,21 +54,36 @@ $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : "";
 $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 
 
-include "constant.php";
-include_once 'includes/curl_header_home.php';
+// Read Pincode
+$pincode_url = $URL . "user/read_user_pincode.php";
+$datapincode = ($email!="")? array("email" => $_SESSION['email']):array("email" =>"");
+//print_r($datapincode);
+$postdatapincode = json_encode($datapincode);
+$readCurlpincode = new CurlHome();
+$response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
+//print_r($response_pincode); 
+ $resultpincode = json_decode($response_pincode);
+//echo "*************************";
+// print_r($resultpincode);
+// echo isset($_COOKIE['pincode']);
+  $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$pincode=$resultpincode->records[0]->pincode:0));
 
-$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize,  "pincode" => $pincode, "sort" => "", "extra" => "");
+
+// Read All Product from here
+
+// Read all Product
+include_once 'includes/curl_header_home.php';
+$data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
 // echo "**********". $_POST["sorting"];
 //print_r($data);
 $url_all = $URL . "product/readProductById.php";
 $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
-
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-$response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
 //print_r($response_all);
- 
+$response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
+//print_r($response_cat);
 $resultcat = json_decode($response_cat);
 $resultProduct = json_decode($response_all);
 
@@ -81,11 +104,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
   $resultProduct = json_decode($response_all);
 
 }
-
-
-
-
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -308,7 +326,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                 <div class="col">
                   <form id="cart" class="form-group flex-wrap" action="admin/action/shop_cookies.php" method="POST">
                     <div class="product-item ">
-                      <span class="badge bg-success position-absolute m-3">&#8377;<?php
+                      <span class="badge bg-primary position-absolute m-3">&#8377;<?php
                       $total = $resultProduct->records[$i]->price;
                       $discount = $resultProduct->records[$i]->discount;
                       echo floatval(round($total * $discount * 0.01, 2)) ?>

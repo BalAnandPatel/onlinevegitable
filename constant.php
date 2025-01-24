@@ -13,8 +13,8 @@ $HOME="index.php";
 $keyId = 'rzp_test_s0vep1GiL4trai';  
 $keySecret = 'qZzxkPLUJ7oFRabycVfDX4bm';
 // Production key
-//  $keyId = 'rzp_live_NGxMijBz5OvO4f';
-//  $keySecret = '0qHNL5t6dmaP2A3PYTaaxOvH';
+// $keyId = 'rzp_live_nK3ASvr2fppCYm';  
+// $keySecret = 'ABuU0CMkbH6uDwNaJi1n5KS7';
 $displayCurrency = 'INR';
 $APP_NAME="Online Sabji Mandi";
 $appDesc="Pay you fees, with our payment gateway";

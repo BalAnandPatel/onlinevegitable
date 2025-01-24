@@ -67,7 +67,7 @@ $resultcat = json_decode($response_cat);
               <option>Shop by Category</option>
               <option value="shop.php">All Items</option>
               <?php
-              echo "******";
+             
                if(isset($resultcat))
               foreach ($resultcat->records[0] as $key => $value) {
                 ?>

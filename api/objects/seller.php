@@ -52,6 +52,16 @@ class Seller
         return $stmt;
     }
 
+    public function readsellerPincode()
+    { 
+       // echo $this->id;
+         $query = "Select pincode from " . $this->selleraddress .  " where sellerId=:id";
+         $stmt = $this->conn->prepare($query);
+         $stmt->bindParam(":id", $this->id); 
+        $stmt->execute();
+        return $stmt;
+    }
+
 
     public function sellerLogin()
     {

@@ -1,86 +1,86 @@
-<?php include 'includes/header.php';
-include "constant.php";?>
-
-<?php 
-
-
- //  include 'constant.php';
+<?php
+  include 'includes/header.php';
+  echo $_SESSION['email'];
+  //unset($_COOKIE['pincode']);
+//  print_r($_COOKIE['pincode']);
+  // if(!isset($_SESSION['email']))
+  // {
+  //   echo <a href="anand.php"> Please Login First! "</a>";
+  // }
+  include "constant.php";
   include 'includes/curl_header_home.php';
-  if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
+  if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
+ // print_r($data);
   $postdata = json_encode($data);
-
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-  // echo "--sort";
-  // print_r($response_all);
-  $resultProduct = json_decode($response_all);
   //print_r($response_all);
+  $resultProduct = json_decode($response_all);
   $resultcat = json_decode($response_cat);
 }
-
 if($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST['search'])) {
   $data = array("crid" => "","spid"=>"","pid"=>"","filter"=>"","pageSize"=>"","sort"=>"","extra"=>$_POST['search']);
   $postdata = json_encode($data);
   //print_r($postdata);
-   $url_all_x = $URL . "product/readProductById.php";
-  
+   $url_all_x = $URL . "product/readProductById.php";  
   $readCurl = new CurlHome();
-  
   $response_all = $readCurl->createCurl($url_all_x, $postdata, 0, 5, 1);
   //print_r($response_all);
   $resultProduct = json_decode($response_all);
   }
-
-
-  
 $url_param_type = isset($_GET['crid']) ? $_GET['crid'] : "";
 $url_sub_param_type = isset($_GET['spid']) ? $_GET['spid'] : "";
 $filter = isset($_GET['filter']) ? $_GET['filter'] : "";
 $pageSize = isset($_GET['pageSize']) ? $_GET['pageSize'] : "";
 $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
-$pincode=isset($_POST[''])?$_POST['pincode']:0;
+$pincode=isset($_POST[''])?$_POST['pincode']:"";
+//if($pincode!=0){
+  // setcookie("pincode", $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
+//}
 
-if($pincode!=0){
-   setcookie("pincode", $pincode, time() + (86400 * 30*12), "/"); // 86400 = 1 day
-}
+// Read Pincode From DataBase
 
-include "constant.php";
+
+$pincode_url = $URL . "user/read_user_pincode.php";
+$datapincode = ($_SESSION['email']!="")? array("email" => $_SESSION['email']):array("email" =>"");
+//print_r($datapincode);
+$postdatapincode = json_encode($datapincode);
+$readCurlpincode = new CurlHome();
+$response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
+//print_r($response_pincode); 
+ $resultpincode = json_decode($response_pincode);
+//echo "*************************";
+// print_r($resultpincode);
+// echo isset($_COOKIE['pincode']);
+  $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$pincode=$resultpincode->records[0]->pincode:0));
+
+// Read all Product
 include_once 'includes/curl_header_home.php';
 $data = array("crid" => $url_param_type, "spid" => $url_sub_param_type, "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => "", "pincode" => "$pincode", "extra" => "");
 $postdata = json_encode($data);
 // echo "**********". $_POST["sorting"];
- //print_r($data);
+//print_r($data);
 $url_all = $URL . "product/readProductById.php";
 $url_cat = $URL . "category/readCategory.php";
 $readCurl = new CurlHome();
-
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
 //print_r($response_all);
 $response_cat = $readCurl->createCurl($url_cat, null, 0, 5, 1);
- 
 $resultcat = json_decode($response_cat);
 $resultProduct = json_decode($response_all);
-
-
-
 if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
-
   $filter =$_GET['filter'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => $filter, "pageSize" => $pageSize, "sort" => $sorts, "extra" => "");
   $postdata = json_encode($data);
-
   $url_all = $URL . "product/readProductById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   // echo "---filter"; 
   // print_r($response_all);
   $resultProduct = json_decode($response_all);
-
 }
 
 ?>
@@ -202,15 +202,33 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
     </div>
     <?php include 'includes/menu.php' ?>
   </header>
+
 <div class="main" id="show">
+  <?php
+  //echo "-------------------------------";
+ //print_r($_COOKIE['pincode']);
+ 
+if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
+  
+  ?>
     <div class="containers">
-        <form action="account.php" id="pform" method="post">
-            <p>Enter Your Pincode to get best experience</p>
-            <label for="pincode">Enter Pincode</label>
-            <input type="text" minlength="6" name="pincode" placeholder="Enter Pincode" required id="pin" autocomplete="off">
+        <form action="account.php"
+         id="pform" method="post">
+            <p style="color:#000">Enter Your Pincode to get best experience
+              <?php if(isset($_GET['validPincode'])) {
+               echo "<p style='color:red'>Please enter valid pincode</p>"; 
+              }
+                ?>
+            </p>
+            <label for="pincode" style="color:#000">Enter Pincode</label>
+            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
     </div>
+    <?php
+    } 
+    
+    ?>
 </div>
   <section class="py-3"
     style="background-image: url('images/background-pattern.jpg');background-repeat: no-repeat;background-size: cover;">
@@ -417,7 +435,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
                             </button>
                           </span>
                           <input type="text" id="quantity" name="quantity" class="form-control input-number text-center"
-                            value="5">
+                            value="1">
                           <span class="input-group-btn">
                             <button type="button" class="quantity-right-plus btn btn-success btn-number" data-type="plus"
                               data-field="">
@@ -568,9 +586,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
             form.submit();
       
     })
-    let pincode =<?php echo isset($_POST['pincode'])?$_POST['pincode']:0 ?>;    
+
     window.addEventListener('load', ()=>{
-      if(!pincode){
+      let pincode =<?php echo ($pincode!=0)?$pincode:0 ; ?>;    
+      //alert(pincode);
+      if(pincode==0){
         show.style.display= "block";
       }else{
        show.style.display="none";

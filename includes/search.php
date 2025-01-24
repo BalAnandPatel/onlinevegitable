@@ -1,7 +1,18 @@
-
+<?php
+include "constant.php";
+include_once 'curl_header_home.php';
+$url_cat = $URL . "category/readSubCategory.php";
+$readCurl = new CurlHome();
+$response_cat = $readCurl->createCurl($url_cat, null, 0, 2, 1);
+$resultcat = json_decode($response_cat);
+//print_r($response_cat);
+?>
+<?php if(isset($_COOKIE['pincode'])){?>
+<button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Current Location : <?php echo $_COOKIE['pincode']?> <a href="unset_pincode.php"> (Change location)</a></button>
+<?php } ?>
 <div class="row py-3 border-bottom">
 
-  <div class="col-sm-4 col-lg-3 text-center text-sm-start">
+  <div class="col-sm-2   col-lg-3 text-center text-sm-start">
     <div class="main-logo">
       <a href="index.php">
         <img src="images/mainlogo.png" alt="logo" width="40%" class="img-fluid">
@@ -9,15 +20,21 @@
     </div>
   </div>
 
-  <div class="col-sm-6 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
+
+  <div class="col-sm-5 offset-sm-2 offset-md-0 col-lg-5 d-none d-lg-block my-4">
+    
   <form id="search-form" class="text-center" action="shop.php" method="POST">
     <div class="search-bar row bg-light p-2 my-2 rounded-4">
       <div class="col-md-4 d-none d-md-block">
         <select class="form-select border-0 bg-transparent" name="category">
-          <option>All Categories</option>
-          <option>Groceries</option>
-          <option>Drinks</option>
-          <option>Chocolates</option>
+        <option value="shop.php">All Items</option>
+              <?php
+             
+               if(isset($resultcat))
+              foreach ($resultcat->records[0] as $key => $value) {
+                ?>
+                <option value="shop.php?crid=<?php echo $value->id ?>"><?php echo $key ?></option>
+              <?php } ?>
         </select>
       </div>
       <div class="col-11 col-md-7">
@@ -41,7 +58,7 @@
       <h6 class="mb-1">+980-34984089</h6>
     </div> -->
       <a href="seller/index.php" target="_blank">
-       <button class="btn btn-primary my-4" style="font-size: 70%;" >Seller Login</button>
+       <button class="btn btn-primary my-4" style="font-size: 70%;color:#000" >Seller Login</button>
        </a>
     <ul class="d-flex justify-content-end list-unstyled m-1">
 
@@ -70,8 +87,8 @@
                     class="badge bg-success text-dark ms-2"></span></a></li>
               <li><a href="orders.php" class="dropdown-item">Orders <span class="badge bg-success text-dark ms-2"></span></a>
               </li>
-              <li><a href="settings.php" class="dropdown-item">Settings <span
-                    class="badge bg-success text-dark ms-2"></span></a></li>
+              <!-- <li><a href="settings.php" class="dropdown-item">Settings <span
+                    class="badge bg-success text-dark ms-2"></span></a></li> -->
               <li><a href="logout.php" class="dropdown-item">Logout <span
                     class="badge bg-success text-dark ms-2"></span></a></li>
             </ul>
@@ -123,8 +140,8 @@
       <button class="border-0 bg-transparent d-flex flex-column gap-2 lh-1" type="button" data-bs-toggle="offcanvas"
         data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
         <span class="fs-6 text-muted dropdown-toggle">Your Cart</span>
-        <span class="cart-total fs-5 fw-bold">&#8377;
-          <?php echo isset($_SESSION["cartTotalAmount"]) ? $_SESSION["cartTotalAmount"] : 0 ?></span>
+        <span class="cart-total fs-6 fw-bold">&#8377;
+          <?php echo  isset($_SESSION["cartTotalAmount"]) ? $_SESSION["cartTotalAmount"] : 0 ?></span>
       </button>
     </div>
   </div>
