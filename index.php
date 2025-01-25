@@ -1,13 +1,7 @@
 <?php
   include 'includes/header.php';
-  echo $decoded->data->email;
-  //unset($_COOKIE['pincode']);
-//  print_r($_COOKIE['pincode']);
-  // if(!isset($decoded->data->email))
-  // {
-  //   echo <a href="anand.php"> Please Login First! "</a>";
-  // }
   $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+
   include "constant.php";
   include 'includes/curl_header_home.php';
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
@@ -56,7 +50,9 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 //echo "*************************";
 // print_r($resultpincode);
 // echo isset($_COOKIE['pincode']);
-  $pincode=(isset($_COOKIE['pincode'])?($_COOKIE['pincode']):($resultpincode->records[0]->pincode!=""?$pincode=$resultpincode->records[0]->pincode:0));
+  $pincode=((isset($_COOKIE['pincode']) && ['pincode']!="undefined")?
+  ($_COOKIE['pincode']):
+  (isset($resultpincode->records[0]->pincode)?$pincode=$resultpincode->records[0]->pincode:0));
 
 // Read all Product
 include_once 'includes/curl_header_home.php';
@@ -207,9 +203,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
 <div class="main" id="show">
   <?php
   //echo "-------------------------------";
- //print_r($_COOKIE['pincode']);
+echo isset($_COOKIE['pincode']);
  
-if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
+if(!isset($_COOKIE['pincode'])){
   
   ?>
     <div class="containers">
