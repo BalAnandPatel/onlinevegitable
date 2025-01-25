@@ -28,6 +28,14 @@ class Seller
         $stmt->execute();
         return $stmt;
     }
+    public function readSellerPay()
+    {
+        $query = "Select a.sellerName,a.counterName,a.id,a.password,a.pan,a.gst,b.city,b.pincode,a.createdOn,b.address,a.aadhar,image,phoneNo,regFee,depositAmount,email,a.status, sum(total) as sTotal , sum(adminCommision) as adminCommision from " . $this->seller .  " as a INNER JOIN " . $this->selleraddress . " as b ON b.sellerId=a.id JOIN " . $this->selleraddress . " as c ON c.sellerId=a.id JOIN " . $this->orderdetails . " as o ON a.id=o.sellerId group by o.sellerId";
+         $stmt = $this->conn->prepare($query);
+        // $stmt->bindParam(":userName", $this->userName); 
+        $stmt->execute();
+        return $stmt;
+    }
     // *****************************
     public function readsellerdata()
     {

@@ -1,7 +1,7 @@
 <?php
 include('include/header.php');
 include '../constant.php';
-$url = $URL . "seller/read_seller.php";
+$url = $URL . "seller/readSellerPay.php";
 $data = array();
 //print_r($data);
 $postdata = json_encode($data);
@@ -170,7 +170,9 @@ $resultPayment = json_decode($response);
                                             <th>id</th>
                                             <th>Name</th>
                                             <th>Counter Name</th>
+                                            <th>Phone</th>
                                             <th>Email</th>
+                                            <th>Commision</th>
                                             <th>Total Payment</th>
                                         </tr>
                                     </thead>
@@ -191,8 +193,10 @@ $resultPayment = json_decode($response);
                                                 <td><button type="submit"><?php echo $resultPayment->records[$i]->sellerName; ?></button></td>
                                                 </form>
                                                 <td><?php echo $resultPayment->records[$i]->counterName; ?></td>
+                                                <td><?php echo $resultPayment->records[$i]->phoneNo; ?></td>
                                                 <td><?php echo $resultPayment->records[$i]->email; ?></td>
-                                                <td><?php echo 0 ?></td>
+                                                <td><?php echo $resultPayment->records[$i]->adminCommision; ?></td>
+                                                <td><?php echo $resultPayment->records[$i]->sTotal; ?></td>
                                             </tr>
                                            
                                         <?php $cnt = $cnt + 1;
