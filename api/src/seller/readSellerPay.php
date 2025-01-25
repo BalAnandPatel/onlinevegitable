@@ -51,7 +51,7 @@ if($jwt){
     
  //print_r($data);
 
-$stmt = $read_seller->readseller();
+$stmt = $read_seller->readSellerPay();
 $num = $stmt->rowCount();
   
 // check if more than 0 record found
@@ -81,6 +81,8 @@ if($num>0){
             "address"=>$address,
             "pincode"=>$pincode,
             "aadhar"=>$aadhar,
+            "adminCommision"=>$adminCommision,
+            "sTotal"=>$sTotal
         );
   
         array_push($read_seller_arr["records"], $read_seller_item);
