@@ -31,7 +31,7 @@ if($delete_product->deletProducts()){
     http_response_code(200);
   
     // tell the user
-    echo json_encode(array("message" => "Product Has Been Deleted."));
+    echo json_encode(array("message" => "Deleted"));
 }
   
 // if unable to delete the admin

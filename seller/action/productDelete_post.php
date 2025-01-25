@@ -15,21 +15,15 @@ curl_setopt($client, CURLOPT_TIMEOUT, 4); //timeout in seconds
 curl_setopt($client,CURLOPT_RETURNTRANSFER,true);
 $response = curl_exec($client);
 curl_close($client);
-print_r($response);
+//print_r($response);
 $result = (json_decode($response));
 
-if($result->message="Deleted"){
+if($result->message=="Deleted"){
     
-  
-  //header('Location:../manage-products.php');
+  header('Location:../manage-products.php');
  } else
  {
   //echo "Bad";
-  //header('Location:../manage-products?msg='.$result->message);
+  header('Location:../manage-products.php?msg='.$result->message);
  }
-
-
-//print_r($result);
-//  print_r($result->token);
-
 ?>
