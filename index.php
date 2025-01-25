@@ -221,8 +221,8 @@ if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
                 ?>
             </p>
             <label for="pincode" style="color:#000">Enter Pincode</label>
-            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
-            <button type="submit" name="submit" id="btn">Submit</button>
+            <input type="number"  id="pincode" name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off" min="6" max="6">
+            <button type="submit"  name="submit" id="btn">Submit</button>
         </form>
     </div>
     <?php
