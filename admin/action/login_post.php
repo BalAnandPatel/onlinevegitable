@@ -45,7 +45,7 @@ if ($result->message == "Successfull") {
          $_SESSION['decoded'] = $decoded;
          //print_r($decoded);
          $_SESSION["JWT"] = $result->jwt;
-         $_SESSION["email"] = $decoded->data->email;
+        //$_SESSION["email"] = $decoded->data->email;
          $_SESSION["phoneNo"] = $decoded->data->phoneNo;
          $_SESSION["name"] = $decoded->data->name;
         

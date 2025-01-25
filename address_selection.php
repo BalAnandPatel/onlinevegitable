@@ -35,7 +35,7 @@ if(isset($_SESSION)){
 <?php include 'includes/header.php' ;
   unset($_SESSION['page_reloaded']);
   $totalprice = 0; ?>
-  <style>
+
     <style>.address-container {
       height: 150px;
       /* Adjust height as needed */
@@ -48,8 +48,7 @@ if(isset($_SESSION)){
       margin-bottom: 10px;
     }
   </style>
-  </style>
-</head>
+  </head>
 
 <body>
   <?php include 'includes/svg.php' ?>

@@ -6,8 +6,8 @@
 <?php
   include "constant.php";
   include_once 'includes/curl_header_home.php';
-
-  $data = array("paymentId" => $_GET['id'], "userId" => $_SESSION['email']);
+  $decode = $_SESSION['decoded'];
+  $data = array("paymentId" => $_GET['id'], "userId" => $decode->data->email);
  //print_r($data);
   $postdata = json_encode($data);
 
@@ -19,7 +19,7 @@
   $resultOrder = json_decode($response_all); 
   ?>
 
-  <style>
+  
     <style>
     .address-container {
       height: 150px;
@@ -33,7 +33,6 @@
     .address-item {
       margin-bottom: 10px;
     }
-  </style>
   </style>
 </head>
 
