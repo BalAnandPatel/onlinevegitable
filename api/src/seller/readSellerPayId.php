@@ -24,7 +24,7 @@ $db = $database->getConnection();
 $read_seller = new Seller($db);
   
 $data = json_decode(file_get_contents("php://input"));
-//$read_seller->id = $data->id;
+$read_seller->sellerId = $data->sellerId;
 // $read_allusers->status = $data->status;
 // $read_allusers->userId = $data->userId;
 // print_r($_SERVER);
@@ -49,9 +49,9 @@ if($jwt){
          //$decoded = JWT::decode($jwt, $SECRET_KEY);
 
     
- //print_r($data);
+//  print_r($data);
 
-$stmt = $read_seller->readSellerPay();
+$stmt = $read_seller->readSellerPayId();
 $num = $stmt->rowCount();
   
 // check if more than 0 record found

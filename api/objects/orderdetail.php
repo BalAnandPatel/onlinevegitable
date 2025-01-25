@@ -4,6 +4,7 @@ class Orderdetail
     private $conn;
     private $orderdetails = "orderdetails";
     private $selleraddress = "selleraddress";
+    private $orderItem = "orderItem";
     private $users = "users";
     private $deliveryboy = "deliveryboy";
      
@@ -22,8 +23,8 @@ class Orderdetail
     {
         if($this->sellerId==true){
            //$this->sellerId;
-      $query ="Select userId,orderId,deliveryId,sellerId,paymentId,total,cgst,verificationCode, sgst,status,adminCommision,createdOn,createdBy from $this->orderdetails where
-      sellerId=:sellerId";
+      $query ="Select a.userId,a.orderId,deliveryId,a.sellerId,paymentId,a.total,a.cgst,a.subTotal,b.discount,verificationCode, a.sgst,status,a.adminCommision,a.createdOn,a.createdBy from $this->orderdetails as a join $this->orderItem as b on a.orderId=b.orderId where
+      a.sellerId=:sellerId";
          $stmt = $this->conn->prepare($query);
          $this->sellerId = htmlspecialchars(strip_tags($this->sellerId)); 
          $stmt->bindParam(":sellerId", $this->sellerId);

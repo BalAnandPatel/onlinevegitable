@@ -8,6 +8,7 @@ class Seller
     private $selleraddress="selleraddress";
     private $sellerbankdetails="sellerbankdetails";
     private $orderdetails="orderdetails";
+    private $orderItem="orderItem";
     // private $table_payment = "payment";
 
     public function __construct($db)
@@ -15,7 +16,7 @@ class Seller
         $this->conn = $db;
     }
 
-    public $id,$sellerName,$counterName,$gst,$updatedBy,$status,$pan,$address,$city,$pincode,$sgst,$cgst,$aadhar,$image,$phonNo,$regFee,$depositAmount,$password,$pwd,$createdOn,$createdBy,$updatedOn,$phoneNo,$email;
+    public $id,$sellerName,$counterName,$gst,$updatedBy,$status, $sellerId, $pan,$address,$city,$date,$pincode,$sgst,$cgst,$aadhar,$image,$phonNo,$regFee,$depositAmount,$password,$pwd,$createdOn,$createdBy,$updatedOn,$phoneNo,$email;
 
     public $cuId, $cuName,$cuEmail, $cuAddress, $cuMobile, $requiredService;
    
@@ -28,11 +29,27 @@ class Seller
         $stmt->execute();
         return $stmt;
     }
-    public function readSellerPay()
-    {
-        $query = "Select a.sellerName,a.counterName,a.id,a.password,a.pan,a.gst,b.city,b.pincode,a.createdOn,b.address,a.aadhar,image,phoneNo,regFee,depositAmount,email,a.status, sum(total) as sTotal , sum(adminCommision) as adminCommision from " . $this->seller .  " as a INNER JOIN " . $this->selleraddress . " as b ON b.sellerId=a.id JOIN " . $this->selleraddress . " as c ON c.sellerId=a.id JOIN " . $this->orderdetails . " as o ON a.id=o.sellerId group by o.sellerId";
-         $stmt = $this->conn->prepare($query);
-        // $stmt->bindParam(":userName", $this->userName); 
+    public function readSellerPay() {
+        $query = "SELECT a.sellerName, a.counterName, a.id, a.password, a.pan, a.gst, b.city, b.pincode, a.createdOn, b.address, a.aadhar, image, phoneNo, regFee, depositAmount, email, a.status, SUM(o.total) AS sTotal, SUM(o.adminCommision) AS adminCommision, SUM(o.subTotal) AS sub, SUM(z.discount) AS discount, o.createdOn AS orderc, SUM(CASE WHEN DATE(o.createdOn) = CURDATE() THEN o.total ELSE 0 END) AS todaysTotal, SUM(CASE WHEN DATE(o.createdOn) = CURDATE() THEN z.discount ELSE 0 END) AS todaysDiscount, SUM(CASE WHEN DATE(o.createdOn) = CURDATE() THEN o.adminCommision ELSE 0 END) as todaysCommision FROM " . $this->seller . " AS a INNER JOIN " . $this->selleraddress . " AS b ON b.sellerId = a.id
+                  JOIN " . $this->selleraddress . " AS c ON c.sellerId = a.id
+                  JOIN " . $this->orderdetails . " AS o ON a.id = o.sellerId
+                  JOIN " . $this->orderItem . " AS z ON o.orderId = z.orderId
+                  GROUP BY o.sellerId";
+                  
+        $stmt = $this->conn->prepare($query);
+        $stmt->execute();
+        return $stmt;
+    }
+
+    public function readSellerPayId() {
+        $query = "SELECT a.sellerName, a.counterName, a.id, a.password, a.pan, a.gst, b.city, b.pincode, a.createdOn, b.address, a.aadhar, image, phoneNo, regFee, depositAmount, email, a.status, SUM(o.total) AS sTotal, SUM(o.adminCommision) AS adminCommision, SUM(o.subTotal) AS sub, SUM(z.discount) AS discount, o.createdOn AS orderc, SUM(CASE WHEN DATE(o.createdOn) = CURDATE() THEN o.total ELSE 0 END) AS todaysTotal, SUM(CASE WHEN DATE(o.createdOn) = CURDATE() THEN z.discount ELSE 0 END) AS todaysDiscount, SUM(CASE WHEN DATE(o.createdOn) = CURDATE() THEN o.adminCommision ELSE 0 END) as todaysCommision FROM " . $this->seller . " AS a INNER JOIN " . $this->selleraddress . " AS b ON b.sellerId = a.id
+                  JOIN " . $this->selleraddress . " AS c ON c.sellerId = a.id
+                  JOIN " . $this->orderdetails . " AS o ON a.id = o.sellerId
+                  JOIN " . $this->orderItem . " AS z ON o.orderId = z.orderId where a.id=:sellerId
+                  GROUP BY o.sellerId";
+                  
+        $stmt = $this->conn->prepare($query);
+        $stmt->bindParam(":sellerId", $this->sellerId);
         $stmt->execute();
         return $stmt;
     }

@@ -13,8 +13,24 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-//print_r($response);
+// print_r($response);
 $resultPayment = json_decode($response);
+//print_r($resultPayment);
+
+$url2 = $URL . "seller/readSellerPayId.php";
+$id = $_SESSION['id'];
+$data2 = array('sellerId'=>$id);
+//print_r($data);
+$postdata2 = json_encode($data2);
+$client2 = curl_init();
+curl_setopt( $client2, CURLOPT_URL,$url2);
+//curl_setopt( $client2, CURLOPT_HTTPHEADER,  $request_headers);
+curl_setopt($client2, CURLOPT_RETURNTRANSFER, 1);
+curl_setopt($client2, CURLOPT_POST, 5);
+curl_setopt($client2, CURLOPT_POSTFIELDS, $postdata2);
+$response2 = curl_exec($client2);
+// print_r($response2);
+$resultPayment2 = json_decode($response2);
 //print_r($resultPayment);
 ?>
 	<!DOCTYPE html>
@@ -162,18 +178,18 @@ $resultPayment = json_decode($response);
 
 							<div class="module">
 								<div class="module-head">
-									<h3>Payment History</h3>
+									<h3>Today History</h3>
 								</div>
 								<div class="module-body table">
 									<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Name</th>
-												<th>Ammount</th>
-												<th>Transaction Id</th>
 												<th>Order Id</th>
-												<th>Method</th>
+												<th>Your Amount</th>
+												<th>Todays Total</th>
+												<th>Todays Discount</th>
+												<th>Admin Commision</th>
 												<th>Status</th>
 												<th>Time</th>
 											</tr>
@@ -181,21 +197,19 @@ $resultPayment = json_decode($response);
 										<tbody>
 
 										<?php
-                // print_r($resultPayment);
 				$cnt=0;
-                // print_r($result['records']);
-                for($i=0; $i<sizeof($resultPayment->records);$i++)
-                { //print_r($result->records[$i]);
+                for($i=0; $i<sizeof($resultPayment2->records);$i++)
+                { //print_r
                 ?>	
 												<tr>
 												<td><?php echo htmlentities($cnt); ?></td>
-												<td><?php echo $resultPayment->records[$i]->name;?></td>
-												<td><?php echo $resultPayment->records[$i]->total;?></td>
-												<td><?php echo $resultPayment->records[$i]->paymentId;?></td>
-												<td><?php echo $resultPayment->records[$i]->orderId;?></td>
-												<td><?php echo $resultPayment->records[$i]->method;?></td>
-												<td><?php echo $resultPayment->records[$i]->status;?></td>
-												<td><?php echo $resultPayment->records[$i]->createdOn;?></td>
+												<td><?php echo $resultPayment2->records[$i]->orderId;?></td>
+												<td><?php echo $resultPayment2->records[$i]->todaysTotal - $resultPayment2->records[$i]->todaysDiscount;?></td>
+												<td><?php echo $resultPayment2->records[$i]->todaysTotal;?></td>
+												<td><?php echo $resultPayment2->records[$i]->todaysDiscount;?></td>
+												<td><?php echo $resultPayment2->records[$i]->todaysCommision;?></td>
+												<td><?php echo $resultPayment2->records[$i]->status;?></td>
+												<td><?php echo $resultPayment2->records[$i]->createdOn;?></td>
 								
 												</tr>
 											<?php $cnt = $cnt + 1;
@@ -204,6 +218,59 @@ $resultPayment = json_decode($response);
 									</table>
 								</div>
 							</div>
+
+
+
+							<div class="module">
+                            <div class="module-head">
+                                <h3>Payment History</h3>
+                            </div>
+                            <div class="module-body table">
+                                <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+                                    <thead>
+                                        <tr>
+                                            <th>#</th>
+                                            <th>id</th>
+                                            <th>Name</th>
+                                            <th>Counter Name</th>
+                                            <th>Phone</th>
+                                            <th>Email</th>
+                                            <th>Commision</th>
+                                            <th>Total Payment</th>
+                                            <th>Payable <small>Price-Discount</small></th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+
+                                        <?php
+                                        // print_r($resultPayment);
+                                        $cnt = 0;
+                                        // print_r($result['records']);
+                                        for ($i = 0; $i < sizeof($resultPayment2->records); $i++) { //print_r($result->records[$i]);
+                                        ?>
+                                       
+                                            <tr>
+                                                <td><?php echo htmlentities($cnt); ?></td>
+                                                <td><?php echo $resultPayment2->records[$i]->id; ?></td>
+                                                <form action="paymentdetails.php" method="POST">
+                                                    <input type="hidden" name="id" value="<?php echo $resultPayment2->records[$i]->id?>">
+                                                <td><button type="submit"><?php echo $resultPayment2->records[$i]->sellerName; ?></button></td>
+                                                </form>
+                                                <td><?php echo $resultPayment2->records[$i]->counterName; ?></td>
+                                                <td><?php echo $resultPayment2->records[$i]->phoneNo; ?></td>
+                                                <td><?php echo $resultPayment2->records[$i]->email; ?></td>
+                                                <td><?php echo $resultPayment2->records[$i]->adminCommision; ?></td>
+                                                <td><?php echo $resultPayment2->records[$i]->sTotal; ?></td>
+                                                <td><?php echo $resultPayment2->records[$i]->sub - $resultPayment2->records[$i]->discount; ?></td>
+                                            </tr>
+                                           
+                                        <?php $cnt = $cnt + 1;
+                                        } ?>
+
+                                </table>
+                            </div>
+                        </div>
+
 
 
 
