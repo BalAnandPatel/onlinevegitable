@@ -121,8 +121,10 @@ $email = $_SESSION['email'];
 $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact']))?$_POST['contact']:9999999999;
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
- $amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
-
+ //$amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
+ $amt =  number_format(($orderTotal+floatval($shippingC)),2)*100;
+ ;
+ 
 
 $orderData = [
     'receipt' => $merchant_order_id,

@@ -1,14 +1,9 @@
 <?php
   include 'includes/header.php';
-  // echo $_SESSION['email'];
-  //unset($_COOKIE['pincode']);
-//  print_r($_COOKIE['pincode']);
-  // if(!isset($_SESSION['email']))
-  // {
-  //   echo <a href="anand.php"> Please Login First! "</a>";
-  // }
   include "constant.php";
   include 'includes/curl_header_home.php';
+  $decoded=isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+  $decoded->data->email;
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
@@ -50,7 +45,7 @@ $datapincode = ($_SESSION['email']!="")? array("email" => $_SESSION['email']):ar
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
-//print_r($response_pincode); 
+print_r($response_pincode); 
  $resultpincode = json_decode($response_pincode);
 //echo "*************************";
 // print_r($resultpincode);

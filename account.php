@@ -1,6 +1,7 @@
 <?php 
 include 'includes/header.php';
-if(isset($_SESSION['email']))
+$decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+if(isset($decoded->data->email))
 {
   header('Location:index.php');  
 }

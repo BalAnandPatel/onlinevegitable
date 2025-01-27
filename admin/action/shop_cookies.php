@@ -18,7 +18,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['submit'])) {
   $cgst = $_POST['cgst'];
   $sellerName = $_POST['sellerName'];
   $afterDis= number_format($quantity * $price- $quantity * $price*0.01* $discount,2);
-$tax=number_format(($afterDis*$sgst*0.01)+($afterDis*$cgst*0.01));
+$tax=number_format((($afterDis*$sgst*0.01)+($afterDis*$cgst*0.01)),2);
 
 $data = array(
     "pid" => $productId,
