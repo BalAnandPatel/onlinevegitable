@@ -12,8 +12,8 @@
   $decode = $_SESSION['decoded'];
 
 //
-if(isset($decode->data->email)){
-  $data = array("paymentId" => "ALL", "userId" => $decode->data->email);
+if(isset($decoded->data->email)){
+  $data = array("paymentId" => "ALL", "userId" => $decoded->data->email);
 }else{
   $data=array();
 }

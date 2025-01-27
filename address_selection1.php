@@ -2,7 +2,7 @@
 <html lang="en">
 <?php
 $decode = $_SESSION['decoded'];
-$user = isset($decode->data->email) ? $decode->data->email : 'Guest';
+$user = isset($decoded->data->email) ? $decoded->data->email : 'Guest';
 include "constant.php";
 include_once 'includes/curl_header_home.php';
 $url = $URL . "user/read_user_address.php";
@@ -41,7 +41,7 @@ $resultAddress = json_decode($response);
               <input type="checkbox" id="lname" name="save" >
               <label for="lname"><b>Save Address</b></label><br><br>
                 <label for="lname"><b>Name*</b></label>
-                <input type="text" id="lname" name="lastname" value="<?php echo $decode->data->email; ?>"
+                <input type="text" id="lname" name="lastname" value="<?php echo $decoded->data->email; ?>"
                   class="form-control mt-2 mb-4 ps-3">
                 <label for="cname"><b>Company Name(optional)*</b></label>
                 <input type="text" id="cname" name="companyname"
@@ -110,7 +110,7 @@ $resultAddress = json_decode($response);
                 <label for="email"><b>Phone *</b></label>
                 <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
                 <label for="email"><b>Email address *</b></label>
-                <input type="text" id="email" name="email" value="<?php echo $decode->data->email; ?>"
+                <input type="text" id="email" name="email" value="<?php echo $decoded->data->email; ?>"
                   class="form-control mt-2 mb-4 ps-3">
               </div>
             </div>
