@@ -85,21 +85,21 @@ foreach ($result as $index => $order) {
     //print_r($results1);
     $counts=$results1[0]['quantity'];
     //  echo "<br><br>";
-    //print_r($order);
+    print_r($order);
 
     if ($order['quantity'] <= $counts) {
-         $total = floatval(($results1[0]['price']) * ($order['quantity']));
+        echo "total".$total = floatval(($results1[0]['price']) * ($order['quantity']));
        
-         $subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
+        echo "subtotal".$subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
       
-         $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
+        echo "sgst".$sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
        
-        $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
+        echo "cgst".$cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
         
         $updatedBy = "Admin";
         $updatedOn = time();
-
-         $orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
+         echo "-----".$subTotal;
+         echo "********".$orderTotal =floatval($orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem);
 
         $quantity = $results1[0]['quantity'] - intval($order['quantity']);
 
@@ -122,9 +122,10 @@ $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
  //$amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
- $amt =  number_format(($orderTotal+floatval($shippingC)),2)*100;
- ;
- 
+ echo "********<br>".$orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
+ echo"<br>---". $orderTotal*100;
+ echo"<br>****". $amtx=($orderTotal+floatval($shippingC))*100;
+ $amt =intval($amtx); 
 
 $orderData = [
     'receipt' => $merchant_order_id,

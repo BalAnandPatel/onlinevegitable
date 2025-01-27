@@ -202,7 +202,7 @@ $totalprice = 0;
                       </td>
                     </tr>
                     <tr class="order-total border-bottom pt-2 pb-2 text-uppercase">
-                      <?php if($subTotal<=500){ ?>
+                      <?php if($subTotal<=50000){ ?>
                       <th>Shipping Charges</th>
                       <td data-title="Total">
                         <span class="price-amount amount ps-5">
