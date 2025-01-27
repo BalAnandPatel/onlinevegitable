@@ -4,9 +4,6 @@ include "constant.php";
 include_once 'includes/curl_header_home.php';
 include 'includes/header.php';
 $currentTime=time();
-//$decoded = !empty($_SESSION['decoded'])?$_SESSION['decoded']:"";
-//print_r($_SESSION);
-
 if(isset($_SESSION)){  
 $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 //echo $decoded;
@@ -17,8 +14,6 @@ $result = json_decode($_COOKIE['user_cart'], true);
                       $subTotal = $order['itemTotal'] + $subTotal;
 $id=$order['sellerId'];
          }
-//echo $resultAddress->records[$i]->postalCode;
-
 $pincode_url = $URL . "seller/read_seller_pincode.php";
 $datapincode = array("id" =>$id);
 //print_r($datapincode);
@@ -29,7 +24,7 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 //print_r($response_pincode); 
  $resultpincode = json_decode($response_pincode);
 //print_r($resultpincode);
- echo $sellerpincode=$resultpincode->records[0]->pincode;
+ $sellerpincode=$resultpincode->records[0]->pincode;
 //echo "*******";
 //print_r($_COOKIE['user_cart']);
 if($decoded=="" ){    
@@ -38,7 +33,7 @@ header('location:account.php');
 else if($decoded->exp<$currentTime){
 
   header('location:account.php');
-    
+  
     
 }
 ob_end_flush();
@@ -48,7 +43,7 @@ if(!isset($_COOKIE['user_cart'])){
 }
 }
 // if()
- $user = isset($_SESSION['email']) ? $_SESSION['email'] : 'Guest';
+$user = isset($decoded->data->email) ? $decoded->data->email : 'Guest';
 $url = $URL . "user/read_user_address.php";
 $data = array("user" => $user);
 //print_r($data);
