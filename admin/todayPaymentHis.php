@@ -2,6 +2,7 @@
 include('include/header.php');
 include '../constant.php';
 $url = $URL . "seller/readSellerPay.php";
+$date = date('Y-m-d');
 $data = array();
 //print_r($data);
 $postdata = json_encode($data);
@@ -12,7 +13,7 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-print_r($response);
+// print_r($response);
 $resultPayment = json_decode($response);
 // print_r($resultPayment);
 ?>
@@ -173,18 +174,19 @@ $resultPayment = json_decode($response);
                                             <th>Phone</th>
                                             <th>Email</th>
                                             <th>Commision</th>
-                                            <th>Total Payment</th>
+                                            <!-- <th>Total Payment</th> -->
+                                            <th>Today Payment</th>
                                             <th>Payable <small>Price-Discount</small></th>
                                         </tr>
                                     </thead>
                                     <tbody>
 
-                                        <?php
-                                        // print_r($resultPayment);
-                                        $cnt = 0;
-                                        // print_r($result['records']);
-                                        for ($i = 0; $i < sizeof($resultPayment->records); $i++) { //print_r($result->records[$i]);
-                                        ?>
+                                    <?php
+											
+											$cnt = 0;
+											
+											for($i=0; $i<sizeof($resultPayment->records); $i++){
+											?>
                                        
                                             <tr>
                                                 <td><?php echo htmlentities($cnt); ?></td>
@@ -196,9 +198,10 @@ $resultPayment = json_decode($response);
                                                 <td><?php echo $resultPayment->records[$i]->counterName; ?></td>
                                                 <td><?php echo $resultPayment->records[$i]->phoneNo; ?></td>
                                                 <td><?php echo $resultPayment->records[$i]->email; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->adminCommision; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->sTotal; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->sub - $resultPayment->records[$i]->discount; ?></td>
+                                                <td><?php echo $resultPayment->records[$i]->todaysCommision; ?></td>
+                                                <!-- <td><?php echo $resultPayment->records[$i]->sTotal; ?></td> -->
+                                                <td><?php echo $resultPayment->records[$i]->todaysTotal; ?></td>
+                                                <td><?php echo $resultPayment->records[$i]->todaysTotal - $resultPayment->records[$i]->todaysDiscount; ?></td>
                                             </tr>
                                            
                                         <?php $cnt = $cnt + 1;
