@@ -12,9 +12,26 @@ curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
 curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
-print_r($response);
+// print_r($response);
 $resultPayment = json_decode($response);
 // print_r($resultPayment);
+
+
+$fromDate= isset($_GET["fromDate"])?$_GET["fromDate"]:"";
+$toDate= isset($_GET["toDate"])?$_GET["toDate"]:"";
+$url2 = $URL."seller/readSellerPayDate.php";
+$data2 = array("fromDate"=>$fromDate,"toDate"=>$toDate);
+// print_r($data);
+$postdata2 = json_encode($data2);
+$client2 = curl_init($url2);
+curl_setopt($client2, CURLOPT_POSTFIELDS, $postdata2);
+curl_setopt($client2, CURLOPT_CONNECTTIMEOUT, 0); 
+curl_setopt($client2, CURLOPT_TIMEOUT, 4); //timeout in seconds
+curl_setopt($client2,CURLOPT_RETURNTRANSFER,true);
+$response2 = curl_exec($client2);
+curl_close($client2);
+print_r($response2);
+$result = (json_decode($response2));
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -101,112 +118,133 @@ $resultPayment = json_decode($response);
 										</div>
 									<?php } ?>
 
-									<br />
-
-									<form class="form-horizontal row-fluid" name="subcategory" method="post" enctype="multipart/form-data" action="action/subcategory_post.php">
-
-									<div class="control-group">
-											<label class="control-label" for="basicinput">Category</label>
-											<div class="controls">
-												<select name="categoriesId" class="span8 tip" onChange="getSubcat(this.value);" >
-													<option value="">Select Category</option>
+									
 													
 													<?php
                                                     // print_r($result);
-                                                    $cnt = 0;
-                                                    // print_r($result['records']);
-                                                    for ($i = 0; $i < sizeof($resultPayment->records); $i++) { //print_r($resultPayment->records[$i]);
+                                                    // $cnt = 0;
+                                                   
+                                                    //for ($i = 0; $i < sizeof($resultPayment->records); $i++) { //print_r($resultPayment->records[$i]);
                                                     ?>	
 				
 													
-														<option value="<?php echo $resultPayment->records[$i]->id; ?>"> <?php echo $resultPayment->records[$i]->name; ?></option>
+														<option value="<?php //echo $resultPayment->records[$i]->id; ?>"> <?php // echo $resultPayment->records[$i]->name; ?></option>
 														
-													<?php } ?>
-												</select>
-											</div>
-										</div>
+													<?php // } ?>
+												
 
 
-										<div class="control-group">
-											<label class="control-label" for="basicinput">SubCategory Name</label>
-											<div class="controls">
-												<input type="text" placeholder="Enter SubCategory Name" name="subcategory" class="span8 tip" required>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label" for="basicinput">Description</label>
-											<div class="controls">
-												<input type="text" placeholder="Enter SubCategory Name" name="description" class="span8 tip" required>
-											</div>
-										</div>
-										<div class="control-group">
-											<label class="control-label" for="basicinput">SubCategory Image</label>
-											<div class="controls">
-												<input type="file" placeholder="Choose SubCategory Image" name="subcategoriesImage" class="span8 tip" required>
-											</div>
-										</div>
+										
 
+<!- Payment History Table 1 -->
+<div class="module">
+    <div class="module-head">
+        <h3>Payment History</h3>
+    </div>
+    <div class="module-body table">
+        <?php if (isset($resultPayment->records) && count($resultPayment->records) > 0) : ?>
+            <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Counter Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Commision</th>
+                        <th>Total Payment</th>
+                        <th>Payable <small>Price-Discount</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $cnt = 0;
+                    foreach ($resultPayment->records as $record) {
+                    ?>
+                        <tr>
+                            <td><?php echo htmlentities($cnt); ?></td>
+                            <td><?php echo $record->id; ?></td>
+                            <form action="paymentdetails.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $record->id ?>">
+                                <td><button type="submit"><?php echo $record->sellerName; ?></button></td>
+                            </form>
+                            <td><?php echo $record->counterName; ?></td>
+                            <td><?php echo $record->phoneNo; ?></td>
+                            <td><?php echo $record->email; ?></td>
+                            <td><?php echo $record->adminCommision; ?></td>
+                            <td><?php echo $record->sTotal; ?></td>
+                            <td><?php echo $record->sub - $record->discount; ?></td>
+                        </tr>
+                    <?php
+                        $cnt++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>No records found for the selected date range.</p>
+        <?php endif; ?>
+    </div>
+</div>
 
+<!-- Payment History Table 2 -->
 
-										<div class="control-group">
-											<div class="controls">
-												<button type="submit" name="submit" class="btn">Create</button>
-											</div>
-										</div>
-									</form>
-								</div>
-							</div> -->
-
-
-                        <div class="module">
-                            <div class="module-head">
-                                <h3>Payment History</h3>
-                            </div>
-                            <div class="module-body table">
-                                <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>id</th>
-                                            <th>Name</th>
-                                            <th>Counter Name</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Commision</th>
-                                            <th>Total Payment</th>
-                                            <th>Payable <small>Price-Discount</small></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        // print_r($resultPayment);
-                                        $cnt = 0;
-                                        // print_r($result['records']);
-                                        for ($i = 0; $i < sizeof($resultPayment->records); $i++) { //print_r($result->records[$i]);
-                                        ?>
-                                       
-                                            <tr>
-                                                <td><?php echo htmlentities($cnt); ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->id; ?></td>
-                                                <form action="paymentdetails.php" method="POST">
-                                                    <input type="hidden" name="id" value="<?php echo $resultPayment->records[$i]->id?>">
-                                                <td><button type="submit"><?php echo $resultPayment->records[$i]->sellerName; ?></button></td>
-                                                </form>
-                                                <td><?php echo $resultPayment->records[$i]->counterName; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->phoneNo; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->email; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->adminCommision; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->sTotal; ?></td>
-                                                <td><?php echo $resultPayment->records[$i]->sub - $resultPayment->records[$i]->discount; ?></td>
-                                            </tr>
-                                           
-                                        <?php $cnt = $cnt + 1;
-                                        } ?>
-
-                                </table>
-                            </div>
-                        </div>
+<div class="module">
+    <div class="module-head d-flex justify-content-between align-items-center">
+        <h3>Payment History</h3>
+        <form class="filter-form d-flex" method="GET" action="paymenthistory.php">
+            <input type="date" id="fromDate" name="fromDate" class="form-control" required>
+            <input type="date" name="toDate" id="toDate" class="form-control" required>
+            <button type="submit" class="btn btn-primary">Filter</button>
+        </form>
+    </div>
+    <div class="module-body table">
+        <?php if (isset($result->records) && count($result->records) > 0) : ?>
+            <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>id</th>
+                        <th>Name</th>
+                        <th>Counter Name</th>
+                        <th>Phone</th>
+                        <th>Email</th>
+                        <th>Commision</th>
+                        <th>Total Payment</th>
+                        <th>Payable <small>Price-Discount</small></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php
+                    $cnt = 0;
+                    foreach ($result->records as $record) {
+                    ?>
+                        <tr>
+                            <td><?php echo htmlentities($cnt); ?></td>
+                            <td><?php echo $record->id; ?></td>
+                            <form action="paymentdetails.php" method="POST">
+                                <input type="hidden" name="id" value="<?php echo $record->id ?>">
+                                <td><button type="submit"><?php echo $record->sellerName; ?></button></td>
+                            </form>
+                            <td><?php echo $record->counterName; ?></td>
+                            <td><?php echo $record->phoneNo; ?></td>
+                            <td><?php echo $record->email; ?></td>
+                            <td><?php echo $record->adminCommision; ?></td>
+                            <td><?php echo $record->sTotal; ?></td>
+                            <td><?php echo $record->sub - $record->discount; ?></td>
+                        </tr>
+                    <?php
+                        $cnt++;
+                    }
+                    ?>
+                </tbody>
+            </table>
+        <?php else : ?>
+            <p>No records found for the selected date range.</p>
+        <?php endif; ?>
+    </div>
+</div>
 
 
 

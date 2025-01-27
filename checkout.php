@@ -21,7 +21,6 @@ $id=$order['sellerId'];
 
 $pincode_url = $URL . "seller/read_seller_pincode.php";
 $datapincode = array("id" =>$id);
-//print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
@@ -29,7 +28,7 @@ $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode,
 //print_r($response_pincode); 
  $resultpincode = json_decode($response_pincode);
 //print_r($resultpincode);
- echo $sellerpincode=$resultpincode->records[0]->pincode;
+ $sellerpincode=$resultpincode->records[0]->pincode;
 //echo "*******";
 //print_r($_COOKIE['user_cart']);
 if($decoded=="" ){    
