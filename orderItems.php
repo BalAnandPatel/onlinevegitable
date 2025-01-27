@@ -6,7 +6,7 @@
 <?php
   include "constant.php";
   include_once 'includes/curl_header_home.php';
-  $decode = $_SESSION['decoded'];
+  $decoded = $_SESSION['decoded'];
   $data = array("paymentId" => $_GET['id'], "userId" => $decoded->data->email);
  //print_r($data);
   $postdata = json_encode($data);

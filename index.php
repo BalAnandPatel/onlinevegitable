@@ -3,7 +3,7 @@
   include "constant.php";
   include 'includes/curl_header_home.php';
   $decoded=isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
-  echo $decoded->data->email;
+  //echo $decoded->data->email;
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
@@ -38,14 +38,13 @@ $pincode=isset($_POST[''])?$_POST['pincode']:"";
 
 // Read Pincode From DataBase
 
-
 $pincode_url = $URL . "user/read_user_pincode.php";
-$datapincode = ($_SESSION['email']!="")? array("email" => $_SESSION['email']):array("email" =>"");
+$datapincode = ($decoded->data->email!="")? array("email" => $decoded->data->email):array("email" =>"");
 //print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
-print_r($response_pincode); 
+//print_r($response_pincode); 
  $resultpincode = json_decode($response_pincode);
 //echo "*************************";
 // print_r($resultpincode);

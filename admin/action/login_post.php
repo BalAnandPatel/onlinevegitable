@@ -21,15 +21,15 @@ $url = $URL . "user/read_userById.php";
  
  
  $datapin = array("pincode" => $pincode, "email" => $email);
-// print_r($datapin);
+print_r($datapin);
 $postdatapin = json_encode($datapin);
 $readCurlpin = new Curl();
 
 $responsepin = $readCurlpin->createCurl($urlupdatedpincode, $postdatapin, 0, 10, 1);
-// print_r($responsepin);
+ print_r($responsepin);
 $resultpin = (json_decode($responsepin));;
 $data = array("password" => $pwd, "email" => $email);
-//print_r($data);
+print_r($data);
 $postdata = json_encode($data);
 $readCurl = new Curl();
 $response = $readCurl->createCurl($url, $postdata, 0, 10, 1);

@@ -38,18 +38,16 @@ $password = "";
 $conn;
 $shippingC=0;
 $discount=0;
-
 $result = json_decode($_COOKIE['user_cart'], true);
 $customIndex = 0;
 foreach ($result as $index => $order) {
     $shippingC= $order['shipping'];
 
-
 }
 
 
 $subTotal = 0;
-$orderTotal = floatval(0);
+$orderTotal = 0;
 $sgstItem = 0;
 $cgstItem = 0;
 $_SESSION['user_address'] = isset($_POST['address']) ? $_POST['address'] : "";
@@ -83,9 +81,9 @@ foreach ($result as $index => $order) {
     $stmt1->execute();
     $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     //print_r($results1);
-    $counts=$results1[0]['quantity'];
-    //  echo "<br><br>";
-    print_r($order);
+    //$counts=$results1[0]['quantity'];
+     //echo "<br><br>";
+    //print_r($order);
 
     if ($order['quantity'] <= $counts) {
         echo "total".$total = floatval(($results1[0]['price']) * ($order['quantity']));

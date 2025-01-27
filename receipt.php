@@ -1,4 +1,8 @@
-<?php include 'includes/header.php';?>
+<?php 
+include 'includes/header.php';
+$decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+
+?>
 <!DOCTYPE html>
 <html lang="en">
 <?php 
@@ -20,20 +24,20 @@ unset($_SESSION['address2']);
 unset($_SESSION['city']);
 unset($_SESSION['state']);
 unset($_SESSION['postalCode']);
-unset($_SESSION['phone']);
+unset($_SESSION['phone']);  
 unset($_SESSION['landmark']);
 unset($_SESSION['page_reloaded']);
 //echo $_SESSION['user_order_id'];
 
-$data = array("paymentId" =>$_SESSION['user_order_id'],"userId"=>$_SESSION['email']);
-//print($data);
+$data = array("paymentId" =>$_SESSION['user_order_id'],"userId"=>$decoded->data->email);
+print_r($data);
 $postdata = json_encode($data);
 
- $url_all = $URL . "order/readOrderById.php";
+$url_all = $URL . "order/readOrderById.php";
 $readCurl = new CurlHome();
 
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
- //print_r($response_all);
+// print_r($response_all);
 
 
   
