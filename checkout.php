@@ -7,8 +7,7 @@ $currentTime=time();
 //$decoded = !empty($_SESSION['decoded'])?$_SESSION['decoded']:"";
 //print_r($_SESSION);
 
-if(isset($_SESSION)){
-  
+if(isset($_SESSION)){  
 $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 //echo $decoded;
 $result = json_decode($_COOKIE['user_cart'], true);
@@ -22,7 +21,7 @@ $id=$order['sellerId'];
 
 $pincode_url = $URL . "seller/read_seller_pincode.php";
 $datapincode = array("id" =>$id);
-print_r($datapincode);
+//print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);

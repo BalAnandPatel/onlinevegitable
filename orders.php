@@ -12,8 +12,8 @@
   $decode = $_SESSION['decoded'];
 
 //
-if( $decode->data->email==$_SESSION['email'] ){
-  $data = array("paymentId" => "ALL", "userId" => $_SESSION['email']);
+if(isset($decode->data->email)){
+  $data = array("paymentId" => "ALL", "userId" => $decode->data->email);
 }else{
   $data=array();
 }
@@ -27,8 +27,7 @@ if( $decode->data->email==$_SESSION['email'] ){
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   //print_r($response_all);
   $resultOrder = json_decode($response_all); ?>
-  <style>
-    <style>.address-container {
+    <style> .address-container {
       height: 150px;
       /* Adjust height as needed */
       overflow-y: scroll;
@@ -41,7 +40,7 @@ if( $decode->data->email==$_SESSION['email'] ){
       margin-bottom: 10px;
     }
   </style>
-  </style>
+
 </head>
 
 <body>
