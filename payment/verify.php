@@ -1,6 +1,6 @@
 <?php
 session_start();
-//echo $_SESSION['email'];
+//$decoded=$_SESSION['decoded'];
 require('../constant.php');
 require('razorpay-php/Razorpay.php');
 use Razorpay\Api\Api;
@@ -21,15 +21,15 @@ $error = "Payment Failed";
 $pdo = new PDO($dsn, $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $currentTime = time();
-$decode = $_SESSION['decoded'];
+$decoded = $_SESSION['decoded'];
 
 $orderId = $_SESSION['user_order_id'];
 $paymentId = isset($_POST['razorpay_payment_id'])?$_POST['razorpay_payment_id']:"COD";
 $result = json_decode($_COOKIE['user_cart'], true);
 //print_r($result);
 $sellerId = "";
-$userId = $_SESSION['email'];
-$name = $_SESSION['name'];
+$userId = $decoded->data->email;
+$name = $decoded->data->name;
 $adminCommision = 0;
 $adminCommisionTotal = 0;
 $total = 0;
@@ -365,12 +365,12 @@ else{
     $stmt3->execute();
 }
 
-    if (!empty($_SESSION['email'])) {
+    if (!empty($decoded->data->email)) {
         $headers = "From: info@onlinesabjimandi.com \r\n";
         $headers .= "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-        $to = trim($_SESSION['email']);
+        $to = trim($decoded->data->email);
         $subject = "Your order is placed successfully!";
 
         $message = "Dear <b></b> ,<br/> Welcome, <br />
@@ -408,12 +408,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
     $stmt3->bindParam(':orderId', $_SESSION['user_order_id'], PDO::PARAM_STR);
     $stmt3->execute();
 
-    if (!empty($_SESSION['email'])) {
+    if (!empty($decoded->data->email)) {
         $headers = "From: kumar@glintel.com \r\n";
         $headers .= "MIME-Version: 1.0" . "\r\n";
         $headers .= "Content-type:text/html;charset=iso-8859-1" . "\r\n";
 
-        $to = trim($_SESSION['email']);
+        $to = trim($decoded->data->email);
         $subject = "Your order is placed successfully!";
 
         $message = "Dear <b></b> ,<br/> Welcome, <br />

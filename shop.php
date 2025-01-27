@@ -1,9 +1,7 @@
 <?php include 'includes/header.php';
 include "constant.php";
 include_once 'includes/curl_header_home.php';
-$decode = $_SESSION['decoded'];
-
-
+$decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 if ( isset($_GET['filter'])) {
 
   $data = array("crid" => "",
@@ -57,7 +55,7 @@ $sorts=isset($_POST['sorts'])?$_POST['sorts']:"";
 
 // Read Pincode
 $pincode_url = $URL . "user/read_user_pincode.php";
-$datapincode = ($decode->data->email!="")? array("email" => $decode->data->email):array("email" =>"");
+$datapincode = ($decoded->data->email!="")? array("email" => $decoded->data->email):array("email" =>"");
 //print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();

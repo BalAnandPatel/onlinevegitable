@@ -3,7 +3,7 @@
   include "constant.php";
   include 'includes/curl_header_home.php';
   $decoded=isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
-  $decoded->data->email;
+  echo $decoded->data->email;
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
@@ -216,7 +216,7 @@ if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
                 ?>
             </p>
             <label for="pincode" style="color:#000">Enter Pincode</label>
-            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
+            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pincode" autocomplete="off" min="100000" max="999999">
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
     </div>

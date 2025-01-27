@@ -22,8 +22,8 @@ if(!str_contains($haystack, $needle)) {
 $currentTime = time();
 // if($decoded->exp>$curre
 $decoded = $_SESSION['decoded']; 
-if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
-    unset($_SESSION['email']);
+if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($decoded->data->email)) {
+    unset($_SESSION['decoded']);
 
     //header("Location: ../shop.php");
 }
@@ -90,11 +90,11 @@ foreach ($result as $index => $order) {
     if ($order['quantity'] <= $counts) {
          $total = floatval(($results1[0]['price']) * ($order['quantity']));
        
-         echo"*".$subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
+         $subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
       
-         echo"*". $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
+         $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
        
-          echo"*". $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
+        $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
         
         $updatedBy = "Admin";
         $updatedOn = time();
@@ -116,8 +116,8 @@ foreach ($result as $index => $order) {
 //echo "<br>". $orderTotal ;
 $api = new Api($keyId, $keySecret);
 
-$name = $_SESSION['name'];
-$email = $_SESSION['email'];
+$name = $decoded->data->name;
+$email = $decoded->data->email;
 $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact']))?$_POST['contact']:9999999999;
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];

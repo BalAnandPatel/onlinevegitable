@@ -1,5 +1,6 @@
 <?php
 // required headers
+
 include '../curl_header.php';
 use \Firebase\JWT\JWT;
 //database connection will be here
