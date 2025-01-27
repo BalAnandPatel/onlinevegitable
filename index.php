@@ -1,6 +1,6 @@
 <?php
   include 'includes/header.php';
-  echo $_SESSION['email'];
+  // echo $_SESSION['email'];
   //unset($_COOKIE['pincode']);
 //  print_r($_COOKIE['pincode']);
   // if(!isset($_SESSION['email']))

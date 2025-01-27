@@ -105,7 +105,6 @@ $resultOrderDetails = json_decode($readOrderDetailsResponse);
 	</head>
 
 	<body>
-		<?php include('include/header.php'); ?>
 
 		<div class="wrapper">
 			<div class="container">
