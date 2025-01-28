@@ -189,23 +189,6 @@ function searchUserByName($orders, $pid)
                 ?>
               </ul>
             </div> -->
-            <div class="widget-product-tags pt-3">
-              <h5 class="widget-title">Tags</h5>
-              <ul class="product-tags sidebar-list list-unstyled">
-                <li class="tags-item">
-                  <a href="#" class="nav-link">White</a>
-                </li>
-                <li class="tags-item">
-                  <a href="#" class="nav-link">Cheap</a>
-                </li>
-                <li class="tags-item">
-                  <a href="#" class="nav-link">Mobile</a>
-                </li>
-                <li class="tags-item">
-                  <a href="#" class="nav-link">Modern</a>
-                </li>
-              </ul>
-            </div>
             <!-- <div class="widget-product-brands pt-3">
               <h5 class="widget-title">Brands</h5>
               <ul class="product-tags sidebar-list list-unstyled">

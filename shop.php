@@ -316,6 +316,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'GET' && isset($_GET['filter'])) {
             </div>
           </div>
 
+          <marquee behavior="alternate" direction="" style="color: red; font-weight: bold"> <img src="images/announcement.png" style="width: 30px;" alt=""> The order will Be Deliver Next Day which Placed After 02:PM (Order Delivery time between 10:AM  to 08:PM)</marquee>
+                <center style="color: rgba(227, 66, 66, 0.8); font-weight: bold">Helpline:-+91-7379351536</center>
+
           <div class="product-grid row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
             <?php
            
