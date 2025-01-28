@@ -120,7 +120,7 @@ $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
  //$amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
  //$orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
- echo"<br>#####################order". $orderTotal;
+ //echo"<br>#####################order". $orderTotal;
  echo"<br>**amit**". $amtx=($orderTotal+floatval($shippingC))*100;
  $amt =intval($amtx); 
 
