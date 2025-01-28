@@ -5,7 +5,7 @@
         <p>© 2023 Sabji Mandi. All rights reserved.</p>
       </div>
       <div class="col-md-6 credit-link text-start text-md-end">
-        <p>Free HTML Template by <a href="https://glintel.com/">Glintel Techbnologies</a></p>
+        <!-- <p>Free HTML Template by <a href="https://glintel.com/">Glintel Techbnologies</a></p> -->
       </div>
     </div>
   </div>

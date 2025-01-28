@@ -23,14 +23,14 @@ class Curl
                 curl_setopt_array($ch, $options);
                 $response = curl_exec($ch);
                 
-                echo $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+                 $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
               
                 curl_close($ch);
                 //echo "<pre>" . htmlspecialchars($response) . "</pre>";
                 if ($httpCode === 200 || $httpCode === 201) {
             
                 $this->response_code=$httpCode;
-                print_r($response);
+                //print_r($response);
                         return $response;
 
                 } else {

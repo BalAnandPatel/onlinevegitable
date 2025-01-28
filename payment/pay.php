@@ -22,8 +22,8 @@ if(!str_contains($haystack, $needle)) {
 $currentTime = time();
 // if($decoded->exp>$curre
 $decoded = $_SESSION['decoded']; 
-if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($_SESSION['email'])) {
-    unset($_SESSION['email']);
+if (empty($_COOKIE['user_cart']) || intval($decoded->exp) < $currentTime || empty($decoded->data->email)) {
+    unset($_SESSION['decoded']);
 
     //header("Location: ../shop.php");
 }
@@ -38,18 +38,13 @@ $password = "";
 $conn;
 $shippingC=0;
 $discount=0;
-
 $result = json_decode($_COOKIE['user_cart'], true);
 $customIndex = 0;
 foreach ($result as $index => $order) {
     $shippingC= $order['shipping'];
-
-
-}
-
-
+  }
 $subTotal = 0;
-$orderTotal = floatval(0);
+$orderTotal = 0;
 $sgstItem = 0;
 $cgstItem = 0;
 $_SESSION['user_address'] = isset($_POST['address']) ? $_POST['address'] : "";
@@ -84,23 +79,22 @@ foreach ($result as $index => $order) {
     $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     //print_r($results1);
     $counts=$results1[0]['quantity'];
-    //  echo "<br><br>";
+     //echo "<br><br>";
     //print_r($order);
 
     if ($order['quantity'] <= $counts) {
-         $total = floatval(($results1[0]['price']) * ($order['quantity']));
+        $total = floatval(($results1[0]['price']) * ($order['quantity']));
        
-         echo"*".$subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
+        $subTotal = floatval($total-($total*$results1[0]['discount']*0.01));
       
-         echo"*". $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
+        $sgstItem = floatval($subTotal * $results1[0]['sgst'] * 0.01);
        
-          echo"*". $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
+        $cgstItem = floatval($subTotal * $results1[0]['cgst'] * 0.01);
         
         $updatedBy = "Admin";
         $updatedOn = time();
-
-         $orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
-
+         //echo "-----".$subTotal;
+        $orderTotal =floatval($orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem);
         $quantity = $results1[0]['quantity'] - intval($order['quantity']);
 
     } else {
@@ -116,13 +110,13 @@ foreach ($result as $index => $order) {
 //echo "<br>". $orderTotal ;
 $api = new Api($keyId, $keySecret);
 
-$name = $_SESSION['name'];
-$email = $_SESSION['email'];
+$name = $decoded->data->name;
+$email = $decoded->data->email;
 $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact']))?$_POST['contact']:9999999999;
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
- $amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
-
+ $amtx=($orderTotal+floatval($shippingC))*100;
+ $amt =intval($amtx); 
 
 $orderData = [
     'receipt' => $merchant_order_id,

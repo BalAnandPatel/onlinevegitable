@@ -1,8 +1,8 @@
 <!DOCTYPE html>
 <html lang="en">
 <?php
-
-$user = isset($_SESSION['email']) ? $_SESSION['email'] : 'Guest';
+$decode = $_SESSION['decoded'];
+$user = isset($decoded->data->email) ? $decoded->data->email : 'Guest';
 include "constant.php";
 include_once 'includes/curl_header_home.php';
 $url = $URL . "user/read_user_address.php";
@@ -11,8 +11,9 @@ $postdata = json_encode($data);
 
 $readCurl = new CurlHome();
 $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
-
+print_r($response);
 $resultAddress = json_decode($response);
+
 ?>
 
 <head>
@@ -40,7 +41,7 @@ $resultAddress = json_decode($response);
               <input type="checkbox" id="lname" name="save" >
               <label for="lname"><b>Save Address</b></label><br><br>
                 <label for="lname"><b>Name*</b></label>
-                <input type="text" id="lname" name="lastname" value="<?php echo $_SESSION['name']; ?>"
+                <input type="text" id="lname" name="lastname" value="<?php echo $decoded->data->email; ?>"
                   class="form-control mt-2 mb-4 ps-3">
                 <label for="cname"><b>Company Name(optional)*</b></label>
                 <input type="text" id="cname" name="companyname"
@@ -109,7 +110,7 @@ $resultAddress = json_decode($response);
                 <label for="email"><b>Phone *</b></label>
                 <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
                 <label for="email"><b>Email address *</b></label>
-                <input type="text" id="email" name="email" value="<?php echo $_SESSION['email']; ?>"
+                <input type="text" id="email" name="email" value="<?php echo $decoded->data->email; ?>"
                   class="form-control mt-2 mb-4 ps-3">
               </div>
             </div>

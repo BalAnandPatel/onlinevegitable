@@ -20,13 +20,13 @@ $db = $database->getConnection();
 
 // initialize object
 $read_order = new Order($db);
-
+//print_r($read_order);
 $data = json_decode(file_get_contents("php://input"));
 $read_order->userId = $data->userId;
 $read_order->paymentId = $data->paymentId;
 // $read_allusers->userId = $data->userId;
-
-//print_r($data);
+// echo "********************";
+// print_r($data);
 
 //$getHeaders = apache_request_headers();
 //print_r($getHeaders);

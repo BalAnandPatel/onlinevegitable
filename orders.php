@@ -1,4 +1,8 @@
-<?php include 'includes/header.php';?>
+<?php
+ include 'includes/header.php';
+ $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+ //$decoded->data->email;
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,17 +13,18 @@
   include "constant.php";
   include_once 'includes/curl_header_home.php';
 
-  $decode = $_SESSION['decoded'];
+ 
 
 //
-if( $decode->data->email==$_SESSION['email'] ){
-  $data = array("paymentId" => "ALL", "userId" => $_SESSION['email']);
-}else{
+if(isset($decoded->data->email)){
+  $data = array("paymentId" => "ALL", "userId" => $decoded->data->email);
+  //print_r($data);
+}
+else{
   $data=array();
 }
   //print_r($data);
   $postdata = json_encode($data);
-
   $url_all = $URL . "order/readOrderById.php";
   $readCurl = new CurlHome();
 
@@ -27,8 +32,7 @@ if( $decode->data->email==$_SESSION['email'] ){
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
   //print_r($response_all);
   $resultOrder = json_decode($response_all); ?>
-  <style>
-    <style>.address-container {
+    <style> .address-container {
       height: 150px;
       /* Adjust height as needed */
       overflow-y: scroll;
@@ -41,7 +45,7 @@ if( $decode->data->email==$_SESSION['email'] ){
       margin-bottom: 10px;
     }
   </style>
-  </style>
+
 </head>
 
 <body>

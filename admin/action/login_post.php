@@ -1,9 +1,5 @@
 <?php
 session_start();
-//echo "hello";
-//echo $_SESSION[""];
-// echo $_SESSION["abc"];
-// echo $_SESSION["pincode"];
 include '../../constant.php';
 include_once '../../api/objects/curl.php';
 require '../../api/php-jwt/src/JWT.php';
@@ -11,31 +7,23 @@ require '../../api/php-jwt/src/ExpiredException.php';
 require '../../api/php-jwt/src/SignatureInvalidException.php';
 require '../../api/php-jwt/src/BeforeValidException.php';
 use \Firebase\JWT\JWT;
-
-
 $pwd = $_POST["password"];
 $email = $_POST["email"];
 $pincode = $_POST["pincode"];
 $url = $URL . "user/read_userById.php";
  $urlupdatedpincode = $URL . "user/update_user_pincode.php";
- 
- 
  $datapin = array("pincode" => $pincode, "email" => $email);
-// print_r($datapin);
 $postdatapin = json_encode($datapin);
 $readCurlpin = new Curl();
-
 $responsepin = $readCurlpin->createCurl($urlupdatedpincode, $postdatapin, 0, 10, 1);
-// print_r($responsepin);
 $resultpin = (json_decode($responsepin));;
 $data = array("password" => $pwd, "email" => $email);
 //print_r($data);
 $postdata = json_encode($data);
 $readCurl = new Curl();
 $response = $readCurl->createCurl($url, $postdata, 0, 10, 1);
+//print_r($response);
 $result = (json_decode($response));
-
-
  //print_r($result);
 if ($result->message == "Successfull") {
     $decoded = JWT::decode($result->jwt, $SECRET_KEY, array('HS256'));
@@ -45,14 +33,14 @@ if ($result->message == "Successfull") {
          $_SESSION['decoded'] = $decoded;
          //print_r($decoded);
          $_SESSION["JWT"] = $result->jwt;
-         $_SESSION["email"] = $decoded->data->email;
+        //$_SESSION["email"] = $decoded->data->email;
          $_SESSION["phoneNo"] = $decoded->data->phoneNo;
          $_SESSION["name"] = $decoded->data->name;
         
     } 
     {
         //print_r($_SESSION['decoded']);
-       header('Location:../../index.php');
+      header('Location:../../index.php');
     }
 }
 else {

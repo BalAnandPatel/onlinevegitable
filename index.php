@@ -1,14 +1,10 @@
 <?php
   include 'includes/header.php';
-  // echo $_SESSION['email'];
-  //unset($_COOKIE['pincode']);
-//  print_r($_COOKIE['pincode']);
-  // if(!isset($_SESSION['email']))
-  // {
-  //   echo <a href="anand.php"> Please Login First! "</a>";
-  // }
   include "constant.php";
+  error_reporting(0);
   include 'includes/curl_header_home.php';
+  $decoded=isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+  //echo $decoded->data->email;
   if($_SERVER['REQUEST_METHOD'] == 'POST' && isset($_POST['sorts'])) {
   $condition = $_POST['sorts'];
   $data = array("crid" => "", "spid" => "", "pid" => "", "filter" => (isset($_GET['filter'])?$_GET['filter']:""), "pageSize" => $pageSize, "pincode" => "", "sort" => $_POST['sorts'], "extra" => "");
@@ -43,9 +39,8 @@ $pincode=isset($_POST[''])?$_POST['pincode']:"";
 
 // Read Pincode From DataBase
 
-
 $pincode_url = $URL . "user/read_user_pincode.php";
-$datapincode = ($_SESSION['email']!="")? array("email" => $_SESSION['email']):array("email" =>"");
+$datapincode = ($decoded->data->email!="")? array("email" => $decoded->data->email):array("email" =>"");
 //print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
@@ -221,7 +216,7 @@ if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
                 ?>
             </p>
             <label for="pincode" style="color:#000">Enter Pincode</label>
-            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pin" autocomplete="off">
+            <input type="number"  name="pincode" placeholder="Enter 6 Digit Pincode" required id="pincode" autocomplete="off" min="100000" max="999999">
             <button type="submit" name="submit" id="btn">Submit</button>
         </form>
     </div>

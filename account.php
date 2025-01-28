@@ -1,6 +1,7 @@
 <?php 
 include 'includes/header.php';
-if(isset($_SESSION['email']))
+$decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+if(isset($decoded->data->email))
 {
   header('Location:index.php');  
 }
@@ -112,10 +113,10 @@ width:49%;
               <a href="newuser.php">New User Registration</a></p>
             </div>
           </form>
-          <div class="col-12">
+          <!-- <div class="col-12">
             <a href="admin/index.php"><button class="btn btn-primary text-white adminAndSeller">Admin Login</button></a>
             <a href="seller/index.php"><button class="btn btn-primary text-white adminAndSeller">Seller Login</button></a>
-          </div>
+          </div> -->
         </div>
       </div>
     </div>

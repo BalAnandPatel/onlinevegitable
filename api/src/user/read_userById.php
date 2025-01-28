@@ -1,5 +1,6 @@
 <?php
 // required headers
+
 include '../curl_header.php';
 use \Firebase\JWT\JWT;
 //database connection will be here
@@ -57,7 +58,7 @@ if ($read_users->email!="" && $read_users->password) {
                     );
 
                     $jwt = JWT::encode($token, $secret_key);
-                    echo json_encode(
+                     echo json_encode(
                         array(
                             "message" => "Successfull",
                             "jwt" => $jwt,

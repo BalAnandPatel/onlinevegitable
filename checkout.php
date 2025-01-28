@@ -4,11 +4,7 @@ include "constant.php";
 include_once 'includes/curl_header_home.php';
 include 'includes/header.php';
 $currentTime=time();
-//$decoded = !empty($_SESSION['decoded'])?$_SESSION['decoded']:"";
-//print_r($_SESSION);
-
-if(isset($_SESSION)){
-  
+if(isset($_SESSION)){  
 $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 //echo $decoded;
 $result = json_decode($_COOKIE['user_cart'], true);
@@ -18,28 +14,21 @@ $result = json_decode($_COOKIE['user_cart'], true);
                       $subTotal = $order['itemTotal'] + $subTotal;
 $id=$order['sellerId'];
          }
-//echo $resultAddress->records[$i]->postalCode;
-
 $pincode_url = $URL . "seller/read_seller_pincode.php";
 $datapincode = array("id" =>$id);
-// print_r($datapincode);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
-//echo "------------";
-//print_r($response_pincode); 
+
  $resultpincode = json_decode($response_pincode);
-//print_r($resultpincode);
  $sellerpincode=$resultpincode->records[0]->pincode;
-//echo "*******";
-//print_r($_COOKIE['user_cart']);
 if($decoded=="" ){    
 header('location:account.php');
 }
 else if($decoded->exp<$currentTime){
 
   header('location:account.php');
-    
+  
     
 }
 ob_end_flush();
@@ -49,18 +38,14 @@ if(!isset($_COOKIE['user_cart'])){
 }
 }
 // if()
- $user = isset($_SESSION['email']) ? $_SESSION['email'] : 'Guest';
+$user = isset($decoded->data->email) ? $decoded->data->email : 'Guest';
 $url = $URL . "user/read_user_address.php";
 $data = array("user" => $user);
 //print_r($data);
 $postdata = json_encode($data);
 $readCurl = new CurlHome();
 $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
-//echo "****$$";
-//print_r($response);
 $resultAddress = json_decode($response);
-//print_r($resultAddress);
-
 $totalprice = 0;
 
 
@@ -128,14 +113,10 @@ $totalprice = 0;
 <label for="css">Express Delivery</label><br>
 <input type="radio" disabled id="deliveryTypeXpress" name="Delivery" value="Express Delivery">
 <label for="javascript">Scheduled Deivery (Comming soon)</label>
-
             </div><br>
             <h4 class="text-dark pb-4">Select Address </h4>
             <div class="billing-details scrollable-div-address">
             <?php 
-            
-           //echo "****".sizeof($resultAddress);
-           //print_r($resultAddress);
             if(!empty($resultAddress)){
               for($i = 0; $i < sizeof($resultAddress->records); $i++) {
               $add=  "<pre>".$resultAddress->records[$i]->name."<br>". $resultAddress->records[$i]->addressLine1 ."<br>". $resultAddress->records[$i]->addressLine2."<br>".
@@ -179,13 +160,10 @@ $totalprice = 0;
                 <table cellspacing="0" class="table">
                                     <tbody>
                     <?php
-                    ///echo "**********************************";
                     $result = json_decode($_COOKIE['user_cart'], true);
-                    //print_r($result);
                     $subTotal = 0;
                     foreach ($result as $index => $order) {
                       $subTotal = $order['itemTotal'] + $subTotal;
-                      //echo $order['itemTotal'];
                     
                     } ?>
                     <tr class="subtotal border-top border-bottom pt-2 pb-2 text-uppercase">
@@ -208,7 +186,7 @@ $totalprice = 0;
                       </td>
                     </tr>
                     <tr class="order-total border-bottom pt-2 pb-2 text-uppercase">
-                      <?php if($subTotal<=500){ ?>
+                      <?php if($subTotal<=50000){ ?>
                       <th>Shipping Charges</th>
                       <td data-title="Total">
                         <span class="price-amount amount ps-5">

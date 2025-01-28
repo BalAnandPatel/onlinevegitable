@@ -93,9 +93,11 @@ $resultcat = json_decode($response_cat);
                     class="badge bg-success text-dark ms-2"></span></a></li>
             </ul>
 
-        <?php
-          } else {
-            echo '<a href="account.php" class="nav-link dropdown-toggle  mx-3" role="button" id="pages" 
+            <?php
+            } else {
+                unset($_SESSION['decoded']);
+                unset($_SESSION['email']);
+              echo '<a href="account.php" class="nav-link dropdown-toggle  mx-3" role="button" id="pages" 
           aria-expanded="false"> <svg width="24" height="24" viewBox="0 0 24 24">
             <use xlink:href="#user"></use>
           </svg>&nbsp; Guest</a>';
