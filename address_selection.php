@@ -102,11 +102,6 @@ if(isset($_SESSION)){
 
                 <input type="checkbox" name="saveAddress" id="save" value="yes" checked>
                 <label for="lname"><b>Save Address</b></label><br><br>
-                <label for="lname"><b>Name*</b></label>
-                <input type="text" id="name" name="name" value="" required class="form-control mt-2 mb-4 ps-3">
-                <label for="cname"><b>Company Name(optional)*</b></label>
-                <input type="text" id="cname" name="companyname" value="" class="form-control mt-2 mb-4">
-
                 <label for="address"><b>Street Address*</b></label>
                 <input type="text" id="adr" name="addrs1" value="" required placeholder="House number and street name"
                   class="form-control mt-3 ps-3 mb-3">
@@ -157,7 +152,7 @@ if(isset($_SESSION)){
                 </select>
                 <label for="zip"><b>Zip Code *</b></label>
                 <input type="number" id="zip" name="postalCode" value="" required class="form-control mt-2 mb-4 ps-3">
-                <input type="number"  name="sellerpincode" value="<?php echo $sellerpincode; ?>" required class="form-control mt-2 mb-4 ps-3">
+                <input type="hidden"  name="sellerpincode" value="<?php echo $sellerpincode; ?>" required class="form-control mt-2 mb-4 ps-3">
                 <label for="email"><b>Phone *</b></label>
                 <input type="number" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
                 <label for="email"><b>landmark *</b></label>

@@ -1,7 +1,6 @@
 <?php 
 include 'includes/header.php';
 $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -30,7 +29,7 @@ unset($_SESSION['page_reloaded']);
 //echo $_SESSION['user_order_id'];
 
 $data = array("paymentId" =>$_SESSION['user_order_id'],"userId"=>$decoded->data->email);
-//print_r($data);
+print_r($data);
 $postdata = json_encode($data);
 
 $url_all = $URL . "order/readOrderById.php";
@@ -95,7 +94,7 @@ $resultOrder = json_decode($response_all);
                 <p><strong>PaymentId ID:</strong> <?php echo $resultOrder->records[0]->paymentId;  ?></p>
                 <p><strong>Date:</strong> <?php echo $resultOrder->records[0]->createdOn; ?></p>
                 <p><strong>Customer Name:<?php echo $_SESSION["name"]?></strong> </p>
-                <p><strong>Customer Email:</strong> <?php echo $_SESSION['email'] ?></p>
+                <p><strong>Customer Email:</strong> <?php echo $decoded->data->email; ?></p>
                 <!-- <p><strong>Seller:</strong> <?php // echo $resultOrder->records[0]->sellerName."-". $resultOrder->records[0]->sellerId ?></p> -->
                 <p><strong>Status:</strong> <?php echo $resultOrder->records[0]->status; ?></p>
                 
