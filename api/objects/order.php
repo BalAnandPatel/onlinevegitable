@@ -52,7 +52,7 @@ class Order
 
         } else if ($this->paymentId != "ALL" && $this->userId != "") {
             
-             $query = "Select b.userId,a.orderId,a.productId,a.productSkuId,a.quantity,a.discount,a.price,a.total itemTotal,b.total orderTotal, 
+            $query = "Select b.userId,a.orderId,a.productId,a.productSkuId,a.quantity,a.discount,a.price,a.total itemTotal,b.total orderTotal, 
             a.sgst,a.cgst,f.name as name,b.sgst as orderSGST,b.cgst as orderCGST,b.sellerId as mainSeller,b.deliveryId,b.status,b.deliveryAddress,b.deliveryInstruction,b.paymentResponse,b.totalQuantity,
             a.createdOn,a.createdBy,b.paymentId,a.subId,a.sellerId, a.sellerName  from " . $this->orderItem . "  a left join " . $this->orderdetails . " b on a.orderId=b.orderid
              INNER JOIN " . $this->users . " as f ON f.email = b.userId where b.orderId=:paymentResponse or a.subId=:paymentResponse and a.userId=:userId";
@@ -77,7 +77,7 @@ class Order
 
     public function insertOrder()
     {
-        echo $query = "INSERT INTO
+         $query = "INSERT INTO
         " . $this->orderdetails . "
     SET      userId=:userId,
     orderId=:orderId,

@@ -1,4 +1,8 @@
-<?php include 'includes/header.php';?>
+<?php
+ include 'includes/header.php';
+ $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
+ //$decoded->data->email;
+ ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -9,17 +13,18 @@
   include "constant.php";
   include_once 'includes/curl_header_home.php';
 
-  $decode = $_SESSION['decoded'];
+ 
 
 //
 if(isset($decoded->data->email)){
   $data = array("paymentId" => "ALL", "userId" => $decoded->data->email);
-}else{
+  //print_r($data);
+}
+else{
   $data=array();
 }
   //print_r($data);
   $postdata = json_encode($data);
-
   $url_all = $URL . "order/readOrderById.php";
   $readCurl = new CurlHome();
 

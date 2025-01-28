@@ -1,35 +1,28 @@
 <?php
 //setcookie('user_cart', '', time() - 3600, "/");
 include 'includes/header.php';
+include "constant.php";
+$decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 if(!isset($_COOKIE['user_cart'])){
     header('location:shop.php');
 }
-
 json_decode($_COOKIE['user_cart']);
-
 $validPid=isset($_GET['pid'])?$_GET['pid']:"";
-
 $validMessage=isset($_GET['msg'])?$_GET['msg']:"";
-
 //session_start();
-$user = isset($_SESSION['email']) ? $_SESSION['email'] : 'Guest';
-include "constant.php";
+$user = isset($decoded->data->email) ? $decoded->data->email : 'Guest';
 include_once 'includes/curl_header_home.php';
 $url = $URL . "cart/readCart.php";
 $data = array("user" => $user);
 $postdata = json_encode($data);
-
 $readCurl = new CurlHome();
 $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
 $resultcart = json_decode($response);
-
 $totalprice = 0;
 $tax=0.0;
 ?>
-
 <body>
   <?php include 'includes/svg.php' ?>
-
 
   <?php include 'includes/preloader.php' ?>
 

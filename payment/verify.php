@@ -1,4 +1,5 @@
 <?php
+error_reporting(0);
 session_start();
 //$decoded=$_SESSION['decoded'];
 require('../constant.php');
@@ -21,7 +22,7 @@ $error = "Payment Failed";
 $pdo = new PDO($dsn, $username, $password);
 $pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 $currentTime = time();
-$decoded = $_SESSION['decoded'];
+$decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 
 $orderId = $_SESSION['user_order_id'];
 $paymentId = isset($_POST['razorpay_payment_id'])?$_POST['razorpay_payment_id']:"COD";
@@ -44,7 +45,7 @@ $notes = $_SESSION['user_notes'];
 $orderStaus = "ORDER PLACED";
 $createdOn = date('Y-m-d H:i:s');
 $totalQuantity = 0;
-if (($decode->exp) > $currentTime && $_SESSION['user_save_address']) {
+if (($decoded->exp) > $currentTime && $_SESSION['user_save_address']) {
     $addrs1 = $_SESSION['address1'];
     $addrs2 = $_SESSION['address2'];
     $city = $_SESSION['city'];
@@ -89,7 +90,7 @@ if (empty($_POST['razorpay_payment_id']) === false) {
         $pdo->beginTransaction();
 
 
-        if (($decode->exp) > $currentTime & $_SESSION['user_address_type'] == 'online') {
+        if (($decoded->exp) > $currentTime & $_SESSION['user_address_type'] == 'online') {
 
             foreach ($result as $index => $order) {
                 //print_r($order);
