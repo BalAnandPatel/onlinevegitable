@@ -24,6 +24,8 @@ $db = $database->getConnection();
 $read_seller = new Seller($db);
   
 $data = json_decode(file_get_contents("php://input"));
+$fromDate = $read_seller->fromDate = $data->fromDate;
+$toDate = $read_seller->toDate = $data->toDate;
 $read_seller->sellerId = $data->sellerId;
 // $read_allusers->status = $data->status;
 // $read_allusers->userId = $data->userId;
@@ -49,9 +51,9 @@ if($jwt){
          //$decoded = JWT::decode($jwt, $SECRET_KEY);
 
     
-//  print_r($data);
+ //print_r($data);
 
-$stmt = $read_seller->readSellerPayId();
+$stmt = $read_seller->readSellerPayDateId($fromDate, $toDate);
 $num = $stmt->rowCount();
   
 // check if more than 0 record found
@@ -69,7 +71,28 @@ if($num>0){
         $read_seller_item=array(
 
             
-           "sellerId"=>$sellerId,
+            // "sellerName"=>$sellerName,
+            // "counterName"=>$counterName,
+            // "phoneNo"=>$phoneNo,
+            // "email"=>$email,
+            // "pan"=>$pan,
+            // "password"=>$password,
+            // "createdOn"=>$createdOn,
+            // "id"=>$id,
+            // "city"=>$city,
+            // "address"=>$address,
+            // "pincode"=>$pincode,
+            // "aadhar"=>$aadhar,
+            // "adminCommision"=>$adminCommision,
+            // "sTotal"=>$sTotal,
+            // "sub"=>$sub,
+            // "discount"=>$discount,
+
+            // "todaysTotal"=>$todaysTotal,
+            // // "todaysDiscount"=>$todaysDiscount,
+            // // "todaysCommision"=>$todaysCommision
+
+            "sellerId"=>$sellerId,
             "sellerName"=>$sellerName,
             "counterName"=>$counterName,
             "email"=>$email,

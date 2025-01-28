@@ -1,13 +1,13 @@
 <?php
 include('include/header.php');
 include '../constant.php';
-$url = $URL . "orderdetails/readOrderDetails.php";
+$url = $URL . "seller/readSellerPayId.php";
 $id = $_SESSION['id'];
-$data = array('sellerId'=>$id);
+$data = array('sellerId' => $id);
 //print_r($data);
 $postdata = json_encode($data);
 $client = curl_init();
-curl_setopt( $client, CURLOPT_URL,$url);
+curl_setopt($client, CURLOPT_URL, $url);
 //curl_setopt( $client, CURLOPT_HTTPHEADER,  $request_headers);
 curl_setopt($client, CURLOPT_RETURNTRANSFER, 1);
 curl_setopt($client, CURLOPT_POST, 5);
@@ -15,89 +15,91 @@ curl_setopt($client, CURLOPT_POSTFIELDS, $postdata);
 $response = curl_exec($client);
 // print_r($response);
 $resultPayment = json_decode($response);
-//print_r($resultPayment);
+// print_r($resultPayment);
 
-$url2 = $URL . "seller/readSellerPayId.php";
-$id = $_SESSION['id'];
-$data2 = array('sellerId'=>$id);
-//print_r($data);
+
+$fromDate = isset($_GET["fromDate"]) ? $_GET["fromDate"] : "";
+$toDate = isset($_GET["toDate"]) ? $_GET["toDate"] : "";
+$sellerId = $_SESSION['id'];
+$url2 = $URL . "seller/readSellerPayDateId.php";
+$data2 = array("fromDate" => $fromDate, "toDate" => $toDate, "sellerId"=>$sellerId);
+// print_r($data2);
 $postdata2 = json_encode($data2);
-$client2 = curl_init();
-curl_setopt( $client2, CURLOPT_URL,$url2);
-//curl_setopt( $client2, CURLOPT_HTTPHEADER,  $request_headers);
-curl_setopt($client2, CURLOPT_RETURNTRANSFER, 1);
-curl_setopt($client2, CURLOPT_POST, 5);
+$client2 = curl_init($url2);
 curl_setopt($client2, CURLOPT_POSTFIELDS, $postdata2);
+curl_setopt($client2, CURLOPT_CONNECTTIMEOUT, 0);
+curl_setopt($client2, CURLOPT_TIMEOUT, 4); //timeout in seconds
+curl_setopt($client2, CURLOPT_RETURNTRANSFER, true);
 $response2 = curl_exec($client2);
+curl_close($client2);
 // print_r($response2);
-$resultPayment2 = json_decode($response2);
-//print_r($resultPayment);
+$result = (json_decode($response2));
 ?>
-	<!DOCTYPE html>
-	<html lang="en">
+<!DOCTYPE html>
+<html lang="en">
 
 
 
 
 
-	
-  <head>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-		<meta name="viewport" content="width=device-width, initial-scale=1.0">
-		<title>Seller| Payment</title>
-		<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
-		<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
-		<link type="text/css" href="css/theme.css" rel="stylesheet">
-		<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
-		<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
-		<script>
-			function getSubcat(val) {
-				//alert(val);
-				var dataPost = {
-					"cat_id": val};var dataString = JSON.stringify(dataPost);
-				$.ajax({
-					type: "POST",
-					url: "../api/src/subcategory/readsubcategory.php",
-					data: {
-                          cat_id: dataString
-					},
-					success: function(data) 
-					{
-					
-						 $('#subcategories').html('');
-						$('#subcategories').append('<option>' +"Sub Categories" + '</option>');
-						 $.each(data.records, function (i, value) {
-						  
-                $('#subcategories').append('<option id=' + (value.categoryid) + '>' + (value.subcategoryName) + '</option>');
-            });
-					},
-					error: function(data)
-					{
-					       $('#subcategories').html('');
-					     $('#subcategories').append('<option>' + "No records found !!" + '</option>');
-					
-		
-					}
-				});
-			}
 
-			function selectCountry(val) {
-				$("#search-box").val(val);
-				$("#suggesstion-box").hide();
-			}
-		</script>
-	</head>
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Seller| Payment</title>
+	<link type="text/css" href="bootstrap/css/bootstrap.min.css" rel="stylesheet">
+	<link type="text/css" href="bootstrap/css/bootstrap-responsive.min.css" rel="stylesheet">
+	<link type="text/css" href="css/theme.css" rel="stylesheet">
+	<link type="text/css" href="images/icons/css/font-awesome.css" rel="stylesheet">
+	<link type="text/css" href='http://fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,400,600' rel='stylesheet'>
+	<script>
+		function getSubcat(val) {
+			//alert(val);
+			var dataPost = {
+				"cat_id": val
+			};
+			var dataString = JSON.stringify(dataPost);
+			$.ajax({
+				type: "POST",
+				url: "../api/src/subcategory/readsubcategory.php",
+				data: {
+					cat_id: dataString
+				},
+				success: function(data) {
 
-	<body>
+					$('#subcategories').html('');
+					$('#subcategories').append('<option>' + "Sub Categories" + '</option>');
+					$.each(data.records, function(i, value) {
 
-		<div class="wrapper">
-			<div class="container">
-				<div class="row">
-					<?php include('include/sidebar.php'); ?>
-					<div class="span9">
-						<div class="content">
+						$('#subcategories').append('<option id=' + (value.categoryid) + '>' + (value.subcategoryName) + '</option>');
+					});
+				},
+				error: function(data) {
+					$('#subcategories').html('');
+					$('#subcategories').append('<option>' + "No records found !!" + '</option>');
 
-							<!-- <div class="module">
+
+				}
+			});
+		}
+
+		function selectCountry(val) {
+			$("#search-box").val(val);
+			$("#suggesstion-box").hide();
+		}
+	</script>
+</head>
+
+<body>
+
+	<div class="wrapper">
+		<div class="container">
+			<div class="row">
+				<?php include('include/sidebar.php'); ?>
+				<div class="span9">
+					<div class="content">
+
+						<!-- <div class="module">
 								<div class="module-head">
 									<h3>Sub Category</h3>
 								</div>
@@ -129,15 +131,14 @@ $resultPayment2 = json_decode($response2);
 													<option value="">Select Category</option>
 													
 													<?php
-                // print_r($result);
-				$cnt=0;
-                // print_r($result['records']);
-                for($i=0; $i<sizeof($resultPayment->records);$i++)
-                { //print_r($resultPayment->records[$i]);
-                ?>	
+													// print_r($result);
+													$cnt = 0;
+													// print_r($result['records']);
+													for ($i = 0; $i < sizeof($resultPayment->records); $i++) { //print_r($resultPayment->records[$i]);
+													?>	
 				
 													
-														<option value="<?php echo $resultPayment->records[$i]->id;?>"> <?php echo $resultPayment->records[$i]->name;?></option>
+														<option value="<?php echo $resultPayment->records[$i]->id; ?>"> <?php echo $resultPayment->records[$i]->name; ?></option>
 														
 													<?php } ?>
 												</select>
@@ -175,125 +176,137 @@ $resultPayment2 = json_decode($response2);
 								</div>
 							</div> -->
 
-
-							<div class="module">
-								<div class="module-head">
-									<h3>Today History</h3>
-								</div>
-								<div class="module-body table">
-									<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+						<div class="module">
+							<div class="module-head d-flex justify-content-between align-items-center">
+								<h3>Payment History</h3>
+								<form class="filter-form d-flex" method="GET" action="sellerpaymenthistory.php">
+									<input type="date" id="fromDate" name="fromDate" class="form-control" value="<?php echo $fromDate ?>" required>
+									<input type="date" name="toDate" id="toDate" class="form-control" value="<?php echo $toDate ?>" required>
+									<button type="submit" class="btn btn-primary">Filter</button>
+								</form>
+							</div>
+							<div class="module-body table">
+								<?php if (isset($result->records) && count($result->records) > 0) : ?>
+									<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped display" width="100%">
 										<thead>
 											<tr>
 												<th>#</th>
-												<th>Order Id</th>
-												<th>Your Amount</th>
-												<th>Todays Total</th>
-												<th>Todays Discount</th>
-												<th>Admin Commision</th>
-												<th>Status</th>
-												<th>Time</th>
+												<th>id</th>
+												<th>Name</th>
+												<th>Counter Name</th>
+												<th>Phone</th>
+												<th>Email</th>
+												<th>Commision</th>
+												<th>Total Payment</th>
+												<th>Payable <small>Price-Discount</small></th>
 											</tr>
 										</thead>
 										<tbody>
+											<?php
+											$cnt = 0;
+											foreach ($result->records as $record) {
+											?>
+												<tr>
+													<td><?php echo htmlentities($cnt); ?></td>
+													<td><?php echo $record->sellerId; ?></td>
+													<form action="paymentdetails.php" method="POST">
+														<input type="hidden" name="id" value="<?php echo $record->sellerId ?>">
+														<td><button type="submit"><?php echo $record->sellerName; ?></button></td>
+													</form>
+													<td><?php echo $record->counterName; ?></td>
+													<td><?php echo $record->phoneNo; ?></td>
+													<td><?php echo $record->email; ?></td>
+													<td><?php echo $record->totalAdminCommission; ?></td>
+													<td><?php echo $record->totalSubtotal; ?></td>
+													<td><?php echo $record->payAble - $record->totalAdminCommission; ?></td>
+												</tr>
+											<?php
+												$cnt++;
+											}
+											?>
+										</tbody>
+									</table>
+								<?php else : ?>
+									<p>No records found for the selected date range.</p>
+								<?php endif; ?>
+							</div>
+						</div>
+
+
+
+						<div class="module">
+							<div class="module-head">
+								<h3>Payment History</h3>
+							</div>
+							<div class="module-body table">
+								<table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
+									<thead>
+										<tr>
+											<th>#</th>
+											<th>id</th>
+											<th>Name</th>
+											<th>Counter Name</th>
+											<th>Phone</th>
+											<th>Email</th>
+											<th>Commision</th>
+											<th>Total Payment</th>
+											<th>Payable <small>Price-Discount</small></th>
+										</tr>
+									</thead>
+									<tbody>
 
 										<?php
-				$cnt=0;
-                for($i=0; $i<sizeof($resultPayment2->records);$i++)
-                { //print_r
-                ?>	
-												<tr>
+										// print_r($resultPayment);
+										$cnt = 0;
+										// print_r($result['records']);
+										for ($i = 0; $i < sizeof($resultPayment->records); $i++) { //print_r($result->records[$i]);
+										?>
+
+											<tr>
 												<td><?php echo htmlentities($cnt); ?></td>
-												<td><?php echo $resultPayment2->records[$i]->orderId;?></td>
-												<td><?php echo $resultPayment2->records[$i]->todaysTotal - $resultPayment2->records[$i]->todaysDiscount;?></td>
-												<td><?php echo $resultPayment2->records[$i]->todaysTotal;?></td>
-												<td><?php echo $resultPayment2->records[$i]->todaysDiscount;?></td>
-												<td><?php echo $resultPayment2->records[$i]->todaysCommision;?></td>
-												<td><?php echo $resultPayment2->records[$i]->status;?></td>
-												<td><?php echo $resultPayment2->records[$i]->createdOn;?></td>
-								
-												</tr>
-											<?php $cnt = $cnt + 1;
-											} ?>
+												<td><?php echo $resultPayment->records[$i]->sellerId; ?></td>
+												<form action="paymentdetails.php" method="POST">
+													<input type="hidden" name="id" value="<?php echo $resultPayment->records[$i]->id ?>">
+													<td><button type="submit"><?php echo $resultPayment->records[$i]->sellerName; ?></button></td>
+												</form>
+												<td><?php echo $resultPayment->records[$i]->counterName; ?></td>
+												<td><?php echo $resultPayment->records[$i]->phoneNo; ?></td>
+												<td><?php echo $resultPayment->records[$i]->email; ?></td>
+												<td><?php echo $resultPayment->records[$i]->totalAdminCommission; ?></td>
+												<td><?php echo $resultPayment->records[$i]->totalSubtotal; ?></td>
+												<td><?php echo $resultPayment->records[$i]->payAble - $resultPayment->records[$i]->totalAdminCommission; ?></td>
+											</tr>
 
-									</table>
-								</div>
+										<?php $cnt = $cnt + 1;
+										} ?>
+
+								</table>
 							</div>
-
-
-
-							<div class="module">
-                            <div class="module-head">
-                                <h3>Payment History</h3>
-                            </div>
-                            <div class="module-body table">
-                                <table cellpadding="0" cellspacing="0" border="0" class="datatable-1 table table-bordered table-striped	 display" width="100%">
-                                    <thead>
-                                        <tr>
-                                            <th>#</th>
-                                            <th>id</th>
-                                            <th>Name</th>
-                                            <th>Counter Name</th>
-                                            <th>Phone</th>
-                                            <th>Email</th>
-                                            <th>Commision</th>
-                                            <th>Total Payment</th>
-                                            <th>Payable <small>Price-Discount</small></th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-
-                                        <?php
-                                        // print_r($resultPayment);
-                                        $cnt = 0;
-                                        // print_r($result['records']);
-                                        for ($i = 0; $i < sizeof($resultPayment2->records); $i++) { //print_r($result->records[$i]);
-                                        ?>
-                                       
-                                            <tr>
-                                                <td><?php echo htmlentities($cnt); ?></td>
-                                                <td><?php echo $resultPayment2->records[$i]->id; ?></td>
-                                                <form action="paymentdetails.php" method="POST">
-                                                    <input type="hidden" name="id" value="<?php echo $resultPayment2->records[$i]->id?>">
-                                                <td><button type="submit"><?php echo $resultPayment2->records[$i]->sellerName; ?></button></td>
-                                                </form>
-                                                <td><?php echo $resultPayment2->records[$i]->counterName; ?></td>
-                                                <td><?php echo $resultPayment2->records[$i]->phoneNo; ?></td>
-                                                <td><?php echo $resultPayment2->records[$i]->email; ?></td>
-                                                <td><?php echo $resultPayment2->records[$i]->adminCommision; ?></td>
-                                                <td><?php echo $resultPayment2->records[$i]->sTotal; ?></td>
-                                                <td><?php echo $resultPayment2->records[$i]->sub - $resultPayment2->records[$i]->discount; ?></td>
-                                            </tr>
-                                           
-                                        <?php $cnt = $cnt + 1;
-                                        } ?>
-
-                                </table>
-                            </div>
-                        </div>
+						</div>
 
 
 
 
-						</div><!--/.content-->
-					</div><!--/.span9-->
-				</div>
-			</div><!--/.container-->
-		</div><!--/.wrapper-->
+					</div><!--/.content-->
+				</div><!--/.span9-->
+			</div>
+		</div><!--/.container-->
+	</div><!--/.wrapper-->
 
-		<?php include('include/footer.php'); ?>
+	<?php include('include/footer.php'); ?>
 
-		<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
-		<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
-		<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
-		<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
-		<script src="scripts/datatables/jquery.dataTables.js"></script>
-		<script>
-			$(document).ready(function() {
-				$('.datatable-1').dataTable();
-				$('.dataTables_paginate').addClass("btn-group datatable-pagination");
-				$('.dataTables_paginate > a').wrapInner('<span />');
-				$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
-				$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
-			});
-		</script>
-	</body>
+	<script src="scripts/jquery-1.9.1.min.js" type="text/javascript"></script>
+	<script src="scripts/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script>
+	<script src="bootstrap/js/bootstrap.min.js" type="text/javascript"></script>
+	<script src="scripts/flot/jquery.flot.js" type="text/javascript"></script>
+	<script src="scripts/datatables/jquery.dataTables.js"></script>
+	<script>
+		$(document).ready(function() {
+			$('.datatable-1').dataTable();
+			$('.dataTables_paginate').addClass("btn-group datatable-pagination");
+			$('.dataTables_paginate > a').wrapInner('<span />');
+			$('.dataTables_paginate > a:first-child').append('<i class="icon-chevron-left shaded"></i>');
+			$('.dataTables_paginate > a:last-child').append('<i class="icon-chevron-right shaded"></i>');
+		});
+	</script>
+</body>

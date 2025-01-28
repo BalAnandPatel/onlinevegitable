@@ -30,7 +30,7 @@ curl_setopt($client2, CURLOPT_TIMEOUT, 4); //timeout in seconds
 curl_setopt($client2,CURLOPT_RETURNTRANSFER,true);
 $response2 = curl_exec($client2);
 curl_close($client2);
-print_r($response2);
+// print_r($response2);
 $result = (json_decode($response2));
 ?>
 <!DOCTYPE html>
@@ -164,17 +164,17 @@ $result = (json_decode($response2));
                     ?>
                         <tr>
                             <td><?php echo htmlentities($cnt); ?></td>
-                            <td><?php echo $record->id; ?></td>
+                            <td><?php echo $record->sellerId; ?></td>
                             <form action="paymentdetails.php" method="POST">
-                                <input type="hidden" name="id" value="<?php echo $record->id ?>">
+                                <input type="hidden" name="id" value="<?php echo $record->sellerId ?>">
                                 <td><button type="submit"><?php echo $record->sellerName; ?></button></td>
                             </form>
                             <td><?php echo $record->counterName; ?></td>
                             <td><?php echo $record->phoneNo; ?></td>
                             <td><?php echo $record->email; ?></td>
-                            <td><?php echo $record->adminCommision; ?></td>
-                            <td><?php echo $record->sTotal; ?></td>
-                            <td><?php echo $record->sub - $record->discount; ?></td>
+                            <td><?php echo $record->totalAdminCommission; ?></td>
+                            <td><?php echo $record->totalSubtotal; ?></td>
+                            <td><?php echo $record->payAble - $record->totalAdminCommission; ?></td>
                         </tr>
                     <?php
                         $cnt++;
@@ -194,8 +194,8 @@ $result = (json_decode($response2));
     <div class="module-head d-flex justify-content-between align-items-center">
         <h3>Payment History</h3>
         <form class="filter-form d-flex" method="GET" action="paymenthistory.php">
-            <input type="date" id="fromDate" name="fromDate" class="form-control" required>
-            <input type="date" name="toDate" id="toDate" class="form-control" required>
+            <input type="date" id="fromDate" name="fromDate" class="form-control" value="<?php echo $fromDate ?>" required>
+            <input type="date" name="toDate" id="toDate" class="form-control" value="<?php echo $toDate ?>" required>
             <button type="submit" class="btn btn-primary">Filter</button>
         </form>
     </div>
@@ -222,17 +222,17 @@ $result = (json_decode($response2));
                     ?>
                         <tr>
                             <td><?php echo htmlentities($cnt); ?></td>
-                            <td><?php echo $record->id; ?></td>
+                            <td><?php echo $record->sellerId; ?></td>
                             <form action="paymentdetails.php" method="POST">
-                                <input type="hidden" name="id" value="<?php echo $record->id ?>">
+                                <input type="hidden" name="id" value="<?php echo $record->sellerId ?>">
                                 <td><button type="submit"><?php echo $record->sellerName; ?></button></td>
                             </form>
                             <td><?php echo $record->counterName; ?></td>
                             <td><?php echo $record->phoneNo; ?></td>
                             <td><?php echo $record->email; ?></td>
-                            <td><?php echo $record->adminCommision; ?></td>
-                            <td><?php echo $record->sTotal; ?></td>
-                            <td><?php echo $record->sub - $record->discount; ?></td>
+                            <td><?php echo $record->totalAdminCommission; ?></td>
+                            <td><?php echo $record->totalSubtotal; ?></td>
+                            <td><?php echo $record->payAble - $record->totalAdminCommission; ?></td>
                         </tr>
                     <?php
                         $cnt++;
