@@ -69,25 +69,42 @@ if($num>0){
         $read_seller_item=array(
 
             
+            // "sellerName"=>$sellerName,
+            // "counterName"=>$counterName,
+            // "phoneNo"=>$phoneNo,
+            // "email"=>$email,
+            // "pan"=>$pan,
+            // "password"=>$password,
+            // "createdOn"=>$createdOn,
+            // "id"=>$id,
+            // "city"=>$city,
+            // "address"=>$address,
+            // "pincode"=>$pincode,
+            // "aadhar"=>$aadhar,
+            // "adminCommision"=>$adminCommision,
+            // "sTotal"=>$sTotal,
+            // "sub"=>$sub,
+            // "discount"=>$discount,
+            // "todaysTotal"=>$todaysTotal,
+            // "todaysDiscount"=>$todaysDiscount,
+            // "todaysDiscount"=>$todaysDiscountquantity
+            // "todaysDiscount"=>$todaysDiscountquantity
+            // "todaysCommision"=>$todaysCommision
+
+            "sellerId"=>$sellerId,
             "sellerName"=>$sellerName,
             "counterName"=>$counterName,
-            "phoneNo"=>$phoneNo,
             "email"=>$email,
-            "pan"=>$pan,
-            "password"=>$password,
-            "createdOn"=>$createdOn,
-            "id"=>$id,
-            "city"=>$city,
-            "address"=>$address,
-            "pincode"=>$pincode,
-            "aadhar"=>$aadhar,
-            "adminCommision"=>$adminCommision,
-            "sTotal"=>$sTotal,
-            "sub"=>$sub,
-            "discount"=>$discount,
-            "todaysTotal"=>$todaysTotal,
-            "todaysDiscount"=>$todaysDiscount,
-            "todaysCommision"=>$todaysCommision
+            "phoneNo"=>$phoneNo,
+            "sellerId"=>$sellerId,
+            "quantity"=>$quantity,
+            "totalSubtotal"=>$total_subtotal,
+            "total_discount"=>$total_discount,
+            "total_after_discount"=>$total_after_discount,
+            "totalAdminCommission"=>$total_admin_commission,
+            "payAble"=>$payAble,
+            "cgst"=>$cgst,
+            "sgst"=>$sgst
         );
   
         array_push($read_seller_arr["records"], $read_seller_item);

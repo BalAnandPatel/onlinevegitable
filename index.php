@@ -269,23 +269,6 @@ if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
                 ?>
               </ul>
             </div> -->
-            <div class="widget-product-tags pt-3">
-              <h5 class="widget-title">Tags</h5>
-              <ul class="product-tags sidebar-list list-unstyled">
-                <li class="tags-item">
-                  <a href="#" class="nav-link">White</a>
-                </li>
-                <li class="tags-item">
-                  <a href="#" class="nav-link">Cheap</a>
-                </li>
-                <li class="tags-item">
-                  <a href="#" class="nav-link">Mobile</a>
-                </li>
-                <li class="tags-item">
-                  <a href="#" class="nav-link">Modern</a>
-                </li>
-              </ul>
-            </div>
             <!-- <div class="widget-product-brands pt-3">
               <h5 class="widget-title">Brands</h5>
               <ul class="product-tags sidebar-list list-unstyled">
@@ -359,7 +342,8 @@ if(!isset($_COOKIE['pincode'])  &&  $_COOKIE['pincode']!=6){
               </form>
             </div>
           </div>
-
+                <marquee behavior="alternate" direction="" style="color: red; font-weight: bold"> <img src="images/announcement.png" style="width: 30px;" alt=""> The order will Be Deliver Next Day which Placed After 02:PM (Order Delivery time between 10:AM  to 08:PM)</marquee>
+                <center style="color: rgba(227, 66, 66, 0.8); font-weight: bold">Helpline:-+91-7379351536</center>
           <div class="product-grid row row-cols-sm-1 row-cols-md-2 row-cols-lg-3 row-cols-xl-4">
             <?php
            
