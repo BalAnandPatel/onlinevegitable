@@ -42,9 +42,8 @@ $result = json_decode($_COOKIE['user_cart'], true);
 $customIndex = 0;
 foreach ($result as $index => $order) {
     $shippingC= $order['shipping'];
-
-}
-
+  }
+echo $shippingC;
 
 $subTotal = 0;
 $orderTotal = 0;
@@ -81,7 +80,7 @@ foreach ($result as $index => $order) {
     $stmt1->execute();
     $results1 = $stmt1->fetchAll(PDO::FETCH_ASSOC);
     //print_r($results1);
-    //$counts=$results1[0]['quantity'];
+    $counts=$results1[0]['quantity'];
      //echo "<br><br>";
     //print_r($order);
 
@@ -96,8 +95,8 @@ foreach ($result as $index => $order) {
         
         $updatedBy = "Admin";
         $updatedOn = time();
-         echo "-----".$subTotal;
-         echo "********".$orderTotal =floatval($orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem);
+         //echo "-----".$subTotal;
+         echo "@@@@@".  $orderTotal =floatval($orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem);
 
         $quantity = $results1[0]['quantity'] - intval($order['quantity']);
 
@@ -120,9 +119,9 @@ $contact = $_SESSION['phoneNo'];//($_POST['contact']!=""||is_nan($_POST['contact
 $address = "ONLINE SABJI MANDI";
 $merchant_order_id = $orderId;//$_POST['registration_no'];
  //$amt = round($orderTotal+floatval($shippingC))*100 ;//$_POST['amount']*100;
- echo "********<br>".$orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
- echo"<br>---". $orderTotal*100;
- echo"<br>****". $amtx=($orderTotal+floatval($shippingC))*100;
+ //$orderTotal =$orderTotal+(float)$subTotal+(float)$sgstItem+(float)$cgstItem;
+ echo"<br>#####################order". $orderTotal;
+ echo"<br>**amit**". $amtx=($orderTotal+floatval($shippingC))*100;
  $amt =intval($amtx); 
 
 $orderData = [
