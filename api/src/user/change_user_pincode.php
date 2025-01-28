@@ -25,7 +25,7 @@ $update_user = new User($db);
   
 $data = json_decode(file_get_contents("php://input"));
 $update_user->email = $data->email;
-print_r($data);
+//print_r($data);
 $getHeaders = apache_request_headers();
 $jwt = "123";
 

@@ -30,7 +30,7 @@ unset($_SESSION['page_reloaded']);
 //echo $_SESSION['user_order_id'];
 
 $data = array("paymentId" =>$_SESSION['user_order_id'],"userId"=>$decoded->data->email);
-print_r($data);
+//print_r($data);
 $postdata = json_encode($data);
 
 $url_all = $URL . "order/readOrderById.php";

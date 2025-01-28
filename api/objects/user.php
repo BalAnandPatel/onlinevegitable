@@ -52,7 +52,7 @@ class User
 
     public function changeUserPincode()
     {
-        echo $query = "update " . $this->users . " SET pincode=''
+        $query = "update " . $this->users . " SET pincode=''
            where email=:email";
          $stmt = $this->conn->prepare($query);
          $this->email = htmlspecialchars(strip_tags($this->email));

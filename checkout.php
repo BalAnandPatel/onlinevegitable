@@ -20,13 +20,9 @@ $datapincode = array("id" =>$id);
 $postdatapincode = json_encode($datapincode);
 $readCurlpincode = new CurlHome();
 $response_pincode = $readCurlpincode->createCurl($pincode_url, $postdatapincode, 0, 5, 1);
-//echo "------------";
-//print_r($response_pincode); 
+
  $resultpincode = json_decode($response_pincode);
-//print_r($resultpincode);
  $sellerpincode=$resultpincode->records[0]->pincode;
-//echo "*******";
-//print_r($_COOKIE['user_cart']);
 if($decoded=="" ){    
 header('location:account.php');
 }
@@ -50,11 +46,7 @@ $data = array("user" => $user);
 $postdata = json_encode($data);
 $readCurl = new CurlHome();
 $response = $readCurl->createCurl($url, $postdata, 0, 2, 1);
-//echo "****$$";
-//print_r($response);
 $resultAddress = json_decode($response);
-//print_r($resultAddress);
-
 $totalprice = 0;
 
 
@@ -122,14 +114,10 @@ $totalprice = 0;
 <label for="css">Express Delivery</label><br>
 <input type="radio" disabled id="deliveryTypeXpress" name="Delivery" value="Express Delivery">
 <label for="javascript">Scheduled Deivery (Comming soon)</label>
-
             </div><br>
             <h4 class="text-dark pb-4">Select Address </h4>
             <div class="billing-details scrollable-div-address">
             <?php 
-            
-           //echo "****".sizeof($resultAddress);
-           //print_r($resultAddress);
             if(!empty($resultAddress)){
               for($i = 0; $i < sizeof($resultAddress->records); $i++) {
               $add=  "<pre>".$resultAddress->records[$i]->name."<br>". $resultAddress->records[$i]->addressLine1 ."<br>". $resultAddress->records[$i]->addressLine2."<br>".
@@ -173,13 +161,10 @@ $totalprice = 0;
                 <table cellspacing="0" class="table">
                                     <tbody>
                     <?php
-                    ///echo "**********************************";
                     $result = json_decode($_COOKIE['user_cart'], true);
-                    //print_r($result);
                     $subTotal = 0;
                     foreach ($result as $index => $order) {
                       $subTotal = $order['itemTotal'] + $subTotal;
-                      //echo $order['itemTotal'];
                     
                     } ?>
                     <tr class="subtotal border-top border-bottom pt-2 pb-2 text-uppercase">
