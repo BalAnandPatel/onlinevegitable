@@ -114,7 +114,8 @@ else{
               <?php   for ($i = 0; $i < sizeof($resultOrder->records); $i++) {?>
                 <tr>
                   <th scope="row"><?php echo $i+1 ?></th>
-                  <td><a href="orderItems.php?id=<?php echo $resultOrder->records[$i]->orderId ?>"><?php echo $resultOrder->records[$i]->orderId ;?></a></td>
+                  <td><a href="receipt1.php?id=<?php echo $resultOrder->records[$i]->orderId ?>">
+                    <?php echo $resultOrder->records[$i]->orderId ;?></a></td>
                   <td><?php echo $resultOrder->records[$i]->totalQuantity ;?></td>
                   <td>&#8377;<?php echo $resultOrder->records[$i]->orderTotal ;?></td>
                   <td><?php echo $resultOrder->records[$i]->status ;?></td>
