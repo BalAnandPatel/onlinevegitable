@@ -3,7 +3,7 @@ include 'includes/header.php';
 include "constant.php";
 include 'includes/curl_header_home.php';
 $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
- setcookie("pincode", "", time() - 3600, "/");
+setcookie("pincode", "", time() - 3600, "/");
 $pincode_url = $URL . "user/change_user_pincode.php";
  $datapincode = ($decoded->data->email!="")? array("email" => $decoded->data->email):array("email" =>"");
  //print_r($datapincode);

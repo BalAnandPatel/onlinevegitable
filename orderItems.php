@@ -143,7 +143,6 @@
                 <tr>
                   <th scope="row"><?php echo $i+1 ?></th>
                   <td><a href="orderItems.php?id=<?php echo $resultOrder->records[$i]->subId ?>"><?php echo $resultOrder->records[$i]->subId ;?></a></td>
-
                   <td>&#x20B9;<?php echo $resultOrder->records[$i]->sgst ."/  &#x20B9;". $resultOrder->records[$i]->cgst;?></td>
                   <td>&#x20B9;<?php echo $resultOrder->records[$i]->itemTotal ;?></td>
                   <td><?php echo $resultOrder->records[$i]->status ;?></td>
