@@ -1,5 +1,4 @@
 <?php include 'includes/header.php';?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -10,12 +9,10 @@
   $data = array("paymentId" => $_GET['id'], "userId" => $decoded->data->email);
  //print_r($data);
   $postdata = json_encode($data);
-
   $url_all = $URL . "order/readOrderById.php";
   $readCurl = new CurlHome();
-
   $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
-  // print_r($response_all);
+  //print_r($response_all);
   $resultOrder = json_decode($response_all); 
   ?>
 
@@ -108,7 +105,7 @@
         <div class="order-section">
             <h5>Customer Information</h5>
             <p><strong>Name: </strong><?php echo $resultOrder->records[$i]->name ?> </p>
-            <p><strong>Email:</strong> <?php echo $_SESSION['email'] ;?></p>
+            <p><strong>Email:</strong> <?php echo $decoded->data->email ;?></p>
         </div>
       </div>
       <br><br>
@@ -146,7 +143,6 @@
                 <tr>
                   <th scope="row"><?php echo $i+1 ?></th>
                   <td><a href="orderItems.php?id=<?php echo $resultOrder->records[$i]->subId ?>"><?php echo $resultOrder->records[$i]->subId ;?></a></td>
-
                   <td>&#x20B9;<?php echo $resultOrder->records[$i]->sgst ."/  &#x20B9;". $resultOrder->records[$i]->cgst;?></td>
                   <td>&#x20B9;<?php echo $resultOrder->records[$i]->itemTotal ;?></td>
                   <td><?php echo $resultOrder->records[$i]->status ;?></td>

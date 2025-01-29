@@ -1,5 +1,6 @@
 <?php include 'includes/header.php';
 include "constant.php";
+error_reporting(0);
 include_once 'includes/curl_header_home.php';
 $decoded= isset($_SESSION['decoded'])?$_SESSION['decoded']:"";
 if ( isset($_GET['filter'])) {

@@ -28,13 +28,11 @@ unset($_SESSION['landmark']);
 unset($_SESSION['page_reloaded']);
 //echo $_SESSION['user_order_id'];
 
-$data = array("paymentId" =>$_SESSION['user_order_id'],"userId"=>$decoded->data->email);
-print_r($data);
+$data = array("paymentId" => $_GET['id'], "userId" => $decoded->data->email);
+//print_r($data);
 $postdata = json_encode($data);
-
 $url_all = $URL . "order/readOrderById.php";
 $readCurl = new CurlHome();
-
 $response_all = $readCurl->createCurl($url_all, $postdata, 0, 5, 1);
 // print_r($response_all);
 
@@ -133,6 +131,7 @@ $resultOrder = json_decode($response_all);
                     <?php } ?>
                 </tbody>
             </table>
+       
             <div class="text-right">
                
                 <p class="font-weight-bold"><strong>Sub Total:</strong> &#8377;<?php echo number_format( $resultOrder->records[0]->orderTotal, 2); ?></p>
@@ -140,6 +139,13 @@ $resultOrder = json_decode($response_all);
                 <p class="font-weight-bold"><strong>Sub Total:</strong> &#8377;<?php echo number_format( $resultOrder->records[0]->orderTotal+20, 2); ?></p>
              
          </div>
+         <div class="class="text-right"">
+            <h5>Delivery Address</h5>
+            <p><?php 
+            if(!empty($resultOrder)){
+              echo $resultOrder->records[0]->deliveryAddress;
+            }?></p>
+        </div>
             <br>
             <?php }?>
         </div>
